@@ -1,0 +1,60 @@
+buildscript {
+    ext {
+        springBootVersion = '2.4.2'
+    }
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE"
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+    }
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    // 모든 모듈에서 사용하는 라이브러리
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4'
+        developmentOnly 'org.springframework.boot:spring-boot-devtools'
+        runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+}
+
+project(':common') {
+    // common 모듈에만 필요한 라이브러리가 발생하면 이곳에 추가한다.
+    dependencies {
+    }
+}
+
+project(':backoffice') {
+    // user 모듈에만 필요한 라이브러리가 발생하면 이곳에 추가한다.
+    dependencies {
+        compile project(':common')
+    }
+}
+
+project(':frontoffice') {
+    // board 모듈에만 필요한 라이브러리가 발생하면 이곳에 추가한다.
+    dependencies {
+        compile project(':common')
+    }
+}
