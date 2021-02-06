@@ -36,24 +36,29 @@ subprojects {
         developmentOnly 'org.springframework.boot:spring-boot-devtools'
         runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+        // https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-java8time
+        compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-java8time', version: '3.0.4.RELEASE'
     }
 }
 
 project(':common') {
     // common 모듈에만 필요한 라이브러리가 발생하면 이곳에 추가한다.
     dependencies {
+
     }
 }
 
 project(':backoffice') {
-    // user 모듈에만 필요한 라이브러리가 발생하면 이곳에 추가한다.
+    // backoffice 모듈에만 필요한 라이브러리가 발생하면 이곳에 추가한다.
     dependencies {
+
         compile project(':common')
     }
 }
 
 project(':frontoffice') {
-    // board 모듈에만 필요한 라이브러리가 발생하면 이곳에 추가한다.
+    // frontoffice 모듈에만 필요한 라이브러리가 발생하면 이곳에 추가한다.
     dependencies {
         compile project(':common')
     }
