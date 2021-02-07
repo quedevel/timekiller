@@ -22,6 +22,7 @@ public class MyBatisConfig {
         // mapper locations
         Resource[] arrResource = new PathMatchingResourcePatternResolver().getResources("classpath:mapper/**/*Mapper.xml");
         sqlSessionFactory.setMapperLocations(arrResource);
+        sqlSessionFactory.setTypeAliasesPackage("com.inno.**.**.vo");
 
         // camel case
         sqlSessionFactory.getObject().getConfiguration().setMapUnderscoreToCamelCase(true);

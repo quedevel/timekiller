@@ -1,0 +1,18 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+package com.inno.innotree.common.gen.vo;
+
+import java.util.Date;
+import com.inno.innotree.common.vo.PageVO;
+
+public class <p th:text="${tableName}"></p>BaseVO extends PageVO {
+    <div th:each="g : ${list}">
+    <p  th:text="'private '+${g.dataType}+' '+${g.columnName}+';   // '+${g.columnComment}"></p>
+    </div>
+    <p th:each="g : ${list}" th:text="'public '+${g.dataType}+' get'+${g.columnName2}+'() { return '+${g.columnName}+'; }'">
+    </p>
+    <p th:each="g : ${list}" th:text="'public void set'+${g.columnName2}+'('+${g.dataType}+' '+${g.columnName}+') { this.'+${g.columnName}+' = '+${g.columnName}+'; }'">
+    </p>
+}
+</body>
+</html>

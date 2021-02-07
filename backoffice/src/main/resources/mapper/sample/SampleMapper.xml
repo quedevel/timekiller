@@ -2,9 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.inno.backoffice.sample.repository.SampleMapper">
+
     <select id="getNow" resultType="String">
         SELECT
             NOW()
           FROM DUAL
+    </select>
+
+    <select id="selectAllTables" parameterType="String" resultType="java.util.HashMap">
+    <![CDATA[
+        SELECT
+            TABLE_NAME
+        FROM INFORMATION_SCHEMA.TABLES T
+        WHERE TABLE_SCHEMA = #{value}
+    ]]>
+    </select>
+
+    <select id="selectAllColumns" parameterType="String" resultType="com.inno.backoffice.sample.vo.SampleVO">
+    <![CDATA[
+        SELECT
+             TABLE_NAME
+            ,COLUMN_NAME
+            ,CASE WHEN DATA_TYPE = 'varchar' THEN 'String'
+                  WHEN DATA_TYPE = 'timestamp' THEN 'Date'
+                  ELSE DATA_TYPE END AS DATA_TYPE
+        FROM INFORMATION_SCHEMA.COLUMNS T
+        WHERE TABLE_NAME = #{value}
+        ]]>
     </select>
 </mapper>

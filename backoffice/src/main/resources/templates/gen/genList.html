@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/default_layout">
+<div layout:fragment="content">
+    <form method="post" action="/gen/gen">
+        <button class="btn btn-success btn-icon-split ml-2">
+            <span class="icon text-white-50"><i class="fas fa-check"></i></span>
+            <span class="text">Generate</span>
+        </button>
+        <div class="mt-2 row">
+            <div class="custom-control custom-checkbox ml-4" th:each="gen,i : ${genList}">
+                <input type="checkbox" class="custom-control-input" name="tableName" th:value="${gen.tableName}" th:id="'tableName_'+${i.index}">
+                <label class="custom-control-label" th:text="${gen.tableName}" th:for="'tableName_'+${i.index}"></label>
+            </div>
+        </div>
+    </form>
+</div>
+</html>
