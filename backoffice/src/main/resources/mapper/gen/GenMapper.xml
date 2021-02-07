@@ -14,14 +14,21 @@
     <select id="selectAllColumns" parameterType="String" resultType="GenVO">
     <![CDATA[
         SELECT
-              TABLE_NAME
-             ,COLUMN_NAME
-             ,CASE WHEN DATA_TYPE = 'varchar' THEN 'String'
+               TABLE_NAME
+             , COLUMN_NAME
+             , UPPER(COLUMN_NAME) AS COLUMN_NAME3
+             , CONCAT('{',COLUMN_NAME,'}') as paramColumnName
+             , CASE WHEN DATA_TYPE = 'varchar' THEN 'String'
                    WHEN DATA_TYPE = 'timestamp' THEN 'Date'
                    ELSE DATA_TYPE END AS DATA_TYPE
-             ,COLUMN_COMMENT
-        FROM INFORMATION_SCHEMA.COLUMNS T
+             , COLUMN_COMMENT
+             , COLUMN_KEY
+             ,( SELECT GROUP_CONCAT(COLUMN_NAME ORDER BY ORDINAL_POSITION SEPARATOR ', ') from INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = #{value}) as COLUMNS
+             ,( SELECT GROUP_CONCAT(CONCAT('{',COLUMN_NAME,'}') ORDER BY ORDINAL_POSITION SEPARATOR ', ') from INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = #{value}) as PARAMS
+             ,( SELECT GROUP_CONCAT(CONCAT(COLUMN_NAME,'= {',COLUMN_NAME,'}') ORDER BY ORDINAL_POSITION SEPARATOR ', ') from INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = #{value}) as UPDATE_PARAMS
+         FROM INFORMATION_SCHEMA.COLUMNS T
         WHERE TABLE_NAME = #{value}
+        ORDER BY ORDINAL_POSITION
     ]]>
     </select>
 </mapper>

@@ -1,27 +1,46 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-package com.inno.innotree.common.gen.mapper;
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-import org.apache.ibatis.annotations.Mapper;
-import com.inno.innotree.common.gen.vo.<p th:text="${tableName}"></p>BaseVO;
-import java.util.List;
+<mapper th:namespace="'com.inno.innotree.common.gen.mapper.'+${tableName2}+'BaseMapper'">
 
-@Mapper
-public interface <p th:text="${tableName}"></p>BaseMapper {
+    <select th:id="'select'+${tableName2}+'Base'" th:parameterType="'com.inno.innotree.common.gen.vo.'+${tableName2}+'BaseVO'" th:resultType="'com.inno.innotree.common.gen.vo.'+${tableName2}+'BaseVO'">
+        SELECT
+            *
+          FROM <p th:text="${tableName}"></p>
+         WHERE 1=1
+          <p th:each="c : ${list}" th:if="${c.columnKey eq 'PRI'}" th:text="' AND '+${c.columnName3}+' = '+${c.paramColumnName}"></p>
+    </select>
 
-<p th:text="${tableName}+'BaseVO select'+${tableName}+'Base('+${tableName}+'BaseVO vo) throws Exception;'"></p>
-<div>
-    <p th:text="'List<'+${tableName}+'BaseVO> select'+${tableName}+'BasePaging('+${tableName}+'BaseVO vo) throws Exception;'">
-</div>
-<div>
-    <p th:text="'void update'+${tableName}+'Base('+${tableName}+'BaseVO vo) throws Exception;'">
-</div>
-<div>
-    <p th:text="'void insert'+${tableName}+'Base('+${tableName}+'BaseVO vo) throws Exception;'">
-</div>
-<div>
-    <p th:text="'void delete'+${tableName}+'Base('+${tableName}+'BaseVO vo) throws Exception;'">
-</div>
-}
+    <select th:id="'select'+${tableName2}+'BasePaging'" th:parameterType="'com.inno.innotree.common.gen.vo.'+${tableName2}+'BaseVO'" th:resultType="'com.inno.innotree.common.gen.vo.'+${tableName2}+'BaseVO'">
+        SELECT
+            *
+          FROM <p th:text="${tableName}"></p>
+         ORDER BY REG_DATE DESC
+         LIMIT (#{page}-1)*#{pageSize} , #{pageSize}
+    </select>
+
+    <update th:id="'update'+${tableName2}+'Base'" th:parameterType="'com.inno.innotree.common.gen.vo.'+${tableName2}+'BaseVO'">
+        UPDATE <p th:text="${tableName}"></p>
+           SET <p th:text="${update_params}"></p>
+         WHERE 1=1
+          <p th:each="c : ${list}" th:if="${c.columnKey eq 'PRI'}" th:text="' AND '+${c.columnName3}+' = '+${c.paramColumnName}"></p>
+    </update>
+
+    <delete th:id="'delete'+${tableName2}+'Base'" th:parameterType="'com.inno.innotree.common.gen.vo.'+${tableName2}+'BaseVO'">
+        DELETE FROM <p th:text="${tableName}"></p>
+         WHERE 1=1
+          <p th:each="c : ${list}" th:if="${c.columnKey eq 'PRI'}" th:text="' AND '+${c.columnName3}+' = '+${c.paramColumnName}"></p>
+    </delete>
+
+    <insert th:id="'insert'+${tableName2}+'Base'" th:parameterType="'com.inno.innotree.common.gen.vo.'+${tableName2}+'BaseVO'">
+        INSERT INTO <p th:text="${tableName}"></p>
+          <p th:text="'('+${columns}+')'"></p>
+        VALUES
+          <p th:text="'('+${params}+')'"></p>
+    </insert>
+
+</mapper>
 </body>
 </html>

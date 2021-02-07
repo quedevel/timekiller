@@ -6,6 +6,7 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
@@ -50,6 +51,11 @@ public class ThymeleafUtil {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(resolver);
 
+        list.stream().forEach( genVO -> {
+            genVO.setColumnName2(StringUtil.convert2CamelCase("_"+genVO.getColumnName()));
+            genVO.setColumnName(StringUtil.convert2CamelCase(genVO.getColumnName()));
+        });
+
         // 저장될 데이터 셋팅
         Map<String, Object> map = new HashMap<>();
         map.put("tableName", StringUtil.convert2CamelCase("_"+tableName));
@@ -59,6 +65,13 @@ public class ThymeleafUtil {
 
         // VO 값 셋팅
         String result = ThymeleafUtil.removeTag(templateEngine.process(fileName, context));
+
+        // 존재 유무 파악
+        File file = new File(VO_PATH+StringUtil.convert2CamelCase("_"+tableName)+"BaseVO.java");
+        if(file.exists()){
+            // 존재하면 삭제
+            file.delete();
+        }
 
         // BaseVO 생성
         try(FileWriter fileWriter = new FileWriter(VO_PATH+StringUtil.convert2CamelCase("_"+tableName)+"BaseVO.java")){
@@ -84,6 +97,11 @@ public class ThymeleafUtil {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(resolver);
 
+        list.stream().forEach( genVO -> {
+            genVO.setColumnName2(StringUtil.convert2CamelCase("_"+genVO.getColumnName()));
+            genVO.setColumnName(StringUtil.convert2CamelCase(genVO.getColumnName()));
+        });
+
         // 저장될 데이터 셋팅
         Map<String, Object> map = new HashMap<>();
         map.put("tableName", StringUtil.convert2CamelCase("_"+tableName));
@@ -94,6 +112,12 @@ public class ThymeleafUtil {
         // VO 값 셋팅
         String result = ThymeleafUtil.removeTag(templateEngine.process(fileName, context));
 
+        // 존재 유무 파악
+        File file = new File(MAPPER_PATH+StringUtil.convert2CamelCase("_"+tableName)+"BaseMapper.java");
+        if(file.exists()){
+            // 존재하면 삭제
+            file.delete();
+        }
         // BaseMapper 생성
         try(FileWriter fileWriter = new FileWriter(MAPPER_PATH+StringUtil.convert2CamelCase("_"+tableName)+"BaseMapper.java")){
             fileWriter.write(result);
@@ -114,7 +138,11 @@ public class ThymeleafUtil {
 
         // 저장될 데이터 셋팅
         Map<String, Object> map = new HashMap<>();
-        map.put("tableName", StringUtil.convert2CamelCase("_"+tableName));
+        map.put("tableName", tableName);
+        map.put("tableName2", StringUtil.convert2CamelCase("_"+tableName));
+        map.put("columns", list.get(0).getColumns());
+        map.put("params", list.get(0).getParams());
+        map.put("update_params", list.get(0).getUpdateParams());
         map.put("list", list);
         Context context = new Context();
         context.setVariables(map);
@@ -122,11 +150,17 @@ public class ThymeleafUtil {
         // VO 값 셋팅
         String result = ThymeleafUtil.removeTag(templateEngine.process(fileName, context));
 
+        // 존재 유무 파악
+        File file = new File(SQL_PATH+StringUtil.convert2CamelCase("_"+tableName)+"BaseMapper.xml");
+        if(file.exists()){
+            // 존재하면 삭제
+            file.delete();
+        }
         // BaseVO 생성
-//        try(FileWriter fileWriter = new FileWriter(SQL_PATH+StringUtil.convert2CamelCase("_"+tableName)+"BaseMapper.xml")){
-//            fileWriter.write(result);
-//        } catch (IOException e){
-//            System.out.println("GenerateVO : "+e.getMessage());
-//        }
+        try(FileWriter fileWriter = new FileWriter(SQL_PATH+StringUtil.convert2CamelCase("_"+tableName)+"BaseMapper.xml")){
+            fileWriter.write(result);
+        } catch (IOException e){
+            System.out.println("GenerateVO : "+e.getMessage());
+        }
     }
 }

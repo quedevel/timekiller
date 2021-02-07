@@ -35,19 +35,14 @@ public class GenService {
         // table is not empty
         if(StringUtil.isNotEmpty(genVO.getTableName())){
             for(String tableName : genVO.getTableName().split(",")){
+                // Table 정보 조회
                 List<GenVO> list = genMapper.selectAllColumns(tableName);
-                setList(list);
-                //ThymeleafUtil.parseVOHtmlToFile("",tableName,list);
-                //ThymeleafUtil.parseMapperHtmlToFile("",tableName,list);
+
+                // VO, Mapper, XMl 생성
+                ThymeleafUtil.parseVOHtmlToFile("",tableName,list);
+                ThymeleafUtil.parseMapperHtmlToFile("",tableName,list);
                 ThymeleafUtil.parseXmlHtmlToFile("",tableName,list);
             }
         }
-    }
-
-    private void setList(List<GenVO> list) throws Exception{
-        list.stream().forEach( genVO -> {
-            genVO.setColumnName2(StringUtil.convert2CamelCase("_"+genVO.getColumnName()));
-            genVO.setColumnName(StringUtil.convert2CamelCase(genVO.getColumnName()));
-        });
     }
 }
