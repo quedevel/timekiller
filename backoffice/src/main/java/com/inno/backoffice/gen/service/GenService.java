@@ -38,8 +38,8 @@ public class GenService {
                 List<GenVO> list = genMapper.selectAllColumns(tableName);
                 setList(list);
                 //ThymeleafUtil.parseVOHtmlToFile("",tableName,list);
-                ThymeleafUtil.parseMapperHtmlToFile("",tableName,list);
-                //ThymeleafUtil.parseXmlHtmlToFile("",tableName,list);
+                //ThymeleafUtil.parseMapperHtmlToFile("",tableName,list);
+                ThymeleafUtil.parseXmlHtmlToFile("",tableName,list);
             }
         }
     }

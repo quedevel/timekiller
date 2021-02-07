@@ -16,6 +16,7 @@ public class ThymeleafUtil {
 
     private static final String VO_PATH = "C:\\innotree\\common\\src\\main\\java\\com\\inno\\innotree\\common\\gen\\vo\\";
     private static final String MAPPER_PATH = "C:\\innotree\\common\\src\\main\\java\\com\\inno\\innotree\\common\\gen\\mapper\\";
+    private static final String SQL_PATH = "C:\\innotree\\common\\src\\main\\resources\\mapper\\gen\\";
 
     private static String removeTag(String str){
         str = str.replaceAll("<html>\r\n","")
@@ -26,6 +27,8 @@ public class ThymeleafUtil {
                 .replaceAll("</div>","")
                 .replaceAll("<body>\r\n","")
                 .replaceAll("\r\r","")
+                .replaceAll("&lt;","<")
+                .replaceAll("&gt;",">")
                 .replaceAll("</body>","");
         System.out.println(str);
         return str;
@@ -102,7 +105,7 @@ public class ThymeleafUtil {
     public static void parseXmlHtmlToFile(String fileName, String tableName, List<GenVO> list){
         ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
         resolver.setPrefix("templates/");    // templates 경로 아래에 있는 파일을 읽는다
-        resolver.setSuffix("VO.html");    // .html로 끝나는 파일을 읽는다
+        resolver.setSuffix("SQL.html");    // .html로 끝나는 파일을 읽는다
         resolver.setTemplateMode(TemplateMode.HTML);    // 템플릿은 html 형식이다
 
         // 스프링 template 엔진을 thymeleafResolver를 사용하도록 설정
@@ -120,10 +123,10 @@ public class ThymeleafUtil {
         String result = ThymeleafUtil.removeTag(templateEngine.process(fileName, context));
 
         // BaseVO 생성
-        try(FileWriter fileWriter = new FileWriter(StringUtil.convert2CamelCase("_"+tableName)+"BaseVO.java")){
-            fileWriter.write(result);
-        } catch (IOException e){
-            System.out.println("GenerateVO : "+e.getMessage());
-        }
+//        try(FileWriter fileWriter = new FileWriter(SQL_PATH+StringUtil.convert2CamelCase("_"+tableName)+"BaseMapper.xml")){
+//            fileWriter.write(result);
+//        } catch (IOException e){
+//            System.out.println("GenerateVO : "+e.getMessage());
+//        }
     }
 }
