@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.inno.innotree.common.gen.mapper.TcIdsInBaseMapper">
+
+    <select id="selectTcIdsInBase" parameterType="com.inno.innotree.common.gen.vo.TcIdsInBaseVO" resultType="com.inno.innotree.common.gen.vo.TcIdsInBaseVO">
+        SELECT
+            *
+          FROM TC_IDS_IN
+         WHERE 1=1
+           AND TBL_NM = #{tblNm}
+    </select>
+
+    <select id="selectTcIdsInBasePaging" parameterType="com.inno.innotree.common.gen.vo.TcIdsInBaseVO" resultType="com.inno.innotree.common.gen.vo.TcIdsInBaseVO">
+        SELECT
+            *
+          FROM TC_IDS_IN
+         ORDER BY REG_DATE DESC
+         LIMIT (#{page}-1)*#{pageSize} , #{pageSize}
+    </select>
+
+    <update id="updateTcIdsInBase" parameterType="com.inno.innotree.common.gen.vo.TcIdsInBaseVO">
+        UPDATE TC_IDS_IN
+           SET tblNm= #{tblNm}, nextId= #{nextId}
+         WHERE 1=1
+           AND TBL_NM = #{tblNm}
+    </update>
+
+    <delete id="deleteTcIdsInBase" parameterType="com.inno.innotree.common.gen.vo.TcIdsInBaseVO">
+        DELETE FROM TC_IDS_IN
+         WHERE 1=1
+           AND TBL_NM = #{tblNm}
+    </delete>
+
+    <insert id="insertTcIdsInBase" parameterType="com.inno.innotree.common.gen.vo.TcIdsInBaseVO">
+        INSERT INTO TC_IDS_IN
+          (TBL_NM, NEXT_ID)
+        VALUES
+          (#{tblNm}, #{nextId})
+    </insert>
+
+</mapper>
+

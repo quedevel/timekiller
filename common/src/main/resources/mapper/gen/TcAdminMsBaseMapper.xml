@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.inno.innotree.common.gen.mapper.TcAdminMsBaseMapper">
+
+    <select id="selectTcAdminMsBase" parameterType="com.inno.innotree.common.gen.vo.TcAdminMsBaseVO" resultType="com.inno.innotree.common.gen.vo.TcAdminMsBaseVO">
+        SELECT
+            *
+          FROM TC_ADMIN_MS
+         WHERE 1=1
+           AND ADMIN_SN = #{adminSn}
+    </select>
+
+    <select id="selectTcAdminMsBasePaging" parameterType="com.inno.innotree.common.gen.vo.TcAdminMsBaseVO" resultType="com.inno.innotree.common.gen.vo.TcAdminMsBaseVO">
+        SELECT
+            *
+          FROM TC_ADMIN_MS
+         ORDER BY REG_DATE DESC
+         LIMIT (#{page}-1)*#{pageSize} , #{pageSize}
+    </select>
+
+    <update id="updateTcAdminMsBase" parameterType="com.inno.innotree.common.gen.vo.TcAdminMsBaseVO">
+        UPDATE TC_ADMIN_MS
+           SET adminSn= #{adminSn}, adminId= #{adminId}, adminPw= #{adminPw}, adminNm= #{adminNm}, useYn= #{useYn}, regDate= #{regDate}, regSn= #{regSn}, modDate= #{modDate}, modSn= #{modSn}
+         WHERE 1=1
+           AND ADMIN_SN = #{adminSn}
+    </update>
+
+    <delete id="deleteTcAdminMsBase" parameterType="com.inno.innotree.common.gen.vo.TcAdminMsBaseVO">
+        DELETE FROM TC_ADMIN_MS
+         WHERE 1=1
+           AND ADMIN_SN = #{adminSn}
+    </delete>
+
+    <insert id="insertTcAdminMsBase" parameterType="com.inno.innotree.common.gen.vo.TcAdminMsBaseVO">
+        INSERT INTO TC_ADMIN_MS
+          (ADMIN_SN, ADMIN_ID, ADMIN_PW, ADMIN_NM, USE_YN, REG_DATE, REG_SN, MOD_DATE, MOD_SN)
+        VALUES
+          (#{adminSn}, #{adminId}, #{adminPw}, #{adminNm}, #{useYn}, #{regDate}, #{regSn}, #{modDate}, #{modSn})
+    </insert>
+
+</mapper>
+
