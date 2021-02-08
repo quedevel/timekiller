@@ -1,6 +1,6 @@
 package com.inno.innotree.common.util;
 
-import com.inno.innotree.common.gen.vo.GenVO;
+import com.inno.innotree.common.vo.GenVO;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.templatemode.TemplateMode;

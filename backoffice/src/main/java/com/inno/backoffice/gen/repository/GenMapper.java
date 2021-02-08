@@ -1,6 +1,6 @@
 package com.inno.backoffice.gen.repository;
 
-import com.inno.innotree.common.gen.vo.GenVO;
+import com.inno.innotree.common.vo.GenVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public interface GenMapper {
 
     /**
      * 테이블 컬럼 조회
-     * @param vo
+     * @param tableName
      * @return
      * @throws Exception
      */

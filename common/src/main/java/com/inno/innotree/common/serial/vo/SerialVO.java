@@ -1,4 +1,6 @@
 package com.inno.innotree.common.serial.vo;
 
-public class SerialVO {
+import com.inno.innotree.common.gen.vo.TcIdsInBaseVO;
+
+public class SerialVO extends TcIdsInBaseVO {
 }
