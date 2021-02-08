@@ -5,6 +5,10 @@ public class PageVO {
     private Integer page = 1;
     private Integer pageSize = 20;
 
+    public Integer getSkip() {
+        return (page-1)*pageSize;
+    }
+
     public Integer getPage() {
         return page;
     }

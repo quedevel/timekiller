@@ -20,7 +20,7 @@ public class MyBatisConfig {
         SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
         sqlSessionFactory.setDataSource(dataSource);
         // mapper locations
-        Resource[] arrResource = new PathMatchingResourcePatternResolver().getResources("classpath:mapper/**/*Mapper.xml");
+        Resource[] arrResource = new PathMatchingResourcePatternResolver().getResources("classpath*:mapper/**/*Mapper.xml");
         sqlSessionFactory.setMapperLocations(arrResource);
         sqlSessionFactory.setTypeAliasesPackage("com.inno.**.**.vo");
 

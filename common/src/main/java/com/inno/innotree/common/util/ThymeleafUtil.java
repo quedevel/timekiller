@@ -16,7 +16,7 @@ import java.util.Map;
 public class ThymeleafUtil {
 
     private static final String VO_PATH = "C:\\innotree\\common\\src\\main\\java\\com\\inno\\innotree\\common\\gen\\vo\\";
-    private static final String MAPPER_PATH = "C:\\innotree\\common\\src\\main\\java\\com\\inno\\innotree\\common\\gen\\mapper\\";
+    private static final String MAPPER_PATH = "C:\\innotree\\common\\src\\main\\java\\com\\inno\\innotree\\common\\gen\\repository\\";
     private static final String SQL_PATH = "C:\\innotree\\common\\src\\main\\resources\\mapper\\gen\\";
 
     private static String removeTag(String str){
@@ -31,7 +31,6 @@ public class ThymeleafUtil {
                 .replaceAll("&lt;","<")
                 .replaceAll("&gt;",">")
                 .replaceAll("</body>","");
-        System.out.println(str);
         return str;
     }
 

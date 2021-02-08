@@ -3,7 +3,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper th:namespace="'com.inno.innotree.common.gen.mapper.'+${tableName2}+'BaseMapper'">
+<mapper th:namespace="'com.inno.innotree.common.gen.repository.'+${tableName2}+'BaseMapper'">
 
     <select th:id="'select'+${tableName2}+'Base'" th:parameterType="'com.inno.innotree.common.gen.vo.'+${tableName2}+'BaseVO'" th:resultType="'com.inno.innotree.common.gen.vo.'+${tableName2}+'BaseVO'">
         SELECT
@@ -17,13 +17,14 @@
         SELECT
             *
           FROM <p th:text="${tableName}"></p>
-         ORDER BY REG_DATE DESC
-         LIMIT (#{page}-1)*#{pageSize} , #{pageSize}
+         ORDER BY <p th:each="c,idx : ${list}" th:if="${c.columnKey eq 'PRI' && idx.index eq 0}" th:text="${c.columnName3}+' DESC'"></p><p th:each="c,idx : ${list}" th:if="${c.columnKey eq 'PRI' && idx.index ne 0}" th:text="' '+${c.columnName3}+' DESC'"></p>
+         LIMIT #{skip} , #{pageSize}
     </select>
 
     <update th:id="'update'+${tableName2}+'Base'" th:parameterType="'com.inno.innotree.common.gen.vo.'+${tableName2}+'BaseVO'">
         UPDATE <p th:text="${tableName}"></p>
-           SET <p th:text="${update_params}"></p>
+           SET <p th:each="c,idx : ${list}" th:if="${idx.index eq 0}" th:text="${c.columnName3}+' = '+${c.paramColumnName}"></p>
+               <p th:each="c,idx : ${list}" th:unless="${idx.index eq 0}" th:text="','+${c.columnName3}+' = '+${c.paramColumnName}"></p>
          WHERE 1=1
           <p th:each="c : ${list}" th:if="${c.columnKey eq 'PRI'}" th:text="' AND '+${c.columnName3}+' = '+${c.paramColumnName}"></p>
     </update>

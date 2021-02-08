@@ -1,4 +1,4 @@
-package com.inno.innotree.common.gen.mapper;
+package com.inno.innotree.common.gen.repository;
 
 import org.apache.ibatis.annotations.Mapper;
 import com.inno.innotree.common.gen.vo.TcIdsInBaseVO;
