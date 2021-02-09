@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default_layout">
+<div layout:fragment="content">
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">운영자 관리</h6>
+        </div>
+        <div class="card-body">
+
+        </div>
+    </div>
+    <div class="card-body text-center">
+        <button href="#" class="btn btn-primary btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-search"></i>
+            </span>
+            <span class="text">검색</span>
+        </button>
+        <button href="#" class="btn btn-danger btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-trash"></i>
+            </span>
+            <span class="text">초기화</span>
+        </button>
+    </div>
+    <div class="card-body text-right" style="padding-top: 0">
+        <button href="#" class="btn btn-success btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-check"></i>
+            </span>
+            <span class="text">등록</span>
+        </button>
+    </div>
+    <div id="grid"></div>
+    <script>
+        $(document).ready(function(){
+            var gridData = [
+                {
+                    id: '10012',
+                    city: 'Seoul',
+                    country: 'South Korea'
+                },
+                {
+                    id: '10013',
+                    city: 'Tokyo',
+                    country: 'Japan'
+                },
+                {
+                    id: '10014',
+                    city: 'London',
+                    country: 'England'
+                },
+                {
+                    id: '10015',
+                    city: 'Ljubljana',
+                    country: 'Slovenia'
+                },
+                {
+                    id: '10016',
+                    city: 'Reykjavik',
+                    country: 'Iceland'
+                }
+            ];
+
+            const grid = new tui.Grid({
+                el: document.getElementById('grid'),
+                data: null,
+                scrollX: false,
+                scrollY: false,
+                columns: [
+                    {
+                        header: 'ID',
+                        name: 'id'
+                    },
+                    {
+                        header: 'CITY',
+                        name: 'city',
+                        editor: 'text'
+                    },
+                    {
+                        header: 'COUNTRY',
+                        name: 'country'
+                    }
+                ]
+            });
+        })
+    </script>
+</div>
+</html>
