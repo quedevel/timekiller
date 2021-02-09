@@ -1,4 +1,4 @@
-package com.inno.innotree.common.vo;
+package com.inno.common.vo;
 
 public class PageVO {
 

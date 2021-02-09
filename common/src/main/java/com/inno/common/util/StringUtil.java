@@ -1,4 +1,4 @@
-package com.inno.innotree.common.util;
+package com.inno.common.util;
 
 public class StringUtil {
 

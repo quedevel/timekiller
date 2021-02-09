@@ -1,7 +1,6 @@
-package com.inno.innotree.common.gen.vo;
+package com.inno.common.gen.vo;
 
-import java.util.Date;
-import com.inno.innotree.common.vo.PageVO;
+import com.inno.common.vo.PageVO;
 
 public class TcIdsInBaseVO extends PageVO {
     

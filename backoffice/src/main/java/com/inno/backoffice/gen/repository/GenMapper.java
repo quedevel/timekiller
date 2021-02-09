@@ -1,6 +1,6 @@
 package com.inno.backoffice.gen.repository;
 
-import com.inno.innotree.common.vo.GenVO;
+import com.inno.common.vo.GenVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

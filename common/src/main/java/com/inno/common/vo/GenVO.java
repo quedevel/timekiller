@@ -1,7 +1,6 @@
-package com.inno.innotree.common.vo;
+package com.inno.common.vo;
 
-import com.inno.innotree.common.util.StringUtil;
-import com.inno.innotree.common.vo.PageVO;
+import com.inno.common.util.StringUtil;
 
 public class GenVO extends PageVO {
 

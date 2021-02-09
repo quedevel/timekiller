@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.inno.innotree.common.gen.repository.TcIdsInBaseMapper">
+<mapper namespace="com.inno.common.gen.repository.TcIdsInBaseMapper">
 
-    <select id="selectTcIdsInBase" parameterType="com.inno.innotree.common.gen.vo.TcIdsInBaseVO" resultType="com.inno.innotree.common.gen.vo.TcIdsInBaseVO">
+    <select id="selectTcIdsInBase" parameterType="com.inno.common.gen.vo.TcIdsInBaseVO" resultType="com.inno.common.gen.vo.TcIdsInBaseVO">
         SELECT
             *
           FROM TC_IDS_IN
@@ -11,7 +11,7 @@
            AND TBL_NM = #{tblNm}
     </select>
 
-    <select id="selectTcIdsInBasePaging" parameterType="com.inno.innotree.common.gen.vo.TcIdsInBaseVO" resultType="com.inno.innotree.common.gen.vo.TcIdsInBaseVO">
+    <select id="selectTcIdsInBasePaging" parameterType="com.inno.common.gen.vo.TcIdsInBaseVO" resultType="com.inno.common.gen.vo.TcIdsInBaseVO">
         SELECT
             *
           FROM TC_IDS_IN
@@ -19,7 +19,7 @@
          LIMIT #{skip} , #{pageSize}
     </select>
 
-    <update id="updateTcIdsInBase" parameterType="com.inno.innotree.common.gen.vo.TcIdsInBaseVO">
+    <update id="updateTcIdsInBase" parameterType="com.inno.common.gen.vo.TcIdsInBaseVO">
         UPDATE TC_IDS_IN
            SET TBL_NM = #{tblNm}
                
@@ -28,13 +28,13 @@
            AND TBL_NM = #{tblNm}
     </update>
 
-    <delete id="deleteTcIdsInBase" parameterType="com.inno.innotree.common.gen.vo.TcIdsInBaseVO">
+    <delete id="deleteTcIdsInBase" parameterType="com.inno.common.gen.vo.TcIdsInBaseVO">
         DELETE FROM TC_IDS_IN
          WHERE 1=1
            AND TBL_NM = #{tblNm}
     </delete>
 
-    <insert id="insertTcIdsInBase" parameterType="com.inno.innotree.common.gen.vo.TcIdsInBaseVO">
+    <insert id="insertTcIdsInBase" parameterType="com.inno.common.gen.vo.TcIdsInBaseVO">
         INSERT INTO TC_IDS_IN
           (TBL_NM, NEXT_ID)
         VALUES

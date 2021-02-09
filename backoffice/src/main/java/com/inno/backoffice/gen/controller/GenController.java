@@ -1,7 +1,7 @@
 package com.inno.backoffice.gen.controller;
 
 import com.inno.backoffice.gen.service.GenService;
-import com.inno.innotree.common.vo.GenVO;
+import com.inno.common.vo.GenVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,7 +1,7 @@
-package com.inno.innotree.common.gen.repository;
+package com.inno.common.gen.repository;
 
 import org.apache.ibatis.annotations.Mapper;
-import com.inno.innotree.common.gen.vo.TcAdminMsBaseVO;
+import com.inno.common.gen.vo.TcAdminMsBaseVO;
 import java.util.List;
 
 @Mapper

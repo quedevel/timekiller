@@ -1,6 +1,6 @@
-package com.inno.innotree.common.util;
+package com.inno.common.util;
 
-import com.inno.innotree.common.vo.GenVO;
+import com.inno.common.vo.GenVO;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.templatemode.TemplateMode;
@@ -15,8 +15,8 @@ import java.util.Map;
 
 public class ThymeleafUtil {
 
-    private static final String VO_PATH = "C:\\innotree\\common\\src\\main\\java\\com\\inno\\innotree\\common\\gen\\vo\\";
-    private static final String MAPPER_PATH = "C:\\innotree\\common\\src\\main\\java\\com\\inno\\innotree\\common\\gen\\repository\\";
+    private static final String VO_PATH = "C:\\innotree\\common\\src\\main\\java\\com\\inno\\common\\gen\\vo\\";
+    private static final String MAPPER_PATH = "C:\\innotree\\common\\src\\main\\java\\com\\inno\\common\\gen\\repository\\";
     private static final String SQL_PATH = "C:\\innotree\\common\\src\\main\\resources\\mapper\\gen\\";
 
     private static String removeTag(String str){

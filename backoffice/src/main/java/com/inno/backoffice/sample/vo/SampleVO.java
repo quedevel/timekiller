@@ -1,6 +1,6 @@
 package com.inno.backoffice.sample.vo;
 
-import com.inno.innotree.common.vo.PageVO;
+import com.inno.common.vo.PageVO;
 
 public class SampleVO extends PageVO {
 

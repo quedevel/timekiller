@@ -1,9 +1,9 @@
 package com.inno.backoffice.gen.service;
 
 import com.inno.backoffice.gen.repository.GenMapper;
-import com.inno.innotree.common.vo.GenVO;
-import com.inno.innotree.common.util.StringUtil;
-import com.inno.innotree.common.util.ThymeleafUtil;
+import com.inno.common.vo.GenVO;
+import com.inno.common.util.StringUtil;
+import com.inno.common.util.ThymeleafUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

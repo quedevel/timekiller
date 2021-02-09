@@ -1,10 +1,12 @@
-package com.inno.innotree.common.gen.repository;
+package com.inno.common.gen.repository;
 
 import org.apache.ibatis.annotations.Mapper;
-import com.inno.innotree.common.gen.vo.TcIdsInBaseVO;
+import com.inno.common.gen.vo.TcIdsInBaseVO;
+import org.mybatis.spring.annotation.MapperScan;
+
 import java.util.List;
 
-@Mapper
+@MapperScan("tcIdsInBaseMapper")
 public interface TcIdsInBaseMapper {
 
     TcIdsInBaseVO selectTcIdsInBase(TcIdsInBaseVO vo) throws Exception;

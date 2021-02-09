@@ -1,7 +1,10 @@
 package com.inno.backoffice.sample.controller;
 
-import com.inno.innotree.common.gen.repository.TcIdsInBaseMapper;
-import com.inno.innotree.common.gen.vo.TcIdsInBaseVO;
+import com.inno.common.constant.CommonConstants;
+import com.inno.common.gen.repository.TcIdsInBaseMapper;
+import com.inno.common.gen.vo.TcIdsInBaseVO;
+import com.inno.common.serial.service.SerialIdnService;
+import com.inno.common.util.SerialGenerator;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +21,9 @@ public class SampleController {
 
     @GetMapping("/sample")
     public void sample() throws Exception{
+        System.out.println("Sample.......................................");
+        System.out.println(CommonConstants.TC_ADMIN_MS.name()+" "+CommonConstants.TC_ADMIN_MS.getValue());
+        System.out.println(SerialGenerator.getInstance(CommonConstants.TC_ADMIN_MS.name(),CommonConstants.TC_ADMIN_MS.getValue(), mapper).getNextStringId());
         System.out.println("Sample.......................................");
     }
 

@@ -3,9 +3,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper th:namespace="'com.inno.innotree.common.gen.repository.'+${tableName2}+'BaseMapper'">
+<mapper th:namespace="'com.inno.common.gen.repository.'+${tableName2}+'BaseMapper'">
 
-    <select th:id="'select'+${tableName2}+'Base'" th:parameterType="'com.inno.innotree.common.gen.vo.'+${tableName2}+'BaseVO'" th:resultType="'com.inno.innotree.common.gen.vo.'+${tableName2}+'BaseVO'">
+    <select th:id="'select'+${tableName2}+'Base'" th:parameterType="'com.inno.common.gen.vo.'+${tableName2}+'BaseVO'" th:resultType="'com.inno.common.gen.vo.'+${tableName2}+'BaseVO'">
         SELECT
             *
           FROM <p th:text="${tableName}"></p>
@@ -13,7 +13,7 @@
           <p th:each="c : ${list}" th:if="${c.columnKey eq 'PRI'}" th:text="' AND '+${c.columnName3}+' = '+${c.paramColumnName}"></p>
     </select>
 
-    <select th:id="'select'+${tableName2}+'BasePaging'" th:parameterType="'com.inno.innotree.common.gen.vo.'+${tableName2}+'BaseVO'" th:resultType="'com.inno.innotree.common.gen.vo.'+${tableName2}+'BaseVO'">
+    <select th:id="'select'+${tableName2}+'BasePaging'" th:parameterType="'com.inno.common.gen.vo.'+${tableName2}+'BaseVO'" th:resultType="'com.inno.common.gen.vo.'+${tableName2}+'BaseVO'">
         SELECT
             *
           FROM <p th:text="${tableName}"></p>
@@ -21,7 +21,7 @@
          LIMIT #{skip} , #{pageSize}
     </select>
 
-    <update th:id="'update'+${tableName2}+'Base'" th:parameterType="'com.inno.innotree.common.gen.vo.'+${tableName2}+'BaseVO'">
+    <update th:id="'update'+${tableName2}+'Base'" th:parameterType="'com.inno.common.gen.vo.'+${tableName2}+'BaseVO'">
         UPDATE <p th:text="${tableName}"></p>
            SET <p th:each="c,idx : ${list}" th:if="${idx.index eq 0}" th:text="${c.columnName3}+' = '+${c.paramColumnName}"></p>
                <p th:each="c,idx : ${list}" th:unless="${idx.index eq 0}" th:text="','+${c.columnName3}+' = '+${c.paramColumnName}"></p>
@@ -29,13 +29,13 @@
           <p th:each="c : ${list}" th:if="${c.columnKey eq 'PRI'}" th:text="' AND '+${c.columnName3}+' = '+${c.paramColumnName}"></p>
     </update>
 
-    <delete th:id="'delete'+${tableName2}+'Base'" th:parameterType="'com.inno.innotree.common.gen.vo.'+${tableName2}+'BaseVO'">
+    <delete th:id="'delete'+${tableName2}+'Base'" th:parameterType="'com.inno.common.gen.vo.'+${tableName2}+'BaseVO'">
         DELETE FROM <p th:text="${tableName}"></p>
          WHERE 1=1
           <p th:each="c : ${list}" th:if="${c.columnKey eq 'PRI'}" th:text="' AND '+${c.columnName3}+' = '+${c.paramColumnName}"></p>
     </delete>
 
-    <insert th:id="'insert'+${tableName2}+'Base'" th:parameterType="'com.inno.innotree.common.gen.vo.'+${tableName2}+'BaseVO'">
+    <insert th:id="'insert'+${tableName2}+'Base'" th:parameterType="'com.inno.common.gen.vo.'+${tableName2}+'BaseVO'">
         INSERT INTO <p th:text="${tableName}"></p>
           <p th:text="'('+${columns}+')'"></p>
         VALUES
