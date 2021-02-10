@@ -6,8 +6,179 @@
             <h6 class="m-0 font-weight-bold text-primary">운영자 관리</h6>
         </div>
         <div class="card-body">
-
+            <form name="adminVO" action="/admin/adminInsert" method="post">
+                <div class="form-group">
+                    <label>운영자ID</label>
+                    <div>
+                        <input type="text" class="form-control d-inline-block" name="adminId" data-duple="false" style="width: 50%">
+                        <button type="button" class="btn btn-success btn-icon-split d-inline-block b-dupl">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span class="text">중복 검사</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>운영자 비밀번호</label>
+                    <input type="password" class="form-control" name="adminPw">
+                </div>
+                <div class="form-group">
+                    <label>운영자 비밀번호 확인</label>
+                    <input type="password" class="form-control" name="adminPw2">
+                </div>
+                <div class="form-group">
+                    <label>운영자명</label>
+                    <input type="text" class="form-control" name="adminNm">
+                </div>
+                <div>
+                    <label>사용여부</label>
+                </div>
+                <label class="radio-inline">
+                    <input type="radio" name="useYn" value="Y"> 사용
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="useYn" value="N"> 미사용
+                </label>
+            </form>
+        </div>
+        <div class="card-body">
+            <button class="btn btn-light btn-icon-split b-list">
+            <span class="icon text-gray-600">
+                <i class="fas fa-arrow-left"></i>
+            </span>
+                <span class="text">목록</span>
+            </button>
+            <button class="btn btn-secondary btn-icon-split float-right b-save">
+            <span class="icon text-white-50">
+                <i class="fas fa-save"></i>
+            </span>
+                <span class="text">저장</span>
+            </button>
         </div>
     </div>
+    <script>
+        $(document).ready(function(){
+            // 목록으로
+            $(".b-list").on("click", function(){
+                location.href = '/admin/adminList';
+            })
+
+            // 중복 검사 유무
+            $("[name='adminId']").on("keyup", function(){
+                $(this).attr("data-duple", "false");
+            })
+
+            // 중복 검사
+            $(".b-dupl").on("click", function(){
+                // ID 필수값
+                if($.trim($("[name='adminId']").val()) === ""){
+                    Swal.fire({
+                        icon: 'warning',
+                        text: 'ID를 입력해주세요.',
+                    });
+                    $("[name='adminId']").focus();
+                    return false;
+                }
+
+                var data = {adminId : $.trim($("[name='adminId']").val())};
+
+                $.ajax({
+                    url:'/admin/adminIdChk',
+                    data:data,
+                    contentType:"application/json; charset=utf-8",
+                    success:function(result){
+                        if(result === "00"){
+                            Swal.fire({
+                                icon: 'success',
+                                text: '사용할 수 있는 ID 입니다.',
+                            });
+                            $("[name='adminId']").attr("data-duple", "true");
+                        } else if (result === "44"){
+                            Swal.fire({
+                                icon: 'warning',
+                                text: '사용할 수 없는 ID 입니다.',
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: '예기치못한 오류가 발생했습니다.',
+                                text: '잠시 후 다시 이용해주시기 바랍니다.',
+                            });
+                        }
+                    }
+                })
+            })
+
+            // submit
+            $(".b-save").on("click", function(){
+                // ID 필수값
+                if($.trim($("[name='adminId']").val()) === ""){
+                    Swal.fire({
+                        icon: 'warning',
+                        text: 'ID를 입력해주세요.',
+                    });
+                    $("[name='adminId']").focus();
+                    return false;
+                }
+                // ID 중복검사
+                if($("[name='adminId']").attr("data-duple") === "false"){
+                    Swal.fire({
+                        icon: 'warning',
+                        text: 'ID는 중복검사를 해주세요.',
+                    });
+                    $("[name='adminId']").focus();
+                    return false;
+                }
+                // 운영자명 필수값
+                if($.trim($("[name='adminNm']").val()) === ""){
+                    Swal.fire({
+                        icon: 'warning',
+                        text: '운영자명을 입력해주세요.',
+                    });
+                    $("[name='adminNm']").focus();
+                    return false;
+                }
+
+                if($.trim($("[name='adminPw']").val()) === ""){
+                    Swal.fire({
+                        icon: 'warning',
+                        text: '비밀번호를 입력해주세요.',
+                    });
+                    $("[name='adminPw']").focus();
+                    return false;
+                }
+
+                if($.trim($("[name='adminPw2']").val()) === ""){
+                    Swal.fire({
+                        icon: 'warning',
+                        text: '비밀번호 확인을 입력해주세요.',
+                    });
+                    $("[name='adminPw2']").focus();
+                    return false;
+                }
+
+                if($.trim($("[name='adminPw2']").val()) !== $.trim($("[name='adminPw']").val())){
+                    Swal.fire({
+                        icon: 'warning',
+                        text: '비밀번호를 다시 확인해주시기 바랍니다.',
+                    });
+                    $("[name='adminPw']").focus();
+                    return false;
+                }
+
+                if($("[name='useYn']:checked").length === 0){
+                    Swal.fire({
+                        icon: 'warning',
+                        text: '사용여부를 입력해주세요.',
+                    });
+                    $("[name='useYn']").eq(0).focus();
+                    return false;
+                }
+
+                $("form[name='adminVO']").submit();
+            })
+        })
+    </script>
 </div>
 </html>

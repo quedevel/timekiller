@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.inno.backoffice.admin.repository.AdminMapper">
+
+    <select id="checkByAdminId" parameterType="AdminVO" resultType="int">
+        SELECT
+            COUNT(1)
+          FROM TC_ADMIN_MS
+         WHERE ADMIN_ID = #{adminId}
+    </select>
+
+    <select id="selectAdminListPaging" parameterType="AdminVO" resultType="AdminVO">
+        SELECT
+              ADMIN_SN
+            , ADMIN_ID
+            , ADMIN_NM
+            , USE_YN
+            , REG_SN
+            , MOD_SN
+            , DATE_FORMAT(REG_DATE, '%Y-%m-%d %H:%i:%S') AS REG_DATE_STR
+            , DATE_FORMAT(MOD_DATE, '%Y-%m-%d %H:%i:%S') AS MOD_DATE_STR
+          FROM TC_ADMIN_MS
+         WHERE 1=1
+        <if test="adminSn != null and adminSn != ''">
+            AND ADMIN_SN = #{adminSn}
+        </if>
+        <if test="adminId != null and adminId != ''">
+            AND ADMIN_ID LIKE CONCAT('%',#{adminId},'%')
+        </if>
+        <if test="adminNm != null and adminNm != ''">
+            AND ADMIN_NM LIKE CONCAT('%',#{adminNm},'%')
+        </if>
+        <if test="useYn != null and useYn != ''">
+            AND USE_YN = #{useYn}
+        </if>
+         ORDER BY ADMIN_SN DESC
+         LIMIT #{skip} , #{pageSize}
+    </select>
+</mapper>
