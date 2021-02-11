@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default_layout">
+<div layout:fragment="content">
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">메뉴 관리</h6>
+        </div>
+        <div class="card-body">
+            <div id="tree">
+
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            $('#tree').jstree({
+                'core' : {
+                    'data' : [
+                        { "id" : "ajson1", "parent" : "#", "text" : "Simple root node" },
+                        { "id" : "ajson2", "parent" : "#", "text" : "Root node 2" },
+                        { "id" : "ajson3", "parent" : "ajson2", "text" : "Child 1" },
+                        { "id" : "ajson4", "parent" : "ajson2", "text" : "Child 2" },
+                    ]
+                }
+            });
+        })
+    </script>
+</div>
+</html>
