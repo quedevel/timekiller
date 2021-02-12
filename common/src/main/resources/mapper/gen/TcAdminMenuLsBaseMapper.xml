@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.inno.common.gen.repository.TcAdminMenuLsBaseMapper">
+
+    <select id="selectTcAdminMenuLsBase" parameterType="com.inno.common.gen.vo.TcAdminMenuLsBaseVO" resultType="com.inno.common.gen.vo.TcAdminMenuLsBaseVO">
+        SELECT
+            *
+          FROM TC_ADMIN_MENU_LS
+         WHERE 1=1
+           AND MENU_SN = #{menuSn}
+    </select>
+
+    <select id="selectTcAdminMenuLsBasePaging" parameterType="com.inno.common.gen.vo.TcAdminMenuLsBaseVO" resultType="com.inno.common.gen.vo.TcAdminMenuLsBaseVO">
+        SELECT
+            *
+          FROM TC_ADMIN_MENU_LS
+         ORDER BY MENU_SN DESC
+         LIMIT #{skip} , #{pageSize}
+    </select>
+
+    <update id="updateTcAdminMenuLsBase" parameterType="com.inno.common.gen.vo.TcAdminMenuLsBaseVO">
+        UPDATE TC_ADMIN_MENU_LS
+           SET MENU_SN = #{menuSn}
+               
+               ,SUPI_MENU_SN = #{supiMenuSn}
+               ,MENU_NM = #{menuNm}
+               ,MENU_URL = #{menuUrl}
+               ,DEPT = #{dept}
+               ,ORDR = #{ordr}
+               ,USE_YN = #{useYn}
+               ,EXP_YN = #{expYn}
+               ,REG_DATE = #{regDate}
+               ,REG_SN = #{regSn}
+               ,MOD_DATE = #{modDate}
+               ,MOD_SN = #{modSn}
+         WHERE 1=1
+           AND MENU_SN = #{menuSn}
+    </update>
+
+    <delete id="deleteTcAdminMenuLsBase" parameterType="com.inno.common.gen.vo.TcAdminMenuLsBaseVO">
+        DELETE FROM TC_ADMIN_MENU_LS
+         WHERE 1=1
+           AND MENU_SN = #{menuSn}
+    </delete>
+
+    <insert id="insertTcAdminMenuLsBase" parameterType="com.inno.common.gen.vo.TcAdminMenuLsBaseVO">
+        INSERT INTO TC_ADMIN_MENU_LS
+          (MENU_SN, SUPI_MENU_SN, MENU_NM, MENU_URL, DEPT, ORDR, USE_YN, EXP_YN, REG_DATE, REG_SN, MOD_DATE, MOD_SN)
+        VALUES
+          (#{menuSn}, #{supiMenuSn}, #{menuNm}, #{menuUrl}, #{dept}, #{ordr}, #{useYn}, #{expYn}, #{regDate}, #{regSn}, #{modDate}, #{modSn})
+    </insert>
+
+</mapper>
+
