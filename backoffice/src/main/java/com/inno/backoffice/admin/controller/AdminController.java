@@ -3,6 +3,7 @@ package com.inno.backoffice.admin.controller;
 import com.inno.backoffice.admin.service.AdminService;
 import com.inno.backoffice.admin.vo.AdminVO;
 import com.inno.common.constant.CommonConstants;
+import com.inno.common.util.StringUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -41,8 +42,10 @@ public class AdminController {
      * @param model
      */
     @GetMapping("/adminForm")
-    public void adminForm(@ModelAttribute AdminVO adminVO, Model model){
-
+    public void adminForm(@ModelAttribute AdminVO adminVO, Model model) throws Exception {
+        if(StringUtil.isNotEmpty(adminVO.getAdminSn())){
+            model.addAttribute("adminVO", adminService.selectAdminByAdminSn(adminVO));
+        }
     }
 
     /**
@@ -75,11 +78,21 @@ public class AdminController {
     @PostMapping("/adminInsert")
     public String adminInsert(@ModelAttribute AdminVO adminVO, RedirectAttributes redirectAttributes){
         try{
-            adminService.insertAdmin(adminVO);
-            redirectAttributes.addFlashAttribute("msg",CommonConstants.DB_INSERT_SUCCESS_MESSAGE.getValue());
+            if(StringUtil.isNotEmpty(adminVO.getAdminSn())){
+                adminService.updateAdmin(adminVO);
+                redirectAttributes.addFlashAttribute("msg",CommonConstants.DB_UPDATE_SUCCESS_MESSAGE.getValue());
+            } else {
+                adminService.insertAdmin(adminVO);
+                redirectAttributes.addFlashAttribute("msg",CommonConstants.DB_INSERT_SUCCESS_MESSAGE.getValue());
+            }
             return "redirect:/admin/adminList";
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("msg",CommonConstants.DB_INSERT_FAILURE_MESSAGE.getValue());
+            if(StringUtil.isNotEmpty(adminVO.getAdminSn())){
+                redirectAttributes.addFlashAttribute("msg",CommonConstants.DB_UPDATE_FAILURE_MESSAGE.getValue());
+
+            } else {
+                redirectAttributes.addFlashAttribute("msg",CommonConstants.DB_INSERT_FAILURE_MESSAGE.getValue());
+            }
             return "redirect:/admin/adminList";
         }
     }

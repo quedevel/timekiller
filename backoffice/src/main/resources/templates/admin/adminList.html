@@ -68,7 +68,6 @@
                     data: $("[name='searchForm']").serialize(),
                     type: 'post',
                     success : function(result){
-                        console.log(result);
                         grid.resetData(result);
                     }
                 })
@@ -99,7 +98,14 @@
                 ]
             });
 
-            console.log(grid);
+            grid.on("click",function(e){
+                if(e.columnName === "adminSn"){
+                    var rowData = e.instance.dataManager.getOriginData();
+                    var rowKey = e.rowKey;
+                    var adminSn = rowData[rowKey].adminSn;
+                    location.href = '/admin/adminForm?adminSn='+adminSn;
+                }
+            })
 
             if(msg){
                 Swal.fire({

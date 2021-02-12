@@ -1,4 +1,4 @@
 .float_wrap:after{content:'';display:block;width:100%;height:1px;clear:both;}
-.float_left{float:left;width:49%;}
-.float_right{float:right;width:49%;}
-.float_right .card-body{height:400px;}
+.float_left{float:left;width:25%;}
+.float_right{float:right;width:73%;}
+.float_right .card-body{height:500px;}

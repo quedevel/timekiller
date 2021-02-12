@@ -9,7 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MenuController {
 
     @GetMapping("/menuList")
-    public void menu(){
+    public void menuList(){
+
+    }
+
+    @GetMapping("/menuForm")
+    public void menuForm(){
 
     }
 }

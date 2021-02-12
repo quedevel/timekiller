@@ -7,11 +7,13 @@
         </div>
         <div class="card-body">
             <form name="adminVO" action="/admin/adminInsert" method="post">
+                <input type="hidden" name="adminSn" th:value="${adminVO.adminSn}">
                 <div class="form-group">
                     <label>운영자ID</label>
                     <div>
-                        <input type="text" class="form-control d-inline-block" name="adminId" data-duple="false" style="width: 50%">
-                        <button type="button" class="btn btn-success btn-icon-split d-inline-block b-dupl">
+                        <input type="text" class="form-control d-inline-block" name="adminId" data-duple="false" th:unless="${adminVO.adminSn != null}" style="width: 50%">
+                        <input type="text" class="form-control d-inline-block" name="adminId" data-duple="true" th:if="${adminVO.adminSn != null}" th:value="${adminVO.adminId}" readonly>
+                        <button type="button" class="btn btn-success btn-icon-split d-inline-block b-dupl" th:if="${adminVO.adminSn == null}">
                             <span class="icon text-white-50">
                                 <i class="fas fa-check"></i>
                             </span>
@@ -21,24 +23,24 @@
                 </div>
                 <div class="form-group">
                     <label>운영자 비밀번호</label>
-                    <input type="password" class="form-control" name="adminPw">
+                    <input type="password" class="form-control" name="adminPw" th:value="${adminVO.adminPw}">
                 </div>
                 <div class="form-group">
                     <label>운영자 비밀번호 확인</label>
-                    <input type="password" class="form-control" name="adminPw2">
+                    <input type="password" class="form-control" name="adminPw2" th:value="${adminVO.adminPw}">
                 </div>
                 <div class="form-group">
                     <label>운영자명</label>
-                    <input type="text" class="form-control" name="adminNm">
+                    <input type="text" class="form-control" name="adminNm" th:value="${adminVO.adminNm}">
                 </div>
                 <div>
                     <label>사용여부</label>
                 </div>
                 <label class="radio-inline">
-                    <input type="radio" name="useYn" value="Y"> 사용
+                    <input type="radio" name="useYn" value="Y" th:checked="${adminVO.useYn == 'Y'}"> 사용
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" name="useYn" value="N"> 미사용
+                    <input type="radio" name="useYn" value="N" th:checked="${adminVO.useYn == 'N'}"> 미사용
                 </label>
             </form>
         </div>

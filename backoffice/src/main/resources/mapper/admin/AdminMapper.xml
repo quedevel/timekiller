@@ -10,6 +10,13 @@
          WHERE ADMIN_ID = #{adminId}
     </select>
 
+    <select id="selectAdminByAdminSn" parameterType="AdminVO" resultType="AdminVO">
+        SELECT
+            *
+          FROM TC_ADMIN_MS
+         WHERE ADMIN_SN = #{adminSn}
+    </select>
+
     <select id="selectAdminListPaging" parameterType="AdminVO" resultType="AdminVO">
         SELECT
               ADMIN_SN

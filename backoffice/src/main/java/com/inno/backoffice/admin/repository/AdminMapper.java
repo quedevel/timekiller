@@ -24,4 +24,12 @@ public interface AdminMapper {
      */
     List<AdminVO> selectAdminListPaging(AdminVO adminVO) throws Exception;
 
+    /**
+     * 운영자 상세
+     * @param adminVO
+     * @return
+     * @throws Exception
+     */
+    AdminVO selectAdminByAdminSn(AdminVO adminVO) throws Exception;
+
 }

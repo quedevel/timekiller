@@ -55,4 +55,23 @@ public class AdminService {
     public List<AdminVO> selectAdminListPaging(AdminVO adminVO) throws Exception{
         return adminMapper.selectAdminListPaging(adminVO);
     }
+
+    /**
+     * 운영자 상세
+     * @param adminVO
+     * @return
+     * @throws Exception
+     */
+    public AdminVO selectAdminByAdminSn(AdminVO adminVO) throws Exception{
+        return adminMapper.selectAdminByAdminSn(adminVO);
+    }
+
+    /**
+     * 운영자 수정
+     * @param adminVO
+     * @throws Exception
+     */
+    public void updateAdmin(AdminVO adminVO) throws Exception{
+        tcAdminMsBaseMapper.updateTcAdminMsBase(adminVO);
+    }
 }
