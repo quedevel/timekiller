@@ -2,16 +2,28 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout/default_layout">
 <div layout:fragment="content">
-    <div class="card shadow">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">메뉴 관리</h6>
-        </div>
-        <div class="card-body">
-            <div id="tree">
+    <div class="float_wrap">
+        <div class="card shadow float_left">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">메뉴 관리</h6>
+            </div>
+            <div class="card-body">
+                <div id="tree">
 
+                </div>
             </div>
         </div>
-    </div>
+        <div class="card shadow float_right">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">메뉴 관리2</h6>
+            </div>
+            <div class="card-body">
+                <div id="d-form">
+
+                </div>
+            </div>
+        </div>
+    </div><!--//float_wrap-->
 
     <script th:inline="javascript">
         $(document).ready(function(){
