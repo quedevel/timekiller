@@ -7,75 +7,111 @@
                 <h6 class="m-0 font-weight-bold text-primary">메뉴 관리</h6>
             </div>
             <div class="card-body">
-                <div id="tree">
-
-                </div>
+                <button class="btn btn-success btn-icon-splitb mb-2 b-reg">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span class="text">등록</span>
+                </button>
+                <div id="tree"></div>
             </div>
+            <input id="supi" type="hidden" value="0000000000">
         </div>
         <div class="card shadow float_right">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">메뉴 관리2</h6>
+                <h6 class="m-0 font-weight-bold text-primary">메뉴 등록 및 수정</h6>
             </div>
             <div class="card-body">
                 <div id="d-form">
                     <form name="menuVO" action="/menu/menuInsert" method="post">
-                        <div class="form-group">
-                            <label>메뉴명</label>
-                            <input type="text" class="form-control" name="menuNm">
-                        </div>
-                        <div class="form-group">
-                            <label>메뉴 URL</label>
-                            <input type="text" class="form-control" name="menuUrl">
-                        </div>
-                        <div class="form-group">
-                            <label>순서</label>
-                            <input type="text" class="form-control" name="ordr">
-                        </div>
-                        <div>
-                            <label>사용여부</label>
-                        </div>
-                        <label class="radio-inline">
-                            <input type="radio" name="useYn" value="Y"> 사용
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="useYn" value="N"> 미사용
-                        </label>
-                        <div>
-                            <label>노출여부</label>
-                        </div>
-                        <label class="radio-inline">
-                            <input type="radio" name="dspYn" value="Y"> 노출
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="dspYn" value="N"> 미노출
-                        </label>
-                        <div class="card-body">
-                            <button class="btn btn-secondary btn-icon-split float-right b-save">
-                                <span class="icon text-white-50">
-                                    <i class="fas fa-save"></i>
-                                </span>
-                                <span class="text">저장</span>
-                            </button>
-                        </div>
+
                     </form>
                 </div>
             </div>
         </div>
     </div><!--//float_wrap-->
-
     <script th:inline="javascript">
+        var msg = [[${msg}]];
         $(document).ready(function(){
+            // 등록&수정 메세지
+            if(msg){
+                Swal.fire({
+                    icon: 'success',
+                    text: msg,
+                });
+            }
+
+            // JsTree.js
             $('#tree').jstree({
                 'core' : {
-                    'data' : [
-                        { "id" : "ajson1", "parent" : "#", "text" : "Simple root node" },
-                        { "id" : "ajson2", "parent" : "#", "text" : "Root node 2" },
-                        { "id" : "ajson3", "parent" : "ajson2", "text" : "Child 1" },
-                        { "id" : "ajson4", "parent" : "ajson2", "text" : "Child 2" },
-                    ]
+                    'data': getJsTreeData()
                 }
+            }).on('changed.jstree', function (e, data) {
+                console.log(data.instance);
+                getMenuForm(data.node.parent, data.node.id)
+                $("#supi").val(data.node.id);
             });
-        })
+
+            // submit
+            $(document).on("click",".b-save",function(){
+                if($.trim($("[name='menuNm']").val()) === ""){
+                    Swal.fire({
+                        icon: 'warning',
+                        text: '메뉴명을 입력해주세요.',
+                    });
+                    $("[name='menuNm']").focus();
+                    return false;
+                }
+                if($("[name='useYn']:checked").length === 0){
+                    Swal.fire({
+                        icon: 'warning',
+                        text: '사용여부를 입력해주세요.',
+                    });
+                    $("[name='useYn']").eq(0).focus();
+                    return false;
+                }
+                if($("[name='dspYn']:checked").length === 0){
+                    Swal.fire({
+                        icon: 'warning',
+                        text: '전시여부를 입력해주세요.',
+                    });
+                    $("[name='dspYn']").eq(0).focus();
+                    return false;
+                }
+                $("form[name='menuVO']").submit();
+            });
+
+            // 메뉴 등록
+            $(".b-reg").on("click",function(){
+                getMenuForm($("#supi").val());
+            })
+        });
+
+        // 메뉴 등록 폼
+        function getMenuForm(supiMenuSn, menuSn){
+            $.ajax({
+                url:'/menu/menuForm',
+                type:'get',
+                data:{ supiMenuSn : supiMenuSn, menuSn : menuSn },
+                success : function(result){
+                    $("form[name='menuVO']").html(result);
+                }
+            })
+        }
+
+        // JsTreeData 리스트 조회
+        function getJsTreeData(){
+            var data = null;
+            $.ajax({
+                url:'/menu/menuListAjax',
+                type:'get',
+                async:false,
+                success : function(result){
+                    data = result;
+                }
+            })
+            return data;
+        }
     </script>
 </div>
 </html>

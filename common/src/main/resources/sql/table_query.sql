@@ -29,7 +29,7 @@ CREATE TABLE bootex.TC_ADMIN_MENU_LS (
   DEPT INT COMMENT '메뉴 깊이',
   ORDR INT COMMENT '메뉴 순서',
   USE_YN varchar(1) NULL COMMENT '사용 여부',
-  EXP_YN varchar(1) NULL COMMENT '노출 여부',
+  DSP_YN varchar(1) NULL COMMENT '노출 여부',
   REG_DATE TIMESTAMP NULL COMMENT '등록 일시',
   REG_SN varchar(100) NULL COMMENT '등록자 일련번호',
   MOD_DATE TIMESTAMP NULL COMMENT '수정 일시',

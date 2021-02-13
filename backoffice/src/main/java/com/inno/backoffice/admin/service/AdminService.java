@@ -72,6 +72,6 @@ public class AdminService {
      * @throws Exception
      */
     public void updateAdmin(AdminVO adminVO) throws Exception{
-        tcAdminMsBaseMapper.updateTcAdminMsBase(adminVO);
+        adminMapper.updateAdmin(adminVO);
     }
 }

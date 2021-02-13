@@ -44,4 +44,16 @@
          ORDER BY ADMIN_SN DESC
          LIMIT #{skip} , #{pageSize}
     </select>
+
+    <update id="updateAdmin" parameterType="AdminVO">
+        UPDATE TC_ADMIN_MS
+           SET ADMIN_ID = #{adminId}
+             , ADMIN_PW = #{adminPw}
+             , ADMIN_NM = #{adminNm}
+             , USE_YN = #{useYn}
+             , MOD_DATE = #{modDate}
+             , MOD_SN = #{modSn}
+         WHERE 1=1
+           AND ADMIN_SN = #{adminSn}
+    </update>
 </mapper>

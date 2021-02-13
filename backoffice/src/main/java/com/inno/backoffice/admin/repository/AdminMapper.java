@@ -32,4 +32,11 @@ public interface AdminMapper {
      */
     AdminVO selectAdminByAdminSn(AdminVO adminVO) throws Exception;
 
+    /**
+     * 운영자 수정
+     * @param adminVO
+     * @throws Exception
+     */
+    void updateAdmin(AdminVO adminVO) throws Exception;
+
 }

@@ -19,7 +19,7 @@ public class TcAdminMenuLsBaseVO extends PageVO {
     
     private String useYn;   // 사용 여부
     
-    private String expYn;   // 노출 여부
+    private String dspYn;   // 노출 여부
     
     private Date regDate;   // 등록 일시
     
@@ -36,7 +36,7 @@ public class TcAdminMenuLsBaseVO extends PageVO {
     public int getDept() { return dept; }
     public int getOrdr() { return ordr; }
     public String getUseYn() { return useYn; }
-    public String getExpYn() { return expYn; }
+    public String getDspYn() { return dspYn; }
     public Date getRegDate() { return regDate; }
     public String getRegSn() { return regSn; }
     public Date getModDate() { return modDate; }
@@ -48,7 +48,7 @@ public class TcAdminMenuLsBaseVO extends PageVO {
     public void setDept(int dept) { this.dept = dept; }
     public void setOrdr(int ordr) { this.ordr = ordr; }
     public void setUseYn(String useYn) { this.useYn = useYn; }
-    public void setExpYn(String expYn) { this.expYn = expYn; }
+    public void setDspYn(String dspYn) { this.dspYn = dspYn; }
     public void setRegDate(Date regDate) { this.regDate = regDate; }
     public void setRegSn(String regSn) { this.regSn = regSn; }
     public void setModDate(Date modDate) { this.modDate = modDate; }

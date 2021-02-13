@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.inno.backoffice.menu.repository.MenuMapper">
+
+    <insert id="insertAdminMenu" parameterType="MenuVO">
+        INSERT INTO TC_ADMIN_MENU_LS (
+           MENU_SN,
+           SUPI_MENU_SN,
+           MENU_NM,
+           MENU_URL,
+           DEPT,
+           ORDR,
+           USE_YN,
+           DSP_YN,
+           REG_DATE,
+           REG_SN,
+           MOD_DATE,
+           MOD_SN
+        ) VALUES (
+          #{menuSn},
+          #{supiMenuSn},
+          #{menuNm},
+          #{menuUrl},
+          #{dept},
+          #{ordr},
+          #{useYn},
+          #{dspYn},
+          #{regDate},
+          #{regSn},
+          #{modDate},
+          #{modSn}
+        )
+    </insert>
+
+    <update id="updateAdminMenu" parameterType="MenuVO">
+        UPDATE TC_ADMIN_MENU_LS
+           SET MENU_NM = #{menuNm}
+              ,MENU_URL = #{menuUrl}
+              ,ORDR = #{ordr}
+              ,USE_YN = #{useYn}
+              ,DSP_YN = #{dspYn}
+              ,MOD_DATE = #{modDate}
+              ,MOD_SN = #{modSn}
+         WHERE 1=1
+           AND MENU_SN = #{menuSn}
+    </update>
+
+    <select id="selectMenuAllList" resultType="HashMap">
+        WITH RECURSIVE CTE AS (
+            SELECT 1 AS LEVEL
+                 , MENU_SN
+                 , MENU_NM
+                 , SUPI_MENU_SN
+                 , MENU_URL
+                 , USE_YN
+                 , DSP_YN
+              FROM TC_ADMIN_MENU_LS
+             WHERE SUPI_MENU_SN = '0000000000'
+            UNION ALL
+            SELECT 1 + LEVEL AS LEVEL
+                 , A.MENU_SN
+                 , A.MENU_NM
+                 , A.SUPI_MENU_SN
+                 , A.MENU_URL
+                 , A.USE_YN
+                 , A.DSP_YN
+              FROM TC_ADMIN_MENU_LS A
+                 , CTE B
+             WHERE A.SUPI_MENU_SN = B.MENU_SN
+        )
+        SELECT LEVEL
+             , MENU_SN AS id
+             , MENU_NM AS text
+             , CASE
+                 WHEN SUPI_MENU_SN = '0000000000' THEN '#'
+                 ELSE SUPI_MENU_SN END AS parent
+             , MENU_URL
+             , USE_YN
+             , DSP_YN
+             , 'folder' as folder
+          FROM CTE
+    </select>
+
+    <select id="selectDeptBySupiMenuSn" parameterType="MenuVO" resultType="int">
+        SELECT
+            DEPT
+          FROM TC_ADMIN_MENU_LS
+         WHERE MENU_SN = #{supiMenuSn}
+    </select>
+
+    <select id="selectMenuByMenuSn" parameterType="MenuVO" resultType="MenuVO">
+        SELECT
+            *
+          FROM TC_ADMIN_MENU_LS
+         WHERE MENU_SN = #{menuSn}
+    </select>
+
+</mapper>

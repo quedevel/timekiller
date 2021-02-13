@@ -29,7 +29,7 @@
                ,DEPT = #{dept}
                ,ORDR = #{ordr}
                ,USE_YN = #{useYn}
-               ,EXP_YN = #{expYn}
+               ,DSP_YN = #{dspYn}
                ,REG_DATE = #{regDate}
                ,REG_SN = #{regSn}
                ,MOD_DATE = #{modDate}
@@ -46,9 +46,9 @@
 
     <insert id="insertTcAdminMenuLsBase" parameterType="com.inno.common.gen.vo.TcAdminMenuLsBaseVO">
         INSERT INTO TC_ADMIN_MENU_LS
-          (MENU_SN, SUPI_MENU_SN, MENU_NM, MENU_URL, DEPT, ORDR, USE_YN, EXP_YN, REG_DATE, REG_SN, MOD_DATE, MOD_SN)
+          (MENU_SN, SUPI_MENU_SN, MENU_NM, MENU_URL, DEPT, ORDR, USE_YN, DSP_YN, REG_DATE, REG_SN, MOD_DATE, MOD_SN)
         VALUES
-          (#{menuSn}, #{supiMenuSn}, #{menuNm}, #{menuUrl}, #{dept}, #{ordr}, #{useYn}, #{expYn}, #{regDate}, #{regSn}, #{modDate}, #{modSn})
+          (#{menuSn}, #{supiMenuSn}, #{menuNm}, #{menuUrl}, #{dept}, #{ordr}, #{useYn}, #{dspYn}, #{regDate}, #{regSn}, #{modDate}, #{modSn})
     </insert>
 
 </mapper>
