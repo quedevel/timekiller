@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.inno.common.gen.repository.TcAuthMsBaseMapper">
+
+    <select id="selectTcAuthMsBase" parameterType="com.inno.common.gen.vo.TcAuthMsBaseVO" resultType="com.inno.common.gen.vo.TcAuthMsBaseVO">
+        SELECT
+            *
+          FROM TC_AUTH_MS
+         WHERE 1=1
+           AND AUTH_SN = #{authSn}
+    </select>
+
+    <select id="selectTcAuthMsBasePaging" parameterType="com.inno.common.gen.vo.TcAuthMsBaseVO" resultType="com.inno.common.gen.vo.TcAuthMsBaseVO">
+        SELECT
+            *
+          FROM TC_AUTH_MS
+         ORDER BY AUTH_SN DESC
+         LIMIT #{skip} , #{pageSize}
+    </select>
+
+    <update id="updateTcAuthMsBase" parameterType="com.inno.common.gen.vo.TcAuthMsBaseVO">
+        UPDATE TC_AUTH_MS
+           SET AUTH_SN = #{authSn}
+               
+               ,AUTH_NM = #{authNm}
+               ,USE_YN = #{useYn}
+               ,REG_DATE = #{regDate}
+               ,REG_SN = #{regSn}
+               ,MOD_DATE = #{modDate}
+               ,MOD_SN = #{modSn}
+         WHERE 1=1
+           AND AUTH_SN = #{authSn}
+    </update>
+
+    <delete id="deleteTcAuthMsBase" parameterType="com.inno.common.gen.vo.TcAuthMsBaseVO">
+        DELETE FROM TC_AUTH_MS
+         WHERE 1=1
+           AND AUTH_SN = #{authSn}
+    </delete>
+
+    <insert id="insertTcAuthMsBase" parameterType="com.inno.common.gen.vo.TcAuthMsBaseVO">
+        INSERT INTO TC_AUTH_MS
+          (AUTH_SN, AUTH_NM, USE_YN, REG_DATE, REG_SN, MOD_DATE, MOD_SN)
+        VALUES
+          (#{authSn}, #{authNm}, #{useYn}, #{regDate}, #{regSn}, #{modDate}, #{modSn})
+    </insert>
+
+</mapper>
+

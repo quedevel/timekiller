@@ -47,39 +47,46 @@
     </update>
 
     <select id="selectMenuAllList" resultType="HashMap">
-        WITH RECURSIVE CTE AS (
-            SELECT 1 AS LEVEL
-                 , MENU_SN
-                 , MENU_NM
-                 , SUPI_MENU_SN
-                 , MENU_URL
-                 , USE_YN
-                 , DSP_YN
-              FROM TC_ADMIN_MENU_LS
-             WHERE SUPI_MENU_SN = '0000000000'
-            UNION ALL
-            SELECT 1 + LEVEL AS LEVEL
-                 , A.MENU_SN
-                 , A.MENU_NM
-                 , A.SUPI_MENU_SN
-                 , A.MENU_URL
-                 , A.USE_YN
-                 , A.DSP_YN
-              FROM TC_ADMIN_MENU_LS A
-                 , CTE B
-             WHERE A.SUPI_MENU_SN = B.MENU_SN
-        )
-        SELECT LEVEL
-             , MENU_SN AS id
-             , MENU_NM AS text
-             , CASE
-                 WHEN SUPI_MENU_SN = '0000000000' THEN '#'
-                 ELSE SUPI_MENU_SN END AS parent
-             , MENU_URL
-             , USE_YN
-             , DSP_YN
-             , 'folder' as folder
-          FROM CTE
+        WITH RECURSIVE
+            CTE AS (
+                SELECT 1 AS LEVEL
+                     , MENU_SN
+                     , MENU_NM
+                     , SUPI_MENU_SN
+                     , MENU_URL
+                     , USE_YN
+                     , DSP_YN
+                     , ORDR
+                FROM TC_ADMIN_MENU_LS
+                WHERE SUPI_MENU_SN = '0000000000'
+                UNION ALL
+                SELECT 1 + LEVEL AS LEVEL
+                     , A.MENU_SN
+                     , A.MENU_NM
+                     , A.SUPI_MENU_SN
+                     , A.MENU_URL
+                     , A.USE_YN
+                     , A.DSP_YN
+                     , A.ORDR
+                FROM TC_ADMIN_MENU_LS A
+                   , CTE B
+                WHERE A.SUPI_MENU_SN = B.MENU_SN
+            ),
+            MENU_LIST AS (
+                SELECT LEVEL                     AS lvl
+                     , MENU_SN                   AS id
+                     , MENU_NM                   AS text
+                     , CASE
+                           WHEN SUPI_MENU_SN = '0000000000' THEN '#'
+                           ELSE SUPI_MENU_SN END AS parent
+                     , MENU_URL
+                     , USE_YN
+                     , DSP_YN
+                     , ORDR
+                     , 'folder'                  AS folder
+                FROM CTE
+            )
+        SELECT * FROM MENU_LIST ORDER BY lvl asc, ordr asc
     </select>
 
     <select id="selectDeptBySupiMenuSn" parameterType="MenuVO" resultType="int">
@@ -102,6 +109,8 @@
           FROM TC_ADMIN_MENU_LS
          WHERE SUPI_MENU_SN = #{supiMenuSn}
            AND USE_YN = 'Y'
+           AND DSP_YN = 'Y'
+         ORDER BY ORDR ASC
     </select>
 
     <resultMap id="backofficeMenuAll" type="MenuVO">

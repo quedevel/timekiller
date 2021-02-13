@@ -4,6 +4,7 @@ public enum CommonConstants {
     // 테이블
     TC_ADMIN_MS("A"),
     TC_ADMIN_MENU_LS("M"),
+    TC_AUTH_MS("AUTH"),
 
     // DB RESULT MESSAGE
     DB_INSERT_SUCCESS_MESSAGE("성공적으로 등록되었습니다."),
@@ -18,7 +19,8 @@ public enum CommonConstants {
 
     // 공통 상수
     INNO_ROOT_SN("0000000000"),
-    DEFAULT_YES("Y"), DEFAULT_NO("N");
+    DEFAULT_YES("Y"), DEFAULT_NO("N"),
+    EMPTY("");
 
     private final String value;
 

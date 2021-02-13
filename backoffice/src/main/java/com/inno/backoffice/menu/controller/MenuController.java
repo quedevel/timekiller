@@ -37,8 +37,6 @@ public class MenuController extends BaseController {
      */
     @GetMapping("/menuForm")
     public void menuForm(@ModelAttribute MenuVO menuVO, Model model) throws Exception{
-        System.out.println("menuForm.... supi_menu_sn : "+menuVO.getSupiMenuSn());
-        System.out.println("menuForm....      menu_sn : "+menuVO.getMenuSn());
         if(StringUtil.isNotEmpty(menuVO.getMenuSn())){
             menuVO = menuService.selectMenuByMenuSn(menuVO);
         }
@@ -64,7 +62,7 @@ public class MenuController extends BaseController {
      */
     @PostMapping("/menuInsert")
     public String menuInsert(@ModelAttribute MenuVO menuVO, RedirectAttributes redirectAttributes) throws Exception {
-        String menuSn = "";
+        String menuSn = CommonConstants.EMPTY.getValue();
         try{
             if(StringUtil.isNotEmpty(menuVO.getMenuSn())){
                 menuSn = menuVO.getMenuSn();

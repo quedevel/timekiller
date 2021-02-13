@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/default_layout">
+<div layout:fragment="content">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">권한 관리</h6>
+        </div>
+        <div class="card-body">
+            <form name="authVO" action="/auth/authInsert" method="post">
+                <input type="hidden" name="authSn" th:value="${authVO.authSn}">
+                <div class="form-group">
+                    <label>권한 명</label>
+                    <input type="text" class="form-control" name="authNm" th:value="${authVO.authNm}">
+                </div>
+                <div>
+                    <label>사용여부</label>
+                </div>
+                <label class="radio-inline">
+                    <input type="radio" name="useYn" value="Y" th:checked="${authVO.useYn == 'Y'}"> 사용
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="useYn" value="N" th:checked="${authVO.useYn == 'N'}"> 미사용
+                </label>
+            </form>
+        </div>
+        <div class="card-body">
+            <button class="btn btn-light btn-icon-split b-list">
+            <span class="icon text-gray-600">
+                <i class="fas fa-arrow-left"></i>
+            </span>
+                <span class="text">목록</span>
+            </button>
+            <button class="btn btn-secondary btn-icon-split float-right b-save">
+            <span class="icon text-white-50">
+                <i class="fas fa-save"></i>
+            </span>
+                <span class="text">저장</span>
+            </button>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            // 목록으로
+            $(".b-list").on("click", function(){
+                location.href = '/auth/authList';
+            })
+
+            // submit
+            $(".b-save").on("click", function(){
+                // 권한 명 필수값
+                if($.trim($("[name='authNm']").val()) === ""){
+                    Swal.fire({
+                        icon: 'warning',
+                        text: '권한 명을 입력해주세요.',
+                    });
+                    $("[name='authNm']").focus();
+                    return false;
+                }
+
+                if($("[name='useYn']:checked").length === 0){
+                    Swal.fire({
+                        icon: 'warning',
+                        text: '사용여부를 입력해주세요.',
+                    });
+                    $("[name='useYn']").eq(0).focus();
+                    return false;
+                }
+
+                $("form[name='authVO']").submit();
+            })
+        })
+    </script>
+</div>
+</html>

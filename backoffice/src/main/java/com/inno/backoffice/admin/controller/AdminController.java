@@ -78,8 +78,10 @@ public class AdminController extends BaseController {
      */
     @PostMapping("/adminInsert")
     public String adminInsert(@ModelAttribute AdminVO adminVO, RedirectAttributes redirectAttributes){
+        String adminSn = CommonConstants.EMPTY.getValue();
         try{
             if(StringUtil.isNotEmpty(adminVO.getAdminSn())){
+                adminSn = adminVO.getAdminSn();
                 adminService.updateAdmin(adminVO);
                 redirectAttributes.addFlashAttribute("msg",CommonConstants.DB_UPDATE_SUCCESS_MESSAGE.getValue());
             } else {
@@ -88,25 +90,12 @@ public class AdminController extends BaseController {
             }
             return "redirect:/admin/adminList";
         } catch (Exception e) {
-            if(StringUtil.isNotEmpty(adminVO.getAdminSn())){
+            if(StringUtil.isNotEmpty(adminSn)){
                 redirectAttributes.addFlashAttribute("msg",CommonConstants.DB_UPDATE_FAILURE_MESSAGE.getValue());
-
             } else {
                 redirectAttributes.addFlashAttribute("msg",CommonConstants.DB_INSERT_FAILURE_MESSAGE.getValue());
             }
             return "redirect:/admin/adminList";
         }
     }
-
-    /**
-     * 운영자 수정
-     * @param adminVO
-     * @return
-     */
-    @PostMapping("/adminUpdate")
-    public String adminUpdate(@ModelAttribute AdminVO adminVO){
-        return "";
-        //return "redirect:/admin/adminList";
-    }
-
 }

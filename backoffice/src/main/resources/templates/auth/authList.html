@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default_layout">
+<div layout:fragment="content">
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">권한 관리</h6>
+        </div>
+        <div class="card-body">
+            <form name="searchForm">
+                <div class="form-group">
+                    <label>권한 명</label>
+                    <input type="text" class="form-control" name="authNm">
+                </div>
+                <div>
+                    <label>사용여부</label>
+                </div>
+                <label class="radio-inline">
+                    <input type="radio" name="useYn" value="" checked> 전체
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="useYn" value="Y"> 사용
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="useYn" value="N"> 미사용
+                </label>
+            </form>
+        </div>
+    </div>
+    <div class="card-body text-center">
+        <button class="btn btn-primary btn-icon-split b-search">
+            <span class="icon text-white-50">
+                <i class="fas fa-search"></i>
+            </span>
+            <span class="text">검색</span>
+        </button>
+        <button class="btn btn-danger btn-icon-split b-reset">
+            <span class="icon text-white-50">
+                <i class="fas fa-trash"></i>
+            </span>
+            <span class="text">초기화</span>
+        </button>
+    </div>
+    <div class="card-body text-right" style="padding-top: 0">
+        <button class="btn btn-success btn-icon-splitb b-reg">
+            <span class="icon text-white-50">
+                <i class="fas fa-check"></i>
+            </span>
+            <span class="text">등록</span>
+        </button>
+    </div>
+    <div id="grid"></div>
+    <script th:inline="javascript">
+        var msg = [[${msg}]];
+        $(document).ready(function(){
+
+            $(".b-search").on("click", function(){
+                $.ajax({
+                    url: '/auth/authListAjax',
+                    data: $("[name='searchForm']").serialize(),
+                    type: 'post',
+                    success : function(result){
+                        grid.resetData(result);
+                    }
+                })
+            })
+            $(".b-reset").on("click",function(){
+                $("[name='searchForm']")[0].reset();
+            })
+
+            $(".b-reg").on("click", function(){
+                location.href = '/auth/authForm';
+            });
+
+            var grid = new tui.Grid({
+                el: document.getElementById('grid'),
+                data: null,
+                scrollX: false,
+                scrollY: false,
+                rowHeaders:['checkbox'],
+                columns: [
+                     {header: '권한 일련번호',name: 'authSn',align:'center'}
+                    ,{header: '권한 명',name: 'authNm',align:'center'}
+                    ,{header: '사용여부',name: 'useYn',align:'center'}
+                    ,{header: '등록자',name: 'regSn',align:'center'}
+                    ,{header: '등록일시',name: 'regDateStr',align:'center'}
+                    ,{header: '수정자',name: 'modSn',align:'center'}
+                    ,{header: '수정일시',name: 'modDateStr',align:'center'}
+                ]
+            });
+
+            grid.on("click",function(e){
+                if(e.columnName === "authSn"){
+                    var rowData = e.instance.dataManager.getOriginData();
+                    var rowKey = e.rowKey;
+                    var authSn = rowData[rowKey].authSn;
+                    location.href = '/auth/authForm?authSn='+authSn;
+                }
+            })
+
+            if(msg){
+                Swal.fire({
+                    icon: 'success',
+                    text: msg,
+                });
+            }
+        })
+    </script>
+</div>
+</html>
