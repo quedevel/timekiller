@@ -1,5 +1,6 @@
 package com.inno.backoffice.gen.controller;
 
+import com.inno.backoffice.common.controller.BaseController;
 import com.inno.backoffice.gen.service.GenService;
 import com.inno.common.vo.GenVO;
 import org.springframework.stereotype.Controller;
@@ -12,7 +13,7 @@ import javax.annotation.Resource;
 
 @Controller
 @RequestMapping("/gen")
-public class GenController {
+public class GenController extends BaseController {
 
     private final String tableSchema = "bootex";
 

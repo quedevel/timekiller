@@ -2,6 +2,7 @@ package com.inno.backoffice.admin.controller;
 
 import com.inno.backoffice.admin.service.AdminService;
 import com.inno.backoffice.admin.vo.AdminVO;
+import com.inno.backoffice.common.controller.BaseController;
 import com.inno.common.constant.CommonConstants;
 import com.inno.common.util.StringUtil;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminController {
+public class AdminController extends BaseController {
 
     @Resource
     private AdminService adminService;

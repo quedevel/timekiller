@@ -1,5 +1,6 @@
 package com.inno.backoffice.menu.controller;
 
+import com.inno.backoffice.common.controller.BaseController;
 import com.inno.backoffice.menu.service.MenuService;
 import com.inno.backoffice.menu.vo.MenuVO;
 import com.inno.common.constant.CommonConstants;
@@ -16,7 +17,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/menu")
-public class MenuController {
+public class MenuController extends BaseController {
 
     @Resource
     private MenuService menuService;
