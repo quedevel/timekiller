@@ -38,8 +38,62 @@
             </button>
         </div>
     </div>
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">메뉴 검색</h6>
+        </div>
+        <div class="card-body">
+            <form name="searchForm">
+                <div class="form-group">
+                    <label>메뉴</label>
+                </div>
+                <select class="form-select-button ml-2" style="width: 31%">
+                    <option value="">선택</option>
+                </select>
+                &nbsp&nbsp>&nbsp&nbsp
+                <select class="form-select-button" style="width: 31%">
+                    <option value="">선택</option>
+                </select>
+                &nbsp&nbsp>&nbsp&nbsp
+                <select class="form-select-button" style="width: 31%">
+                    <option value="">선택</option>
+                </select>
+            </form>
+        </div>
+    </div>
+    <div class="card-body text-center">
+        <button class="btn btn-primary btn-icon-split b-search">
+            <span class="icon text-white-50">
+                <i class="fas fa-search"></i>
+            </span>
+            <span class="text">검색</span>
+        </button>
+        <button class="btn btn-danger btn-icon-split b-reset">
+            <span class="icon text-white-50">
+                <i class="fas fa-trash"></i>
+            </span>
+            <span class="text">초기화</span>
+        </button>
+    </div>
+    <div id="grid"></div>
     <script>
         $(document).ready(function(){
+            var grid = new tui.Grid({
+                el: document.getElementById('grid'),
+                data: null,
+                scrollX: false,
+                scrollY: false,
+                rowHeaders:['checkbox'],
+                columns: [
+                    {header: '메뉴 일련번호',name: 'adminSn',align:'center'}
+                    ,{header: '메뉴 명',name: 'adminNm',align:'center'}
+                    ,{header: '등록자',name: 'regSn',align:'center'}
+                    ,{header: '등록일시',name: 'regDateStr',align:'center'}
+                    ,{header: '수정자',name: 'modSn',align:'center'}
+                    ,{header: '수정일시',name: 'modDateStr',align:'center'}
+                ]
+            });
+
             // 목록으로
             $(".b-list").on("click", function(){
                 location.href = '/auth/authList';
