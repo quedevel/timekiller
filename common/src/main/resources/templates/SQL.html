@@ -1,5 +1,4 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<body>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
@@ -17,6 +16,9 @@
         SELECT
             *
           FROM <p th:text="${tableName}"></p>
+         WHERE 1=1
+        <if th:each="c,idx : ${list}" th:test="'@com.inno.common.util.StringUtil@isNotEmpty('+${c.columnName2}+')' " th:text="' AND '+${c.columnName3}+' = '+${c.paramColumnName}">
+        </if>
          ORDER BY <p th:each="c,idx : ${list}" th:if="${c.columnKey eq 'PRI' && idx.index eq 0}" th:text="${c.columnName3}+' DESC'"></p><p th:each="c,idx : ${list}" th:if="${c.columnKey eq 'PRI' && idx.index ne 0}" th:text="' '+${c.columnName3}+' DESC'"></p>
          LIMIT #{skip} , #{pageSize}
     </select>
@@ -43,5 +45,4 @@
     </insert>
 
 </mapper>
-</body>
 </html>

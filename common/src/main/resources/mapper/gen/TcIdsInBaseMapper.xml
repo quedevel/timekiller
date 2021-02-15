@@ -15,6 +15,9 @@
         SELECT
             *
           FROM TC_IDS_IN
+         WHERE 1=1
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(tblNm)"> AND TBL_NM = #{tblNm}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(nextId)"> AND NEXT_ID = #{nextId}</if>
          ORDER BY TBL_NM DESC
          LIMIT #{skip} , #{pageSize}
     </select>
@@ -42,4 +45,3 @@
     </insert>
 
 </mapper>
-

@@ -26,11 +26,10 @@ public class ThymeleafUtil {
                 .replaceAll("</p>","")
                 .replaceAll("<div>","")
                 .replaceAll("</div>","")
-                .replaceAll("<body>\r\n","")
                 .replaceAll("\r\r","")
                 .replaceAll("&lt;","<")
                 .replaceAll("&gt;",">")
-                .replaceAll("</body>","");
+                .replaceAll("><",">\r\n        <");
         return str;
     }
 
@@ -108,7 +107,7 @@ public class ThymeleafUtil {
         Context context = new Context();
         context.setVariables(map);
 
-        // VO 값 셋팅
+        // MAPPER 값 셋팅
         String result = ThymeleafUtil.removeTag(templateEngine.process(fileName, context));
 
         // 존재 유무 파악
@@ -125,6 +124,12 @@ public class ThymeleafUtil {
         }
     }
 
+    /**
+     * XML 생성
+     * @param fileName
+     * @param tableName
+     * @param list
+     */
     public static void parseXmlHtmlToFile(String fileName, String tableName, List<GenVO> list){
         ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
         resolver.setPrefix("templates/");    // templates 경로 아래에 있는 파일을 읽는다
@@ -135,18 +140,23 @@ public class ThymeleafUtil {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(resolver);
 
+        list.stream().forEach( genVO -> {
+            genVO.setColumnName2(StringUtil.convert2CamelCase(genVO.getColumnName()));
+        });
+
         // 저장될 데이터 셋팅
         Map<String, Object> map = new HashMap<>();
         map.put("tableName", tableName);
         map.put("tableName2", StringUtil.convert2CamelCase("_"+tableName));
         map.put("columns", list.get(0).getColumns());
+        map.put("camelCaseColumns", list.get(0).getColumns());
         map.put("params", list.get(0).getParams());
         map.put("update_params", list.get(0).getUpdateParams());
         map.put("list", list);
         Context context = new Context();
         context.setVariables(map);
 
-        // VO 값 셋팅
+        // XML 값 셋팅
         String result = ThymeleafUtil.removeTag(templateEngine.process(fileName, context));
 
         // 존재 유무 파악
@@ -155,7 +165,7 @@ public class ThymeleafUtil {
             // 존재하면 삭제
             file.delete();
         }
-        // BaseVO 생성
+        // XML 생성
         try(FileWriter fileWriter = new FileWriter(SQL_PATH+StringUtil.convert2CamelCase("_"+tableName)+"BaseMapper.xml")){
             fileWriter.write(result);
         } catch (IOException e){

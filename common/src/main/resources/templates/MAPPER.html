@@ -1,5 +1,4 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<body>
 package com.inno.common.gen.repository;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -9,19 +8,14 @@ import java.util.List;
 @Mapper
 public interface <p th:text="${tableName}"></p>BaseMapper {
 
-    <p th:text="${tableName}+'BaseVO select'+${tableName}+'Base('+${tableName}+'BaseVO vo) throws Exception;'"></p>
-    <div>
-    <p th:text="'List<'+${tableName}+'BaseVO> select'+${tableName}+'BasePaging('+${tableName}+'BaseVO vo) throws Exception;'">
-    </div>
-    <div>
-    <p th:text="'void update'+${tableName}+'Base('+${tableName}+'BaseVO vo) throws Exception;'">
-    </div>
-    <div>
-    <p th:text="'void insert'+${tableName}+'Base('+${tableName}+'BaseVO vo) throws Exception;'">
-    </div>
-    <div>
-    <p th:text="'void delete'+${tableName}+'Base('+${tableName}+'BaseVO vo) throws Exception;'">
-    </div>
+    <div th:text="${tableName}+'BaseVO select'+${tableName}+'Base('+${tableName}+'BaseVO vo) throws Exception;'"></div>
+
+    <div th:text="'List<'+${tableName}+'BaseVO> select'+${tableName}+'BasePaging('+${tableName}+'BaseVO vo) throws Exception;'"></div>
+
+    <div th:text="'void update'+${tableName}+'Base('+${tableName}+'BaseVO vo) throws Exception;'"></div>
+
+    <div th:text="'void insert'+${tableName}+'Base('+${tableName}+'BaseVO vo) throws Exception;'"></div>
+
+    <div th:text="'void delete'+${tableName}+'Base('+${tableName}+'BaseVO vo) throws Exception;'"></div>
 }
-</body>
 </html>

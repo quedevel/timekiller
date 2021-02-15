@@ -15,6 +15,16 @@
         SELECT
             *
           FROM TC_ADMIN_MS
+         WHERE 1=1
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(adminSn)"> AND ADMIN_SN = #{adminSn}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(adminId)"> AND ADMIN_ID = #{adminId}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(adminPw)"> AND ADMIN_PW = #{adminPw}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(adminNm)"> AND ADMIN_NM = #{adminNm}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(useYn)"> AND USE_YN = #{useYn}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(regDate)"> AND REG_DATE = #{regDate}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(regSn)"> AND REG_SN = #{regSn}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(modDate)"> AND MOD_DATE = #{modDate}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(modSn)"> AND MOD_SN = #{modSn}</if>
          ORDER BY ADMIN_SN DESC
          LIMIT #{skip} , #{pageSize}
     </select>
@@ -49,4 +59,3 @@
     </insert>
 
 </mapper>
-

@@ -15,6 +15,14 @@
         SELECT
             *
           FROM TC_AUTH_MS
+         WHERE 1=1
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(authSn)"> AND AUTH_SN = #{authSn}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(authNm)"> AND AUTH_NM = #{authNm}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(useYn)"> AND USE_YN = #{useYn}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(regDate)"> AND REG_DATE = #{regDate}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(regSn)"> AND REG_SN = #{regSn}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(modDate)"> AND MOD_DATE = #{modDate}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(modSn)"> AND MOD_SN = #{modSn}</if>
          ORDER BY AUTH_SN DESC
          LIMIT #{skip} , #{pageSize}
     </select>
@@ -47,4 +55,3 @@
     </insert>
 
 </mapper>
-

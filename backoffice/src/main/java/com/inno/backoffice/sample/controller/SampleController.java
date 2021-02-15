@@ -78,8 +78,9 @@ public class SampleController {
     @GetMapping("/paging")
     public void paging() throws Exception{
         TcIdsInBaseVO vo = new TcIdsInBaseVO();
-        vo.setPage(3);
+        vo.setPage(1);
         vo.setPageSize(10);
+        vo.setTblNm("TC_ADMIN_MS");
         System.out.println("-------------------------------------------------------------");
         mapper.selectTcIdsInBasePaging(vo).forEach(v -> {
             System.out.println(v.getTblNm());

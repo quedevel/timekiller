@@ -8,13 +8,12 @@ import java.util.List;
 public interface TcAdminMsBaseMapper {
 
     TcAdminMsBaseVO selectTcAdminMsBase(TcAdminMsBaseVO vo) throws Exception;
-    
+
     List<TcAdminMsBaseVO> selectTcAdminMsBasePaging(TcAdminMsBaseVO vo) throws Exception;
-    
+
     void updateTcAdminMsBase(TcAdminMsBaseVO vo) throws Exception;
-    
+
     void insertTcAdminMsBase(TcAdminMsBaseVO vo) throws Exception;
-    
+
     void deleteTcAdminMsBase(TcAdminMsBaseVO vo) throws Exception;
 }
-

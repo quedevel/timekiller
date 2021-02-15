@@ -15,6 +15,19 @@
         SELECT
             *
           FROM TC_ADMIN_MENU_LS
+         WHERE 1=1
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(menuSn)"> AND MENU_SN = #{menuSn}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(supiMenuSn)"> AND SUPI_MENU_SN = #{supiMenuSn}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(menuNm)"> AND MENU_NM = #{menuNm}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(menuUrl)"> AND MENU_URL = #{menuUrl}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(dept)"> AND DEPT = #{dept}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(ordr)"> AND ORDR = #{ordr}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(useYn)"> AND USE_YN = #{useYn}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(dspYn)"> AND DSP_YN = #{dspYn}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(regDate)"> AND REG_DATE = #{regDate}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(regSn)"> AND REG_SN = #{regSn}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(modDate)"> AND MOD_DATE = #{modDate}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(modSn)"> AND MOD_SN = #{modSn}</if>
          ORDER BY MENU_SN DESC
          LIMIT #{skip} , #{pageSize}
     </select>
@@ -52,4 +65,3 @@
     </insert>
 
 </mapper>
-
