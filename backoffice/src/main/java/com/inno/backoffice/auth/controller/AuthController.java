@@ -68,4 +68,10 @@ public class AuthController extends BaseController {
             return "redirect:/auth/authList";
         }
     }
+
+    @PostMapping("/menuListAjax")
+    @ResponseBody
+    public List<MenuVO> menuListAjax(@ModelAttribute MenuVO menuVO) throws Exception{
+        return null;
+    }
 }

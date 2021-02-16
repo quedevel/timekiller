@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.inno.common.gen.repository.TcComCdBaseMapper">
+
+    <select id="selectTcComCdBase" parameterType="com.inno.common.gen.vo.TcComCdBaseVO" resultType="com.inno.common.gen.vo.TcComCdBaseVO">
+        SELECT
+            *
+          FROM TC_COM_CD
+         WHERE 1=1
+           AND CD_ID = #{cdId}
+    </select>
+
+    <select id="selectTcComCdBasePaging" parameterType="com.inno.common.gen.vo.TcComCdBaseVO" resultType="com.inno.common.gen.vo.TcComCdBaseVO">
+        SELECT
+            *
+          FROM TC_COM_CD
+         WHERE 1=1
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(cdId)"> AND CD_ID = #{cdId}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(supiCdId)"> AND SUPI_CD_ID = #{supiCdId}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(cdNm)"> AND CD_NM = #{cdNm}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(cdVal)"> AND CD_VAL = #{cdVal}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(cdOpt1)"> AND CD_OPT1 = #{cdOpt1}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(cdOpt2)"> AND CD_OPT2 = #{cdOpt2}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(cdOpt3)"> AND CD_OPT3 = #{cdOpt3}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(ordr)"> AND ORDR = #{ordr}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(useYn)"> AND USE_YN = #{useYn}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(regDate)"> AND REG_DATE = #{regDate}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(regSn)"> AND REG_SN = #{regSn}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(modDate)"> AND MOD_DATE = #{modDate}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(modSn)"> AND MOD_SN = #{modSn}</if>
+         ORDER BY CD_ID DESC
+         LIMIT #{skip} , #{pageSize}
+    </select>
+
+    <update id="updateTcComCdBase" parameterType="com.inno.common.gen.vo.TcComCdBaseVO">
+        UPDATE TC_COM_CD
+           SET CD_ID = #{cdId}
+               
+               ,SUPI_CD_ID = #{supiCdId}
+               ,CD_NM = #{cdNm}
+               ,CD_VAL = #{cdVal}
+               ,CD_OPT1 = #{cdOpt1}
+               ,CD_OPT2 = #{cdOpt2}
+               ,CD_OPT3 = #{cdOpt3}
+               ,ORDR = #{ordr}
+               ,USE_YN = #{useYn}
+               ,REG_DATE = #{regDate}
+               ,REG_SN = #{regSn}
+               ,MOD_DATE = #{modDate}
+               ,MOD_SN = #{modSn}
+         WHERE 1=1
+           AND CD_ID = #{cdId}
+    </update>
+
+    <delete id="deleteTcComCdBase" parameterType="com.inno.common.gen.vo.TcComCdBaseVO">
+        DELETE FROM TC_COM_CD
+         WHERE 1=1
+           AND CD_ID = #{cdId}
+    </delete>
+
+    <insert id="insertTcComCdBase" parameterType="com.inno.common.gen.vo.TcComCdBaseVO">
+        INSERT INTO TC_COM_CD
+          (CD_ID, SUPI_CD_ID, CD_NM, CD_VAL, CD_OPT1, CD_OPT2, CD_OPT3, ORDR, USE_YN, REG_DATE, REG_SN, MOD_DATE, MOD_SN)
+        VALUES
+          (#{cdId}, #{supiCdId}, #{cdNm}, #{cdVal}, #{cdOpt1}, #{cdOpt2}, #{cdOpt3}, #{ordr}, #{useYn}, #{regDate}, #{regSn}, #{modDate}, #{modSn})
+    </insert>
+
+</mapper>
