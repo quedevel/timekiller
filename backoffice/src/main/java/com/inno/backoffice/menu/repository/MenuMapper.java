@@ -53,4 +53,12 @@ public interface MenuMapper {
      * @throws Exception
      */
     List<MenuVO> selectBackofficeMenu(MenuVO menuVO) throws Exception;
+
+    /**
+     * 메뉴 Children 조회
+     * @param menuVO
+     * @return
+     * @throws Exception
+     */
+    List<MenuVO> selectMenuChildren(MenuVO menuVO) throws Exception;
 }

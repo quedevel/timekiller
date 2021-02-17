@@ -2,6 +2,7 @@ package com.inno.backoffice.auth.service;
 
 import com.inno.backoffice.auth.repository.AuthMapper;
 import com.inno.backoffice.auth.vo.AuthVO;
+import com.inno.backoffice.menu.vo.MenuVO;
 import com.inno.common.constant.CommonConstants;
 import com.inno.common.gen.repository.TcAuthMsBaseMapper;
 import com.inno.common.gen.repository.TcIdsInBaseMapper;
@@ -62,5 +63,15 @@ public class AuthService {
      */
     public List<AuthVO> selectAuthListPaging(AuthVO authVO) throws Exception{
         return authMapper.selectAuthListPaging(authVO);
+    }
+
+    /**
+     * 메뉴 권한 리스트
+     * @param menuVO
+     * @return
+     * @throws Exception
+     */
+    public List<MenuVO> selectAuthMenuListPaging(MenuVO menuVO) throws Exception{
+        return authMapper.selectAuthMenuListPaging(menuVO);
     }
 }

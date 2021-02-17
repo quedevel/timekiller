@@ -43,4 +43,23 @@
          LIMIT #{skip} , #{pageSize}
     </select>
 
+    <select id="selectAuthMenuListPaging" parameterType="MenuVO" resultType="MenuVO">
+        SELECT A.MENU_SN
+             , A.MENU_NM
+             , A.MENU_URL
+             , CASE
+                 WHEN B.AUTH_SN IS NULL THEN '미부여'
+                 WHEN B.AUTH_SN IS NOT NULL THEN '부여'
+               ELSE '미부여' END AS LINK
+          FROM TC_ADMIN_MENU_LS A
+          LEFT OUTER JOIN TC_AUTH_MENU_MPPG_LS B ON A.MENU_SN = B.MENU_SN AND B.AUTH_SN = #{authSn}
+         WHERE 1=1
+           AND A.USE_YN = 'Y'
+           AND A.DSP_YN = 'Y'
+           <if test="menuSn != null and menuSn != ''">
+           AND (A.SUPI_MENU_SN = #{menuSn} OR A.MENU_SN = #{menuSn})
+           </if>
+         ORDER BY A.DEPT, A.ORDR
+        LIMIT #{skip} , #{pageSize}
+    </select>
 </mapper>

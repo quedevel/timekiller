@@ -44,16 +44,17 @@
         </div>
         <div class="card-body">
             <form name="searchForm">
-                <input type="hidden" name="authSn" th:value="${authVO.authSn}">
-                <select class="form-select-button ml-2" name="fmenuSn" style="width: 31%">
+                <input type="hidden" id="authSn" name="authSn" th:value="${authVO.authSn}">
+                <select class="form-select-button ml-2" name="fmenuSn" data-next="smenuSn" style="width: 31%" onchange="selectMenuChildren(this);">
+                    <option value="">선택</option>
+                    <option value="" th:each="m : ${menuList}" th:value="${m.menuSn}" th:text="${m.menuNm}" />
+                </select>
+                &nbsp&nbsp>&nbsp&nbsp
+                <select class="form-select-button" name="smenuSn" data-next="tmenuSn" style="width: 31%" disabled="true" onchange="selectMenuChildren(this);">
                     <option value="">선택</option>
                 </select>
                 &nbsp&nbsp>&nbsp&nbsp
-                <select class="form-select-button" name="smenuSn" style="width: 31%">
-                    <option value="">선택</option>
-                </select>
-                &nbsp&nbsp>&nbsp&nbsp
-                <select class="form-select-button" name="tmenuSn" style="width: 31%">
+                <select class="form-select-button" name="tmenuSn" style="width: 31%" disabled="true">
                     <option value="">선택</option>
                 </select>
             </form>
@@ -85,12 +86,10 @@
                     scrollY: false,
                     rowHeaders:['checkbox'],
                     columns: [
-                        {header: '메뉴 일련번호',name: 'menuSn',align:'center'}
-                        ,{header: '메뉴 명',name: 'menuNm',align:'center'}
-                        ,{header: '등록자',name: 'regSn',align:'center'}
-                        ,{header: '등록일시',name: 'regDateStr',align:'center'}
-                        ,{header: '수정자',name: 'modSn',align:'center'}
-                        ,{header: '수정일시',name: 'modDateStr',align:'center'}
+                         {header: '메뉴 일련번호',name: 'menuSn', type:'checkbox'}
+                        ,{header: '메뉴 명',name: 'menuNm',align:'left'}
+                        ,{header: '메뉴 URL',name: 'menuUrl',align:'left'}
+                        ,{header: '권한 부여',name: 'link',align:'center'}
                     ]
                 });
             }
@@ -149,6 +148,40 @@
                 $("form[name='authVO']").submit();
             })
         })
+
+        function selectMenuChildren(el){
+            console.log(el)
+            if($(el).data("next")){
+                var $next = $("[name='"+$(el).data("next")+"']");
+                if($(el).val() !== ""){
+                    var menuSn = $(el).val();
+                    $.ajax({
+                        url:"/auth/selectMenuChildren",
+                        type:"get",
+                        data:{menuSn:menuSn},
+                        contentType:"application/json; charset=utf-8",
+                        success:function(result){
+                            if(result.length > 0){
+                                var ohtml = "<option value=''>선택</option>";
+                                $.each(result, function(){
+                                    ohtml += "<option value='"+this.menuSn+"'>"+this.menuNm+"</option>";
+                                })
+                                $next.html(ohtml);
+                                $next.attr("disabled", false);
+                            } else {
+                                $next.children('option:not(:first)').remove();
+                                $next.attr("disabled", true);
+                                $next.trigger("change");
+                            }
+                        }
+                    })
+                } else {
+                    $next.children('option:not(:first)').remove();
+                    $next.attr("disabled", true);
+                    $next.trigger("change");
+                }
+            }
+        }
     </script>
 </div>
 </html>

@@ -75,4 +75,14 @@ public class MenuService {
     public List<MenuVO> selectBackofficeMenu(MenuVO menuVO) throws Exception{
         return menuMapper.selectBackofficeMenu(menuVO);
     }
+
+    /**
+     * 메뉴 Children 조회
+     * @param menuVO
+     * @return
+     * @throws Exception
+     */
+    public List<MenuVO> selectMenuChildren(MenuVO menuVO) throws Exception{
+        return menuMapper.selectMenuChildren(menuVO);
+    }
 }

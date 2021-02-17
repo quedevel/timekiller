@@ -6,7 +6,27 @@ import java.util.List;
 
 public class MenuVO extends TcAdminMenuLsBaseVO {
 
+    private String link;
+
+    private String authSn;
+
     List<MenuVO> children;
+
+    public String getAuthSn() {
+        return authSn;
+    }
+
+    public void setAuthSn(String authSn) {
+        this.authSn = authSn;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
 
     public List<MenuVO> getChildren() {
         return children;

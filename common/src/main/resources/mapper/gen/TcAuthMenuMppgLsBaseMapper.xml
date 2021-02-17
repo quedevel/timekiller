@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.inno.common.gen.repository.TcAuthMenuMppgLsBaseMapper">
+
+    <select id="selectTcAuthMenuMppgLsBase" parameterType="com.inno.common.gen.vo.TcAuthMenuMppgLsBaseVO" resultType="com.inno.common.gen.vo.TcAuthMenuMppgLsBaseVO">
+        SELECT
+            *
+          FROM TC_AUTH_MENU_MPPG_LS
+         WHERE 1=1
+           AND AUTH_SN = #{authSn} AND MENU_SN = #{menuSn}
+    </select>
+
+    <select id="selectTcAuthMenuMppgLsBasePaging" parameterType="com.inno.common.gen.vo.TcAuthMenuMppgLsBaseVO" resultType="com.inno.common.gen.vo.TcAuthMenuMppgLsBaseVO">
+        SELECT
+            *
+          FROM TC_AUTH_MENU_MPPG_LS
+         WHERE 1=1
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(authSn)"> AND AUTH_SN = #{authSn}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(menuSn)"> AND MENU_SN = #{menuSn}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(regDate)"> AND REG_DATE = #{regDate}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(regSn)"> AND REG_SN = #{regSn}</if>
+         ORDER BY AUTH_SN DESC MENU_SN DESC
+         LIMIT #{skip} , #{pageSize}
+    </select>
+
+    <update id="updateTcAuthMenuMppgLsBase" parameterType="com.inno.common.gen.vo.TcAuthMenuMppgLsBaseVO">
+        UPDATE TC_AUTH_MENU_MPPG_LS
+           SET AUTH_SN = #{authSn}
+               
+               ,MENU_SN = #{menuSn}
+               ,REG_DATE = #{regDate}
+               ,REG_SN = #{regSn}
+         WHERE 1=1
+           AND AUTH_SN = #{authSn} AND MENU_SN = #{menuSn}
+    </update>
+
+    <delete id="deleteTcAuthMenuMppgLsBase" parameterType="com.inno.common.gen.vo.TcAuthMenuMppgLsBaseVO">
+        DELETE FROM TC_AUTH_MENU_MPPG_LS
+         WHERE 1=1
+           AND AUTH_SN = #{authSn} AND MENU_SN = #{menuSn}
+    </delete>
+
+    <insert id="insertTcAuthMenuMppgLsBase" parameterType="com.inno.common.gen.vo.TcAuthMenuMppgLsBaseVO">
+        INSERT INTO TC_AUTH_MENU_MPPG_LS
+          (AUTH_SN, MENU_SN, REG_DATE, REG_SN)
+        VALUES
+          (#{authSn}, #{menuSn}, #{regDate}, #{regSn})
+    </insert>
+
+</mapper>

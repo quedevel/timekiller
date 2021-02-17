@@ -124,4 +124,17 @@
         <collection property="children" column="MENU_SN" select="selectBackofficeMenu" />
     </resultMap>
 
+    <select id="selectMenuChildren" parameterType="MenuVO" resultType="MenuVO">
+        SELECT
+            MENU_SN,
+            SUPI_MENU_SN,
+            MENU_NM,
+            MENU_URL
+          FROM TC_ADMIN_MENU_LS
+         WHERE 1=1
+           AND USE_YN = 'Y'
+           AND DSP_YN = 'Y'
+           AND SUPI_MENU_SN = #{menuSn}
+    </select>
+
 </mapper>

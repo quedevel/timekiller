@@ -1,6 +1,7 @@
 package com.inno.backoffice.auth.repository;
 
 import com.inno.backoffice.auth.vo.AuthVO;
+import com.inno.backoffice.menu.vo.MenuVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -30,4 +31,12 @@ public interface AuthMapper {
      * @throws Exception
      */
     List<AuthVO> selectAuthListPaging(AuthVO authVO) throws Exception;
+
+    /**
+     * 메뉴 권한 리스트
+     * @param menuVO
+     * @return
+     * @throws Exception
+     */
+    List<MenuVO> selectAuthMenuListPaging(MenuVO menuVO) throws Exception;
 }
