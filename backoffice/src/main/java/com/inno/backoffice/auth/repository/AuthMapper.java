@@ -39,4 +39,11 @@ public interface AuthMapper {
      * @throws Exception
      */
     List<MenuVO> selectAuthMenuListPaging(MenuVO menuVO) throws Exception;
+
+    /**
+     * 권한 매핑 모두 삭제
+     * @param menuVO
+     * @throws Exception
+     */
+    void deleteAuthMenuAll(MenuVO menuVO) throws Exception;
 }

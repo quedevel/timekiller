@@ -4,8 +4,10 @@ import com.inno.backoffice.auth.repository.AuthMapper;
 import com.inno.backoffice.auth.vo.AuthVO;
 import com.inno.backoffice.menu.vo.MenuVO;
 import com.inno.common.constant.CommonConstants;
+import com.inno.common.gen.repository.TcAuthMenuMppgLsBaseMapper;
 import com.inno.common.gen.repository.TcAuthMsBaseMapper;
 import com.inno.common.gen.repository.TcIdsInBaseMapper;
+import com.inno.common.gen.vo.TcAuthMenuMppgLsBaseVO;
 import com.inno.common.util.SerialGenerator;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,9 @@ public class AuthService {
 
     @Resource
     private TcAuthMsBaseMapper tcAuthMsBaseMapper;
+
+    @Resource
+    private TcAuthMenuMppgLsBaseMapper tcAuthMenuMppgLsBaseMapper;
 
     /**
      * 권한 등록
@@ -73,5 +78,34 @@ public class AuthService {
      */
     public List<MenuVO> selectAuthMenuListPaging(MenuVO menuVO) throws Exception{
         return authMapper.selectAuthMenuListPaging(menuVO);
+    }
+
+    /**
+     * 메뉴 권한 등록 및 삭제
+     * @param menuVO
+     * @throws Exception
+     */
+    public void insertAuthMenu(MenuVO menuVO) throws Exception{
+        // state === 'Y' 권한 부여
+        if(CommonConstants.DEFAULT_YES.getValue().equals(menuVO.getState())){
+            // 일단 부여된 권한 모두 제거
+            authMapper.deleteAuthMenuAll(menuVO);
+            for (String menuSn : menuVO.getMenuSnList()){
+                TcAuthMenuMppgLsBaseVO vo = new TcAuthMenuMppgLsBaseVO();
+                vo.setAuthSn(menuVO.getAuthSn());
+                vo.setMenuSn(menuSn);
+                // 권한 부여
+                tcAuthMenuMppgLsBaseMapper.insertTcAuthMenuMppgLsBase(vo);
+            }
+        } else {
+            for (String menuSn : menuVO.getMenuSnList()){
+                TcAuthMenuMppgLsBaseVO vo = new TcAuthMenuMppgLsBaseVO();
+                vo.setAuthSn(menuVO.getAuthSn());
+                vo.setMenuSn(menuSn);
+                // 권한 미부여
+                tcAuthMenuMppgLsBaseMapper.deleteTcAuthMenuMppgLsBase(vo);
+            }
+        }
+
     }
 }

@@ -96,9 +96,26 @@ public class AuthController extends BaseController {
         }
     }
 
+    /**
+     * 권한 메뉴 매핑 리스트
+     * @param menuVO
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/menuListAjax")
     @ResponseBody
     public List<MenuVO> menuListAjax(@ModelAttribute MenuVO menuVO) throws Exception{
         return authService.selectAuthMenuListPaging(menuVO);
+    }
+
+    @PostMapping("/authMenuMppgAjax")
+    @ResponseBody
+    public ResponseEntity<String> authMenuMppgAjax(@ModelAttribute MenuVO menuVO){
+        try{
+            authService.insertAuthMenu(menuVO);
+            return new ResponseEntity<>(CommonConstants.SUCCESS_CODE.getValue(),HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(CommonConstants.FAIL_CODE.getValue(),HttpStatus.EXPECTATION_FAILED);
+        }
     }
 }

@@ -48,9 +48,9 @@
              , A.MENU_NM
              , A.MENU_URL
              , CASE
-                 WHEN B.AUTH_SN IS NULL THEN '미부여'
-                 WHEN B.AUTH_SN IS NOT NULL THEN '부여'
-               ELSE '미부여' END AS LINK
+                 WHEN B.AUTH_SN IS NULL THEN 'N'
+                 WHEN B.AUTH_SN IS NOT NULL THEN 'Y'
+               ELSE 'N' END AS LINK
           FROM TC_ADMIN_MENU_LS A
           LEFT OUTER JOIN TC_AUTH_MENU_MPPG_LS B ON A.MENU_SN = B.MENU_SN AND B.AUTH_SN = #{authSn}
          WHERE 1=1
@@ -62,4 +62,8 @@
          ORDER BY A.DEPT, A.ORDR
         LIMIT #{skip} , #{pageSize}
     </select>
+
+    <delete id="deleteAuthMenuAll" parameterType="MenuVO">
+        DELETE FROM TC_AUTH_MENU_MPPG_LS WHERE AUTH_SN = #{authSn}
+    </delete>
 </mapper>
