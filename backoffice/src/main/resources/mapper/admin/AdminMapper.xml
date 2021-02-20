@@ -19,29 +19,30 @@
 
     <select id="selectAdminListPaging" parameterType="AdminVO" resultType="AdminVO">
         SELECT
-              ADMIN_SN
-            , ADMIN_ID
-            , ADMIN_NM
-            , USE_YN
-            , REG_SN
-            , MOD_SN
-            , DATE_FORMAT(REG_DATE, '%Y-%m-%d %H:%i:%S') AS REG_DATE_STR
-            , DATE_FORMAT(MOD_DATE, '%Y-%m-%d %H:%i:%S') AS MOD_DATE_STR
-          FROM TC_ADMIN_MS
+              A.ADMIN_SN
+            , A.ADMIN_ID
+            , A.ADMIN_NM
+            , A.USE_YN
+            , A.REG_SN
+            , A.MOD_SN
+            , (SELECT AUTH_NM FROM TC_AUTH_MS WHERE AUTH_SN = A.AUTH_SN) AS AUTH_NM
+            , DATE_FORMAT(A.REG_DATE, '%Y-%m-%d %H:%i:%S') AS REG_DATE_STR
+            , DATE_FORMAT(A.MOD_DATE, '%Y-%m-%d %H:%i:%S') AS MOD_DATE_STR
+          FROM TC_ADMIN_MS A
          WHERE 1=1
         <if test="adminSn != null and adminSn != ''">
-            AND ADMIN_SN = #{adminSn}
+            AND A.ADMIN_SN = #{adminSn}
         </if>
         <if test="adminId != null and adminId != ''">
-            AND ADMIN_ID LIKE CONCAT('%',#{adminId},'%')
+            AND A.ADMIN_ID LIKE CONCAT('%',#{adminId},'%')
         </if>
         <if test="adminNm != null and adminNm != ''">
-            AND ADMIN_NM LIKE CONCAT('%',#{adminNm},'%')
+            AND A.ADMIN_NM LIKE CONCAT('%',#{adminNm},'%')
         </if>
         <if test="useYn != null and useYn != ''">
-            AND USE_YN = #{useYn}
+            AND A.USE_YN = #{useYn}
         </if>
-         ORDER BY ADMIN_SN DESC
+         ORDER BY A.ADMIN_SN DESC
          LIMIT #{skip} , #{pageSize}
     </select>
 
@@ -50,10 +51,18 @@
            SET ADMIN_ID = #{adminId}
              , ADMIN_PW = #{adminPw}
              , ADMIN_NM = #{adminNm}
+             , AUTH_SN = #{authSn}
              , USE_YN = #{useYn}
              , MOD_DATE = #{modDate}
              , MOD_SN = #{modSn}
          WHERE 1=1
            AND ADMIN_SN = #{adminSn}
     </update>
+
+    <select id="selectAdminByUsername" parameterType="String" resultType="AdminVO">
+        SELECT
+            *
+          FROM TC_ADMIN_MS
+         WHERE ADMIN_ID = #{value}
+    </select>
 </mapper>

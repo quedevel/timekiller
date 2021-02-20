@@ -33,6 +33,12 @@
                     <label>운영자명</label>
                     <input type="text" class="form-control" name="adminNm" th:value="${adminVO.adminNm}">
                 </div>
+                <div class="form-group">
+                    <label>권한 설정</label>
+                    <select class="form-select-button" name="authSn">
+                        <option value="" th:each="a : ${authList}" th:value="${a.authSn}" th:text="${a.authNm}" />
+                    </select>
+                </div>
                 <div>
                     <label>사용여부</label>
                 </div>

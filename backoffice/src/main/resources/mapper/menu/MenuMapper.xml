@@ -137,4 +137,13 @@
            AND SUPI_MENU_SN = #{menuSn}
     </select>
 
+    <select id="selectAllMenu" resultType="String">
+        <![CDATA[
+        SELECT
+            MENU_URL
+          FROM TC_ADMIN_MENU_LS
+         WHERE MENU_URL <> ''
+        ]]>
+    </select>
+
 </mapper>

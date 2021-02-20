@@ -46,4 +46,6 @@ public interface AuthMapper {
      * @throws Exception
      */
     void deleteAuthMenuAll(MenuVO menuVO) throws Exception;
+
+    List<AuthVO> authList() throws Exception;
 }

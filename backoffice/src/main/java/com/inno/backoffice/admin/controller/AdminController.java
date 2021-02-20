@@ -2,6 +2,7 @@ package com.inno.backoffice.admin.controller;
 
 import com.inno.backoffice.admin.service.AdminService;
 import com.inno.backoffice.admin.vo.AdminVO;
+import com.inno.backoffice.auth.service.AuthService;
 import com.inno.backoffice.common.controller.BaseController;
 import com.inno.common.constant.CommonConstants;
 import com.inno.common.util.StringUtil;
@@ -21,6 +22,9 @@ public class AdminController extends BaseController {
 
     @Resource
     private AdminService adminService;
+
+    @Resource
+    private AuthService authService;
 
     /**
      * 운영자 리스트
@@ -47,6 +51,7 @@ public class AdminController extends BaseController {
         if(StringUtil.isNotEmpty(adminVO.getAdminSn())){
             model.addAttribute("adminVO", adminService.selectAdminByAdminSn(adminVO));
         }
+        model.addAttribute("authList", authService.authList());
     }
 
     /**

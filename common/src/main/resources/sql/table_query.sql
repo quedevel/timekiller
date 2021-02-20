@@ -3,6 +3,7 @@ CREATE TABLE bootex.TC_ADMIN_MS (
     ADMIN_ID varchar(100) NOT NULL COMMENT '관리자 ID',
     ADMIN_PW varchar(100) NOT NULL COMMENT '관리자 PW',
     ADMIN_NM varchar(100) NOT NULL COMMENT '관리자 명',
+    AUTH_SN varchar(10) COMMENT '권한 일련번호',
     USE_YN varchar(100) NULL COMMENT '사용 여부',
     REG_DATE TIMESTAMP NULL COMMENT '등록 일시',
     REG_SN varchar(100) NULL COMMENT '등록자 일련번호',

@@ -61,4 +61,11 @@ public interface MenuMapper {
      * @throws Exception
      */
     List<MenuVO> selectMenuChildren(MenuVO menuVO) throws Exception;
+
+    /**
+     * 모든 메뉴 URL 조회
+     * @return
+     */
+    String[] selectAllMenu();
+
 }

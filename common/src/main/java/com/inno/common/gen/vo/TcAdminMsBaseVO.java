@@ -14,6 +14,8 @@ public class TcAdminMsBaseVO extends PageVO {
     
     private String adminNm;// 관리자 명
     
+    private String authSn;// 권한 일련번호
+    
     private String useYn;// 사용 여부
     
     private Date regDate;// 등록 일시
@@ -33,6 +35,8 @@ public class TcAdminMsBaseVO extends PageVO {
 
     public String getAdminNm() { return adminNm; }
 
+    public String getAuthSn() { return authSn; }
+
     public String getUseYn() { return useYn; }
 
     public Date getRegDate() { return regDate; }
@@ -50,6 +54,8 @@ public class TcAdminMsBaseVO extends PageVO {
     public void setAdminPw(String adminPw) { this.adminPw = adminPw; }
 
     public void setAdminNm(String adminNm) { this.adminNm = adminNm; }
+
+    public void setAuthSn(String authSn) { this.authSn = authSn; }
 
     public void setUseYn(String useYn) { this.useYn = useYn; }
 

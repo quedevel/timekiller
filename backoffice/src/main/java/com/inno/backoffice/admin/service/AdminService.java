@@ -74,4 +74,14 @@ public class AdminService {
     public void updateAdmin(AdminVO adminVO) throws Exception{
         adminMapper.updateAdmin(adminVO);
     }
+
+    /**
+     * 아이디 조회
+     * @param username
+     * @return
+     * @throws Exception
+     */
+    public AdminVO selectAdminByUsername(String username) throws Exception{
+        return adminMapper.selectAdminByUsername(username);
+    }
 }

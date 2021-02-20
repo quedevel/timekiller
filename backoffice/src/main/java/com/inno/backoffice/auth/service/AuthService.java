@@ -107,4 +107,13 @@ public class AuthService {
             }
         }
     }
+
+    /**
+     * 모든 권한 리스트
+     * @return
+     * @throws Exception
+     */
+    public List<AuthVO> authList() throws Exception{
+        return authMapper.authList();
+    }
 }

@@ -20,6 +20,7 @@
         <if test="@com.inno.common.util.StringUtil@isNotEmpty(adminId)"> AND ADMIN_ID = #{adminId}</if>
         <if test="@com.inno.common.util.StringUtil@isNotEmpty(adminPw)"> AND ADMIN_PW = #{adminPw}</if>
         <if test="@com.inno.common.util.StringUtil@isNotEmpty(adminNm)"> AND ADMIN_NM = #{adminNm}</if>
+        <if test="@com.inno.common.util.StringUtil@isNotEmpty(authSn)"> AND AUTH_SN = #{authSn}</if>
         <if test="@com.inno.common.util.StringUtil@isNotEmpty(useYn)"> AND USE_YN = #{useYn}</if>
         <if test="@com.inno.common.util.StringUtil@isNotEmpty(regDate)"> AND REG_DATE = #{regDate}</if>
         <if test="@com.inno.common.util.StringUtil@isNotEmpty(regSn)"> AND REG_SN = #{regSn}</if>
@@ -36,6 +37,7 @@
                ,ADMIN_ID = #{adminId}
                ,ADMIN_PW = #{adminPw}
                ,ADMIN_NM = #{adminNm}
+               ,AUTH_SN = #{authSn}
                ,USE_YN = #{useYn}
                ,REG_DATE = #{regDate}
                ,REG_SN = #{regSn}
@@ -53,9 +55,9 @@
 
     <insert id="insertTcAdminMsBase" parameterType="com.inno.common.gen.vo.TcAdminMsBaseVO">
         INSERT INTO TC_ADMIN_MS
-          (ADMIN_SN, ADMIN_ID, ADMIN_PW, ADMIN_NM, USE_YN, REG_DATE, REG_SN, MOD_DATE, MOD_SN)
+          (ADMIN_SN, ADMIN_ID, ADMIN_PW, ADMIN_NM, AUTH_SN, USE_YN, REG_DATE, REG_SN, MOD_DATE, MOD_SN)
         VALUES
-          (#{adminSn}, #{adminId}, #{adminPw}, #{adminNm}, #{useYn}, #{regDate}, #{regSn}, #{modDate}, #{modSn})
+          (#{adminSn}, #{adminId}, #{adminPw}, #{adminNm}, #{authSn}, #{useYn}, #{regDate}, #{regSn}, #{modDate}, #{modSn})
     </insert>
 
 </mapper>

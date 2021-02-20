@@ -85,4 +85,12 @@ public class MenuService {
     public List<MenuVO> selectMenuChildren(MenuVO menuVO) throws Exception{
         return menuMapper.selectMenuChildren(menuVO);
     }
+
+    /**
+     * 모든 메뉴 URL 조회 ( MENU_URL IS NOT NULL )
+     * @return
+     */
+    public String[] selectAllMenu(){
+        return menuMapper.selectAllMenu();
+    }
 }

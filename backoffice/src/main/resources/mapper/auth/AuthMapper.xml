@@ -66,4 +66,12 @@
     <delete id="deleteAuthMenuAll" parameterType="MenuVO">
         DELETE FROM TC_AUTH_MENU_MPPG_LS WHERE AUTH_SN = #{authSn}
     </delete>
+
+    <select id="authList" resultType="AuthVO">
+        SELECT
+             AUTH_SN
+           , AUTH_NM
+          FROM TC_AUTH_MS
+         WHERE USE_YN = 'Y'
+    </select>
 </mapper>

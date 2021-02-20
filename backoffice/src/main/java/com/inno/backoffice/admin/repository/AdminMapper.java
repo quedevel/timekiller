@@ -39,4 +39,12 @@ public interface AdminMapper {
      */
     void updateAdmin(AdminVO adminVO) throws Exception;
 
+    /**
+     * 아이디 조회
+     * @param username
+     * @return
+     * @throws Exception
+     */
+    AdminVO selectAdminByUsername(String username) throws Exception;
+
 }
