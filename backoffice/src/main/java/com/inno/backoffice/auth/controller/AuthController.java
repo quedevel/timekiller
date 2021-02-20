@@ -28,17 +28,31 @@ public class AuthController extends BaseController {
     @Resource
     private MenuService menuService;
 
+    /**
+     * 권한 리스트
+     * @throws Exception
+     */
     @GetMapping("/authList")
-    public void authList() throws Exception{
+    public void authList() throws Exception{}
 
-    }
-
+    /**
+     * 권한 검색
+     * @param authVO
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/authListAjax")
     @ResponseBody
     public List<AuthVO> authListAjax(@ModelAttribute AuthVO authVO) throws Exception{
         return authService.selectAuthListPaging(authVO);
     }
 
+    /**
+     * 권한 등록 폼
+     * @param authVO
+     * @param model
+     * @throws Exception
+     */
     @GetMapping("/authForm")
     public void authForm(@ModelAttribute AuthVO authVO, Model model) throws Exception{
         if(StringUtil.isNotEmpty(authVO.getAuthSn())){
@@ -108,6 +122,11 @@ public class AuthController extends BaseController {
         return authService.selectAuthMenuListPaging(menuVO);
     }
 
+    /**
+     * 권한 부여 및 미부여
+     * @param menuVO
+     * @return
+     */
     @PostMapping("/authMenuMppgAjax")
     @ResponseBody
     public ResponseEntity<String> authMenuMppgAjax(@ModelAttribute MenuVO menuVO){

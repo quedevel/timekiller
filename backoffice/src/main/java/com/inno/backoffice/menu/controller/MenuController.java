@@ -26,9 +26,7 @@ public class MenuController extends BaseController {
      * 메뉴 리스트
      */
     @GetMapping("/menuList")
-    public void menuList(){
-
-    }
+    public void menuList(){}
 
     /**
      * 관리자 메뉴 등록 폼
@@ -54,7 +52,7 @@ public class MenuController extends BaseController {
     }
 
     /**
-     * 메뉴 등록&수정
+     * 메뉴 등록 & 수정
      * @param menuVO
      * @param redirectAttributes
      * @return

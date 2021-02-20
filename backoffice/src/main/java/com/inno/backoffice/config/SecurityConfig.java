@@ -2,8 +2,10 @@ package com.inno.backoffice.config;
 
 import com.inno.backoffice.menu.service.MenuService;
 import com.inno.backoffice.menu.vo.MenuVO;
+import com.inno.backoffice.security.handler.InnoLoginSuccessHandler;
 import com.inno.backoffice.security.provider.InnoUserAuthProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -36,8 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()// csrf 설정
                 .authorizeRequests()
                 .antMatchers("/login").anonymous()  // 로그인은 모두 접근 가능
+                .antMatchers("/","/index").authenticated()
                 .anyRequest()
-                //.permitAll()
+//                .permitAll()
                 .access("@authorizationChecker.check(request, authentication)")// URL 접근 처리 ( cash 처리 필요 )
 //            .and()
 //                .exceptionHandling()
@@ -46,6 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationProvider(provider)
                 .formLogin()
                 .loginPage("/login")
+                //.successHandler(successHandler())
                 //.loginProcessingUrl("/authenticateUser")
                 .usernameParameter("username")   // 아이디 파라미터 name
                 .passwordParameter("password")        // 비밀번호 파라미터 name
@@ -70,6 +74,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/vendor/**")
             .antMatchers("/js/**")
             .antMatchers("/img/**");
+    }
+
+    /**
+     * SuccessHandler Bean
+     * @return
+     */
+    @Bean
+    public InnoLoginSuccessHandler successHandler() {
+        return new InnoLoginSuccessHandler();
     }
 
     /**

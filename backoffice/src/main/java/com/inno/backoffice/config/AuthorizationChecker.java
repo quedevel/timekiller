@@ -4,6 +4,7 @@ import com.inno.backoffice.admin.service.AdminService;
 import com.inno.backoffice.admin.vo.AdminVO;
 import com.inno.backoffice.menu.service.MenuService;
 import com.inno.backoffice.menu.vo.MenuVO;
+import com.inno.backoffice.security.vo.InnoUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
@@ -19,9 +20,6 @@ public class AuthorizationChecker {
     @Resource
     private MenuService menuService;
 
-    @Resource
-    private AdminService adminService;
-
     /**
      * URL 권한 검사 추가
      * @param request
@@ -32,7 +30,7 @@ public class AuthorizationChecker {
     public boolean check(HttpServletRequest request, Authentication authentication) throws Exception {
         Object principalObj = authentication.getPrincipal();
 
-        if (!(principalObj instanceof String)) {
+        if (!(principalObj instanceof InnoUser)) {
             return false;
         }
 
@@ -43,9 +41,8 @@ public class AuthorizationChecker {
             }
         }
 
-        String username = (String) authentication.getPrincipal();
-        AdminVO adminVO = adminService.selectAdminByUsername(username);
-
+        InnoUser user = (InnoUser)authentication.getPrincipal();
+        AdminVO adminVO = user.getAdminVO();
         if (authority.isEmpty() || adminVO == null || !authority.contains(adminVO.getAuthSn())) {
             return false;
         }

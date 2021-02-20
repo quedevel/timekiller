@@ -1,27 +1,19 @@
 package com.inno.backoffice.security.provider;
 
-
-import com.inno.backoffice.admin.service.AdminService;
-import com.inno.backoffice.admin.vo.AdminVO;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import com.inno.backoffice.security.service.InnoUserService;
+import com.inno.backoffice.security.vo.InnoUser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class InnoUserAuthProvider implements AuthenticationProvider {
 
-    @Resource
-    private AdminService adminService;
+    @Autowired
+    private InnoUserService service;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -30,23 +22,24 @@ public class InnoUserAuthProvider implements AuthenticationProvider {
         String password = authentication.getCredentials().toString();
         try {
             // 운영자 조회
-            AdminVO adminVO = adminService.selectAdminByUsername(username);
+            InnoUser user = (InnoUser) service.loadUserByUsername(username);
 
-            // 없니?
-            if(adminVO == null){
-                throw new UsernameNotFoundException("Not Found User");
+            // 존재하지 않는 아이디일 때 던지는 예외
+            if(user == null){
+                throw new InternalAuthenticationServiceException(username);
             }
 
-            // 비밀번호 맞니?
-            if(!password.equals(adminVO.getAdminPw())){
+            // 비밀번호가 일치하지 않을 때 던지는 예외
+            if(!password.equals(user.getPassword())){
                 throw new BadCredentialsException("Wrong Password");
             }
 
-            // 등록된 권한 추가
-            List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
-            grantedAuthorityList.add(new SimpleGrantedAuthority(adminVO.getAuthSn()));
+            // 인증 요구가 거부됐을 때 던지는 예외
+            if(!user.isEnabled() || !user.isCredentialsNonExpired()) {
+                throw new AuthenticationCredentialsNotFoundException(username);
+            }
 
-            return new UsernamePasswordAuthenticationToken(username,password,grantedAuthorityList);
+            return new UsernamePasswordAuthenticationToken(user,password,user.getAuthorities());
         } catch (Exception e) {
             e.printStackTrace();
             return null;
