@@ -61,6 +61,9 @@ project(':backoffice') {
     dependencies {
         compile project(':common')
         implementation 'org.springframework.boot:spring-boot-starter-web'
+        // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
+        implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.4.3'
+
     }
 }
 

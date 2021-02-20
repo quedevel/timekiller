@@ -106,6 +106,5 @@ public class AuthService {
                 tcAuthMenuMppgLsBaseMapper.deleteTcAuthMenuMppgLsBase(vo);
             }
         }
-
     }
 }
