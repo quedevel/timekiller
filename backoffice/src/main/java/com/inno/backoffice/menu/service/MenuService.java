@@ -90,7 +90,15 @@ public class MenuService {
      * 모든 메뉴 URL 조회 ( MENU_URL IS NOT NULL )
      * @return
      */
-    public String[] selectAllMenu(){
+    public List<MenuVO> selectAllMenu(){
         return menuMapper.selectAllMenu();
+    }
+
+    /**
+     * 매핑된 URL 리스트
+     * @return
+     */
+    public List<MenuVO> selectMenuUrlGroupByAuthSn(){
+        return menuMapper.selectMenuUrlGroupByAuthSn();
     }
 }

@@ -12,10 +12,18 @@ public class MenuVO extends TcAdminMenuLsBaseVO {
 
     private List<String> menuSnList;
 
+    private String[] menuUrlList;
+
     private String state;
 
     List<MenuVO> children;
 
+    public String[] getMenuUrlList() {
+        return menuUrlList;
+    }
+    public void setMenuUrlList(String[] menuUrlList) {
+        this.menuUrlList = menuUrlList;
+    }
     public List<String> getMenuSnList() {
         return menuSnList;
     }

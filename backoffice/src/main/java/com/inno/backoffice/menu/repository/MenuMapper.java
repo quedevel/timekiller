@@ -66,6 +66,12 @@ public interface MenuMapper {
      * 모든 메뉴 URL 조회
      * @return
      */
-    String[] selectAllMenu();
+    List<MenuVO> selectAllMenu();
+
+    /**
+     * 매핑된 URL 리스트
+     * @return
+     */
+    List<MenuVO> selectMenuUrlGroupByAuthSn();
 
 }

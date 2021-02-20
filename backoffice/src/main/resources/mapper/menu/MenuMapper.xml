@@ -133,16 +133,40 @@
           FROM TC_ADMIN_MENU_LS
          WHERE 1=1
            AND USE_YN = 'Y'
-           AND DSP_YN = 'Y'
            AND SUPI_MENU_SN = #{menuSn}
     </select>
 
-    <select id="selectAllMenu" resultType="String">
+    <select id="selectAllMenu" resultType="MenuVO">
+        <![CDATA[
+        SELECT A.AUTH_SN
+             , B.MENU_URL
+          FROM TC_AUTH_MENU_MPPG_LS A
+              ,TC_ADMIN_MENU_LS B
+         WHERE B.MENU_URL <> ''
+           AND A.MENU_SN = B.MENU_SN
+        ]]>
+    </select>
+
+    <select id="selectMenuUrlGroupByAuthSn" resultMap="selectMenuUrlGroupByAuthSnAll">
+        SELECT
+            AUTH_SN
+          FROM TC_AUTH_MS
+    </select>
+
+    <resultMap id="selectMenuUrlGroupByAuthSnAll" type="MenuVO">
+        <result property="authSn" column="AUTH_SN" />
+        <collection property="menuUrlList" column="AUTH_SN" select="selectMenuUrlListByAuthSn" />
+    </resultMap>
+
+    <select id="selectMenuUrlListByAuthSn" parameterType="MenuVO" resultType="String">
         <![CDATA[
         SELECT
-            MENU_URL
-          FROM TC_ADMIN_MENU_LS
-         WHERE MENU_URL <> ''
+            B.MENU_URL
+          FROM TC_AUTH_MENU_MPPG_LS A
+              ,TC_ADMIN_MENU_LS B
+         WHERE B.MENU_URL <> ''
+           AND A.MENU_SN = B.MENU_SN
+           AND A.AUTH_SN = #{authSn}
         ]]>
     </select>
 

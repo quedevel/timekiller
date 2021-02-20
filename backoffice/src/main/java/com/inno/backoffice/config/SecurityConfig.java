@@ -1,21 +1,16 @@
 package com.inno.backoffice.config;
 
-import com.inno.backoffice.auth.service.AuthService;
-import com.inno.backoffice.auth.vo.AuthVO;
 import com.inno.backoffice.menu.service.MenuService;
 import com.inno.backoffice.menu.vo.MenuVO;
 import com.inno.backoffice.security.provider.InnoUserAuthProvider;
-import com.inno.backoffice.security.vo.InnoUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.util.ObjectUtils;
 import java.util.List;
 
 @EnableWebSecurity
@@ -28,9 +23,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private MenuService menuService;
 
-    @Autowired
-    private AuthService authService;
-
     /**
      * 스프링 시큐리티 규칙 설정
      * @param http
@@ -39,15 +31,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 등록된 URL Security 적용
-        this.matchUrlAndAuthority(http);
+        //this.matchUrlAndAuthority(http);
 
-        http.csrf().disable()
+        http.csrf().disable()// csrf 설정
                 .authorizeRequests()
-                .antMatchers("/login").permitAll()  // 로그인은 모두 접근 가능
-                .anyRequest().authenticated() // 권한 부여자만 접근 가능
-            .and()
-                .exceptionHandling()
-                .accessDeniedPage("/login")    // 권한 없는 유저 페이지
+                .antMatchers("/login").anonymous()  // 로그인은 모두 접근 가능
+                .anyRequest()
+                //.permitAll()
+                .access("@authorizationChecker.check(request, authentication)")// URL 접근 처리 ( cash 처리 필요 )
+//            .and()
+//                .exceptionHandling()
+//                .accessDeniedPage("/login")    // 권한 없는 유저 페이지
             .and()
                 .authenticationProvider(provider)
                 .formLogin()
@@ -60,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) // 로그 아웃  URL
                 .logoutSuccessUrl("/login") // 로그 아웃 후 URL
                 .invalidateHttpSession(true) // 세션 만료
-            ;  // csrf 설정
+            ;
     }
 
     /**
@@ -79,35 +73,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * URL에 권한 있는지 확인
-     * @param request
-     * @param authentication
-     * @return
-     */
-    private boolean urlCheck(HttpServletRequest request, Authentication authentication) {
-        Object o = authentication.getPrincipal();
-
-        if(!(o instanceof InnoUser)){
-            return false;
-        }
-
-        InnoUser user = (InnoUser) o;
-        return false;
-    }
-
-    /**
      * 등록된 URL과 권한 Security 적용
      * @param http
      * @throws Exception
      */
     private void matchUrlAndAuthority(HttpSecurity http) throws Exception {
-        String[] urlList = menuService.selectAllMenu(); // 모든 메뉴 리스트 ( 공백 URL이 존재하면 안됨 )
-        List<AuthVO> authList = authService.authList();
-        for(AuthVO aVO : authList){
-            http.authorizeRequests().antMatchers(urlList).hasAuthority(aVO.getAuthSn());
+        List<MenuVO> menuList = menuService.selectMenuUrlGroupByAuthSn();
+        // 권한 일련번호로 메뉴 URL 등록
+        for(MenuVO mVO : menuList){
+            if(ObjectUtils.isEmpty(mVO.getMenuUrlList())){
+                http.authorizeRequests().antMatchers("/","/index").hasAuthority(mVO.getAuthSn());
+                http.authorizeRequests().antMatchers(mVO.getMenuUrlList()).hasAuthority(mVO.getAuthSn());
+            }
         }
     }
-
-
 
 }

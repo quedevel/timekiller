@@ -55,7 +55,6 @@
           LEFT OUTER JOIN TC_AUTH_MENU_MPPG_LS B ON A.MENU_SN = B.MENU_SN AND B.AUTH_SN = #{authSn}
          WHERE 1=1
            AND A.USE_YN = 'Y'
-           AND A.DSP_YN = 'Y'
            <if test="menuSn != null and menuSn != ''">
            AND (A.SUPI_MENU_SN = #{menuSn} OR A.MENU_SN = #{menuSn})
            </if>
@@ -74,4 +73,5 @@
           FROM TC_AUTH_MS
          WHERE USE_YN = 'Y'
     </select>
+
 </mapper>

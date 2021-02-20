@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -28,15 +29,20 @@ public class InnoUserAuthProvider implements AuthenticationProvider {
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
         try {
+            // 운영자 조회
             AdminVO adminVO = adminService.selectAdminByUsername(username);
 
+            // 없니?
             if(adminVO == null){
-                return null;
+                throw new UsernameNotFoundException("Not Found User");
             }
+
+            // 비밀번호 맞니?
             if(!password.equals(adminVO.getAdminPw())){
                 throw new BadCredentialsException("Wrong Password");
             }
 
+            // 등록된 권한 추가
             List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
             grantedAuthorityList.add(new SimpleGrantedAuthority(adminVO.getAuthSn()));
 
