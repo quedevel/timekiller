@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<input name="supiMenuSn" type="hidden" th:value="${menuVO.supiMenuSn}">
+<input name="menuSn" type="hidden" th:value="${menuVO.menuSn}">
+<div class="form-group">
+    <label>메뉴명</label>
+    <input type="text" class="form-control" name="menuNm" th:value="${menuVO.menuNm}">
+</div>
+<div class="form-group">
+    <label>메뉴 URL</label>
+    <input type="text" class="form-control" name="menuUrl" th:value="${menuVO.menuUrl}">
+</div>
+<div class="form-group">
+    <label>순서</label>
+    <input type="text" class="form-control" name="ordr" th:value="${menuVO.ordr}">
+</div>
+<div>
+    <label>사용여부</label>
+</div>
+<label class="radio-inline">
+    <input type="radio" name="useYn" value="Y" th:checked="${menuVO.useYn == 'Y'}"> 사용
+</label>
+<label class="radio-inline">
+    <input type="radio" name="useYn" value="N" th:checked="${menuVO.useYn == 'N'}"> 미사용
+</label>
+<div>
+    <label>노출여부</label>
+</div>
+<label class="radio-inline">
+    <input type="radio" name="dspYn" value="Y" th:checked="${menuVO.dspYn == 'Y'}"> 노출
+</label>
+<label class="radio-inline">
+    <input type="radio" name="dspYn" value="N" th:checked="${menuVO.dspYn == 'N'}"> 미노출
+</label>
+<div class="card-body">
+    <button type="button" class="btn btn-secondary btn-icon-split float-right b-save">
+        <span class="icon text-white-50">
+            <i class="fas fa-save"></i>
+        </span>
+        <span class="text">저장</span>
+    </button>
+</div>
+</html>
