@@ -3,4 +3,41 @@
 
 <mapper namespace="com.inno.backoffice.code.repository.CodeMapper">
 
+    <select id="selectMenuAllList" resultType="HashMap">
+        WITH RECURSIVE
+            CTE AS (
+                SELECT 1 AS LEVEL
+                     , CODE_ID
+                     , CODE_NM
+                     , SUPI_CODE_ID
+                     , USE_YN
+                     , ORDR
+                FROM TC_COM_CD
+                WHERE SUPI_CODE_ID = '0000000000'
+                UNION ALL
+                SELECT 1 + LEVEL AS LEVEL
+                     , A.CODE_ID
+                     , A.CODE_NM
+                     , A.SUPI_CODE_ID
+                     , A.USE_YN
+                     , A.ORDR
+                FROM TC_COM_CD A
+                   , CTE B
+                WHERE A.SUPI_CODE_ID = B.CODE_ID
+            ),
+            CODE_LIST AS (
+                SELECT LEVEL                     AS lvl
+                     , CODE_ID                   AS id
+                     , CODE_NM                   AS text
+                     , CASE
+                           WHEN SUPI_CODE_ID = '0000000000' THEN '#'
+                           ELSE SUPI_CODE_ID END AS parent
+                     , USE_YN
+                     , ORDR
+                     , 'folder'                  AS folder
+                FROM CTE
+            )
+        SELECT * FROM CODE_LIST ORDER BY lvl asc, ordr asc
+    </select>
+
 </mapper>

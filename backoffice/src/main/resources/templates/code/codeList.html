@@ -4,7 +4,7 @@
     <div class="float_wrap">
         <div class="card shadow float_left">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">메뉴 관리</h6>
+                <h6 class="m-0 font-weight-bold text-primary">코드 관리</h6>
             </div>
             <div class="card-body">
                 <button class="btn btn-success btn-icon-splitb mb-2 b-reg">
@@ -19,11 +19,11 @@
         </div>
         <div class="card shadow float_right">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">메뉴 등록 및 수정</h6>
+                <h6 class="m-0 font-weight-bold text-primary">코드 등록 및 수정</h6>
             </div>
             <div class="card-body">
                 <div id="d-form">
-                    <form name="menuVO" action="/menu/menuInsert" method="post">
+                    <form name="codeVO" action="/code/codeInsert" method="post">
 
                     </form>
                 </div>
@@ -47,19 +47,18 @@
                     'data': getJsTreeData()
                 }
             }).on('changed.jstree', function (e, data) {
-                console.log(data.instance);
-                getMenuForm(data.node.parent, data.node.id)
+                getCodeForm(data.node.parent, data.node.id)
                 $("#supi").val(data.node.id);
             });
 
             // submit
             $(document).on("click",".b-save",function(){
-                if($.trim($("[name='menuNm']").val()) === ""){
+                if($.trim($("[name='codeNm']").val()) === ""){
                     Swal.fire({
                         icon: 'warning',
-                        text: '메뉴명을 입력해주세요.',
+                        text: '코드명을 입력해주세요.',
                     });
-                    $("[name='menuNm']").focus();
+                    $("[name='codeNm']").focus();
                     return false;
                 }
                 if($("[name='useYn']:checked").length === 0){
@@ -70,31 +69,23 @@
                     $("[name='useYn']").eq(0).focus();
                     return false;
                 }
-                if($("[name='dspYn']:checked").length === 0){
-                    Swal.fire({
-                        icon: 'warning',
-                        text: '전시여부를 입력해주세요.',
-                    });
-                    $("[name='dspYn']").eq(0).focus();
-                    return false;
-                }
-                $("form[name='menuVO']").submit();
+                $("form[name='codeVO']").submit();
             });
 
             // 메뉴 등록
             $(".b-reg").on("click",function(){
-                getMenuForm($("#supi").val());
+                getCodeForm($("#supi").val());
             })
         });
 
         // 메뉴 등록 폼
-        function getMenuForm(supiMenuSn, menuSn){
+        function getCodeForm(supiCodeId, codeId){
             $.ajax({
-                url:'/menu/menuForm',
+                url:'/code/codeForm',
                 type:'get',
-                data:{ supiMenuSn : supiMenuSn, menuSn : menuSn },
+                data:{ supiCodeId : supiCodeId, codeId : codeId },
                 success : function(result){
-                    $("form[name='menuVO']").html(result);
+                    $("form[name='codeVO']").html(result);
                 }
             })
         }
@@ -103,7 +94,7 @@
         function getJsTreeData(){
             var data = null;
             $.ajax({
-                url:'/menu/menuListAjax',
+                url:'/code/codeListAjax',
                 type:'get',
                 async:false,
                 success : function(result){
