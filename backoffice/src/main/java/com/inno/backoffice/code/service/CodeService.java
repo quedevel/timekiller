@@ -1,7 +1,7 @@
 package com.inno.backoffice.code.service;
 
-import com.inno.backoffice.code.repository.CodeMapper;
-import com.inno.backoffice.code.vo.CodeVO;
+import com.inno.common.code.repository.CodeMapper;
+import com.inno.common.code.vo.CodeVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -20,6 +20,7 @@ public class CodeService {
      * @throws Exception
      */
     public List<Map<String,String>> selectCodeAllList() throws Exception{
+        System.out.println("   ------------------------   "+codeMapper+"  ------------------------   ");
         return codeMapper.selectCodeAllList();
     }
 

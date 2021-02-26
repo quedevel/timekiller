@@ -1,6 +1,6 @@
-package com.inno.backoffice.code.repository;
+package com.inno.common.code.repository;
 
-import com.inno.backoffice.code.vo.CodeVO;
+import com.inno.common.code.vo.CodeVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

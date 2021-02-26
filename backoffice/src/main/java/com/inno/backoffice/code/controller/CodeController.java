@@ -1,7 +1,8 @@
 package com.inno.backoffice.code.controller;
 
 import com.inno.backoffice.code.service.CodeService;
-import com.inno.backoffice.code.vo.CodeVO;
+import com.inno.backoffice.common.controller.BaseController;
+import com.inno.common.code.vo.CodeVO;
 import com.inno.common.util.JsTreeUtil;
 import com.inno.common.util.StringUtil;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,7 @@ import java.util.Map;
 
 @RequestMapping("/code")
 @Controller
-public class CodeController {
+public class CodeController extends BaseController {
 
     @Resource
     private CodeService codeService;

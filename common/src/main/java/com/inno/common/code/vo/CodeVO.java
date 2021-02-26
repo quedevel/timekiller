@@ -1,4 +1,4 @@
-package com.inno.backoffice.code.vo;
+package com.inno.common.code.vo;
 
 import com.inno.common.gen.vo.TcComCdBaseVO;
 

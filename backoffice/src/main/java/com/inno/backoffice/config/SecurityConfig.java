@@ -40,8 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").anonymous()  // 로그인은 모두 접근 가능
                 .antMatchers("/","/index").authenticated()
                 .anyRequest()
-//                .permitAll()
-                .access("@authorizationChecker.check(request, authentication)")// URL 접근 처리 ( cash 처리 필요 )
+                .permitAll()
+//                .access("@authorizationChecker.check(request, authentication)")// URL 접근 처리 ( cash 처리 필요 )
 //            .and()
 //                .exceptionHandling()
 //                .accessDeniedPage("/login")    // 권한 없는 유저 페이지
