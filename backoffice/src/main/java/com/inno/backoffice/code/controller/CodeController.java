@@ -1,8 +1,11 @@
 package com.inno.backoffice.code.controller;
 
 import com.inno.backoffice.code.service.CodeService;
+import com.inno.backoffice.code.vo.CodeVO;
 import com.inno.common.util.JsTreeUtil;
+import com.inno.common.util.StringUtil;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -32,17 +35,22 @@ public class CodeController {
     public List<Map<String,String>> codeListAjax() throws Exception {
         return JsTreeUtil.makeJsTree(codeService.selectCodeAllList());
     }
-/*
 
+    /**
+     * 코드 상세
+     * @param codeVO
+     * @param model
+     * @throws Exception
+     */
     @GetMapping("/codeForm")
-    public void menuForm(@ModelAttribute MenuVO menuVO, Model model) throws Exception{
-        if(StringUtil.isNotEmpty(menuVO.getMenuSn())){
-            menuVO = menuService.selectMenuByMenuSn(menuVO);
+    public void codeForm(@ModelAttribute CodeVO codeVO, Model model) throws Exception{
+        if(StringUtil.isNotEmpty(codeVO.getCdId())){
+            codeVO = codeService.selectCodeByCdId(codeVO);
         }
-        model.addAttribute("menuVO", menuVO);
+        model.addAttribute("codeVO", codeVO);
     }
 
-
+    /*
     @PostMapping("/menuInsert")
     public String menuInsert(@ModelAttribute MenuVO menuVO, RedirectAttributes redirectAttributes) throws Exception {
         String menuSn = CommonConstants.EMPTY.getValue();
@@ -65,6 +73,5 @@ public class CodeController {
             return "redirect:/menu/menuList";
         }
     }
-*/
-
+    */
 }

@@ -40,4 +40,11 @@
         SELECT * FROM CODE_LIST ORDER BY lvl asc, ordr asc
     </select>
 
+    <select id="selectCodeByCdId" parameterType="CodeVO" resultType="CodeVO">
+        SELECT
+            *
+        FROM TC_COM_CD
+        WHERE CD_ID = #{cdId}
+    </select>
+
 </mapper>

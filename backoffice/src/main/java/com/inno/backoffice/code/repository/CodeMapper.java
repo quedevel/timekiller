@@ -1,5 +1,6 @@
 package com.inno.backoffice.code.repository;
 
+import com.inno.backoffice.code.vo.CodeVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -14,4 +15,12 @@ public interface CodeMapper {
      * @throws Exception
      */
     List<Map<String,String>> selectCodeAllList() throws Exception;
+
+    /**
+     * 코드 상세 조회
+     * @param codeVO
+     * @return
+     * @throws Exception
+     */
+    CodeVO selectCodeByCdId(CodeVO codeVO) throws Exception;
 }

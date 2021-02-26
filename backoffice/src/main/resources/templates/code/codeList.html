@@ -53,12 +53,12 @@
 
             // submit
             $(document).on("click",".b-save",function(){
-                if($.trim($("[name='codeNm']").val()) === ""){
+                if($.trim($("[name='cdNm']").val()) === ""){
                     Swal.fire({
                         icon: 'warning',
                         text: '코드명을 입력해주세요.',
                     });
-                    $("[name='codeNm']").focus();
+                    $("[name='cdNm']").focus();
                     return false;
                 }
                 if($("[name='useYn']:checked").length === 0){
@@ -79,11 +79,11 @@
         });
 
         // 메뉴 등록 폼
-        function getCodeForm(supiCodeId, codeId){
+        function getCodeForm(supiCdId, cdId){
             $.ajax({
                 url:'/code/codeForm',
                 type:'get',
-                data:{ supiCodeId : supiCodeId, codeId : codeId },
+                data:{ supiCdId : supiCdId, cdId : cdId },
                 success : function(result){
                     $("form[name='codeVO']").html(result);
                 }
