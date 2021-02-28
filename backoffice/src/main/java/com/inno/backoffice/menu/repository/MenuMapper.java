@@ -74,4 +74,10 @@ public interface MenuMapper {
      */
     List<MenuVO> selectMenuUrlGroupByAuthSn();
 
+    /**
+     * 매핑된 URL 리스트 ALL
+     * @return
+     */
+    List<MenuVO> selectAllMenuUrl();
+
 }

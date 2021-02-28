@@ -47,4 +47,33 @@
         WHERE CD_ID = #{cdId}
     </select>
 
+    <insert id="insertTcComCd" parameterType="CodeVO">
+        INSERT INTO TC_COM_CD
+        (CD_ID, SUPI_CD_ID, CD_NM, CD_VAL, CD_OPT1, CD_OPT2, CD_OPT3, ORDR, USE_YN, REG_DATE, REG_SN, MOD_DATE, MOD_SN)
+        VALUES
+        (#{cdId}, #{supiCdId}, #{cdNm}, #{cdVal}, #{cdOpt1}, #{cdOpt2}, #{cdOpt3}, #{ordr}, #{useYn}, #{regDate}, #{regSn}, #{modDate}, #{modSn})
+    </insert>
+
+    <update id="updateTcComCd" parameterType="CodeVO">
+        UPDATE TC_COM_CD
+           SET CD_NM = #{cdNm}
+             , CD_VAL = #{cdVal}
+             , CD_OPT1 = #{cdOpt1}
+             , CD_OPT2 = #{cdOpt2}
+             , CD_OPT3 = #{cdOpt3}
+             , ORDR = #{ordr}
+             , USE_YN = #{useYn}
+             , MOD_DATE = #{modDate}
+             , MOD_SN = #{modSn}
+         WHERE 1=1
+           AND CD_ID = #{cdId}
+    </update>
+
+    <select id="getCodeChildren" parameterType="String" resultType="CodeVO">
+        SELECT
+            *
+        FROM TC_COM_CD
+        WHERE SUPI_CD_ID = #{value}
+    </select>
+
 </mapper>

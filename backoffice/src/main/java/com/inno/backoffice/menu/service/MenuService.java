@@ -101,4 +101,12 @@ public class MenuService {
     public List<MenuVO> selectMenuUrlGroupByAuthSn(){
         return menuMapper.selectMenuUrlGroupByAuthSn();
     }
+
+    /**
+     * 매핑된 URL
+     * @return
+     */
+    public List<MenuVO> selectAllMenuUrl(){
+        return menuMapper.selectAllMenuUrl();
+    }
 }

@@ -1,7 +1,10 @@
 package com.inno.backoffice.code.service;
 
+import com.inno.backoffice.menu.vo.MenuVO;
 import com.inno.common.code.repository.CodeMapper;
 import com.inno.common.code.vo.CodeVO;
+import com.inno.common.constant.CommonConstants;
+import com.inno.common.util.SerialGenerator;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -32,6 +35,34 @@ public class CodeService {
      */
     public CodeVO selectCodeByCdId(CodeVO codeVO) throws Exception{
         return codeMapper.selectCodeByCdId(codeVO);
+    }
+
+    /**
+     * 코드 등록
+     * @param codeVO
+     * @throws Exception
+     */
+    public void insertCode(CodeVO codeVO) throws Exception{
+        codeMapper.insertTcComCd(codeVO);
+    }
+
+    /**
+     * 코드 수정
+     * @param codeVO
+     * @throws Exception
+     */
+    public void updateTcComCd(CodeVO codeVO) throws Exception{
+        codeMapper.updateTcComCd(codeVO);
+    }
+
+    /**
+     * 코드 children 조회
+     * @param supiCdId
+     * @return
+     * @throws Exception
+     */
+    public List<CodeVO> getCodeChildren(String supiCdId) throws Exception{
+        return codeMapper.getCodeChildren(supiCdId);
     }
 
 }

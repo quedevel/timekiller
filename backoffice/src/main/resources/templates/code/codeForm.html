@@ -1,10 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <input name="supiCdId" type="hidden" th:value="${codeVO.supiCdId}">
-<input name="cdId" type="hidden" th:value="${codeVO.cdId}">
 <div class="form-group">
-    <label>메뉴명</label>
+    <label>코드 ID</label>
+    <input type="text" class="form-control" name="cdId" th:value="${codeVO.cdId}">
+</div>
+<div class="form-group">
+    <label>코드명</label>
     <input type="text" class="form-control" name="cdNm" th:value="${codeVO.cdNm}">
+</div>
+<div class="form-group">
+    <label>코드 값</label>
+    <input type="text" class="form-control" name="cdVal" th:value="${codeVO.cdVal}">
+</div>
+<div class="form-group">
+    <label>코드 옵션1</label>
+    <input type="text" class="form-control" name="cdOpt1" th:value="${codeVO.cdOpt1}">
+</div>
+<div class="form-group">
+    <label>코드 옵션2</label>
+    <input type="text" class="form-control" name="cdOpt2" th:value="${codeVO.cdOpt2}">
+</div>
+<div class="form-group">
+    <label>코드 옵션3</label>
+    <input type="text" class="form-control" name="cdOpt3" th:value="${codeVO.cdOpt3}">
 </div>
 <div class="form-group">
     <label>순서</label>

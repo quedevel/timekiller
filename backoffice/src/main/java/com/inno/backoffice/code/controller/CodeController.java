@@ -3,11 +3,15 @@ package com.inno.backoffice.code.controller;
 import com.inno.backoffice.code.service.CodeService;
 import com.inno.backoffice.common.controller.BaseController;
 import com.inno.common.code.vo.CodeVO;
+import com.inno.common.constant.CommonConstants;
 import com.inno.common.util.JsTreeUtil;
 import com.inno.common.util.StringUtil;
+import com.sun.corba.se.impl.orbutil.ObjectUtility;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -51,28 +55,25 @@ public class CodeController extends BaseController {
         model.addAttribute("codeVO", codeVO);
     }
 
-    /*
-    @PostMapping("/menuInsert")
-    public String menuInsert(@ModelAttribute MenuVO menuVO, RedirectAttributes redirectAttributes) throws Exception {
-        String menuSn = CommonConstants.EMPTY.getValue();
+    @PostMapping("/codeInsert")
+    public String codeInsert(@ModelAttribute CodeVO codeVO, RedirectAttributes redirectAttributes) throws Exception {
+        CodeVO prevCode = codeService.selectCodeByCdId(codeVO);
         try{
-            if(StringUtil.isNotEmpty(menuVO.getMenuSn())){
-                menuSn = menuVO.getMenuSn();
-                menuService.updateMenu(menuVO);
+            if(prevCode != null){
+                codeService.updateTcComCd(codeVO);
                 redirectAttributes.addFlashAttribute("msg", CommonConstants.DB_UPDATE_SUCCESS_MESSAGE.getValue());
             } else {
-                menuService.insertMenu(menuVO);
+                codeService.insertCode(codeVO);
                 redirectAttributes.addFlashAttribute("msg",CommonConstants.DB_INSERT_SUCCESS_MESSAGE.getValue());
             }
-            return "redirect:/menu/menuList";
+            return "redirect:/code/codeList";
         } catch (Exception e) {
-            if(StringUtil.isNotEmpty(menuSn)){
-                redirectAttributes.addFlashAttribute("msg",CommonConstants.DB_UPDATE_FAILURE_MESSAGE.getValue());
+            if(prevCode != null){
+                redirectAttributes.addFlashAttribute("msg", CommonConstants.DB_UPDATE_FAILURE_MESSAGE.getValue());
             } else {
                 redirectAttributes.addFlashAttribute("msg",CommonConstants.DB_INSERT_FAILURE_MESSAGE.getValue());
             }
-            return "redirect:/menu/menuList";
+            return "redirect:/code/codeList";
         }
     }
-    */
 }

@@ -17,7 +17,7 @@ public class InnoUserAuthProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        System.out.println(">>>>> InnoUserAuthProvider authenticate...."+authentication);
+
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
         try {
@@ -38,7 +38,7 @@ public class InnoUserAuthProvider implements AuthenticationProvider {
             if(!user.isEnabled() || !user.isCredentialsNonExpired()) {
                 throw new AuthenticationCredentialsNotFoundException(username);
             }
-
+            System.out.println(">>>>> InnoUserAuthProvider authenticate...."+user.getAuthorities());
             return new UsernamePasswordAuthenticationToken(user,password,user.getAuthorities());
         } catch (Exception e) {
             e.printStackTrace();

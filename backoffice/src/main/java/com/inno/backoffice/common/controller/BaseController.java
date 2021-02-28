@@ -2,6 +2,7 @@ package com.inno.backoffice.common.controller;
 
 import com.inno.backoffice.menu.service.MenuService;
 import com.inno.backoffice.menu.vo.MenuVO;
+import com.inno.backoffice.util.CodeUtil;
 import com.inno.common.constant.CommonConstants;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,7 @@ public class BaseController {
 
     @GetMapping("/index")
     public void index(){
-
+        System.out.println(">>>>>>>>>>> CodeUtil  "+new CodeUtil().getCodeChildren("code.common.useYN"));
     }
 
     @GetMapping("/")

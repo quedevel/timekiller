@@ -72,13 +72,13 @@
                 $("form[name='codeVO']").submit();
             });
 
-            // 메뉴 등록
+            // 코드 등록
             $(".b-reg").on("click",function(){
                 getCodeForm($("#supi").val());
             })
         });
 
-        // 메뉴 등록 폼
+        // 코드 등록 폼
         function getCodeForm(supiCdId, cdId){
             $.ajax({
                 url:'/code/codeForm',
