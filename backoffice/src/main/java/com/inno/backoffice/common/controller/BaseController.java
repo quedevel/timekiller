@@ -28,7 +28,7 @@ public class BaseController {
 
     @GetMapping("/index")
     public void index(){
-        System.out.println(">>>>>>>>>>> CodeUtil  "+new CodeUtil().getCodeChildren("code.common.useYN"));
+        System.out.println(">>>>>>>>>>> CodeUtil  "+CodeUtil.getCodeChildren("code.common.useYN"));
     }
 
     @GetMapping("/")

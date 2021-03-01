@@ -169,8 +169,12 @@
            AND A.AUTH_SN = #{authSn}
         UNION ALL
         SELECT
-            '/error' AS MENU_URL
+            '/' AS MENU_URL
           FROM DUAL
+        UNION ALL
+        SELECT
+            '/index' AS MENU_URL
+        FROM DUAL
         ]]>
     </select>
 

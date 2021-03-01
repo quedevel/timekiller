@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 
@@ -34,14 +35,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 등록된 URL Security 적용
-//        this.matchUrlAndAuthority(http);
 
         http.csrf().disable()// csrf 설정
-                .authorizeRequests()
-//                .antMatchers("/**").hasAuthority("ROLE_MANAGER")
-//                .antMatchers("/","/index").authenticated()
-                .anyRequest().permitAll()
-//                .access("@authorizationChecker.check(request, authentication)")// URL 접근 처리 ( cash 처리 필요 )
+              .authorizeRequests()
+                .antMatchers("/login").anonymous()
+                .antMatchers("/","/index").authenticated()
+                .anyRequest()
+//                .permitAll()
+                .access("@authorizationChecker.check(request, authentication)")// URL 접근 처리 ( cash 처리 필요 )
 //            .and()
 //                .exceptionHandling()
 //                .accessDeniedPage("/login")    // 권한 없는 유저 페이지
@@ -91,11 +92,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * @throws Exception
      */
     private void matchUrlAndAuthority(HttpSecurity http) throws Exception {
-        List<MenuVO> menuList = menuService.selectAllMenuUrl();
+        List<MenuVO> menuList = menuService.selectMenuUrlGroupByAuthSn();
         // 권한 일련번호로 메뉴 URL 등록
         for(MenuVO mVO : menuList){
-            if(StringUtil.isNotEmpty(mVO.getAuthSn())){
-                http.authorizeRequests().antMatchers(mVO.getMenuUrl()).hasAuthority(mVO.getAuthSn());
+            if(!ObjectUtils.isEmpty(mVO.getMenuUrlList())){
+                http.authorizeRequests().antMatchers(mVO.getMenuUrlList()).hasAuthority(mVO.getAuthSn());
             }
         }
     }

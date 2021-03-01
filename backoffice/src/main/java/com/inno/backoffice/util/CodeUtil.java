@@ -10,14 +10,15 @@ import java.util.List;
 
 public class CodeUtil {
 
-    private CodeService codeService = new CodeService();
+    @Resource
+    private static CodeService codeService;
 
     /**
      * 코드 children 조회
      * @param supiCdId
      * @return
      */
-    public List<CodeVO> getCodeChildren(String supiCdId){
+    public static List<CodeVO> getCodeChildren(String supiCdId){
         List<CodeVO> result = new ArrayList<>();
         try {
             result = codeService.getCodeChildren(supiCdId);

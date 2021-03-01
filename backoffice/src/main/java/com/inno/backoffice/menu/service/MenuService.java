@@ -5,6 +5,7 @@ import com.inno.backoffice.menu.vo.MenuVO;
 import com.inno.common.constant.CommonConstants;
 import com.inno.common.gen.repository.TcIdsInBaseMapper;
 import com.inno.common.util.SerialGenerator;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -90,6 +91,7 @@ public class MenuService {
      * 모든 메뉴 URL 조회 ( MENU_URL IS NOT NULL )
      * @return
      */
+    @Cacheable(value = "menuUrl")
     public List<MenuVO> selectAllMenu(){
         return menuMapper.selectAllMenu();
     }
