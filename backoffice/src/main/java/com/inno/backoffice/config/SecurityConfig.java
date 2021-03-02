@@ -8,6 +8,7 @@ import com.inno.common.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -60,6 +61,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login") // 로그 아웃 후 URL
                 .invalidateHttpSession(true) // 세션 만료
             ;
+
+
     }
 
     /**
@@ -84,6 +87,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public InnoLoginSuccessHandler successHandler() {
         return new InnoLoginSuccessHandler();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
     }
 
     /**
