@@ -48,6 +48,9 @@ subprojects {
         // https://mvnrepository.com/artifact/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect
         compile group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.5.2'
         compile('org.springframework.boot:spring-boot-starter-cache')
+        // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-aop
+        implementation group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: '2.4.3'
+
     }
 }
 
