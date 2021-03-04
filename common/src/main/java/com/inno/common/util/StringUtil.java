@@ -48,4 +48,11 @@ public class StringUtil {
     public static boolean isNotEmpty(final String target) {
         return target != null && target.length() > 0;
     }
+
+    public static String null2void(String str) {
+        if (isEmpty(str)) {
+            str = "";
+        }
+        return str;
+    }
 }

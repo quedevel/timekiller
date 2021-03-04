@@ -119,6 +119,9 @@ public class AuthController extends BaseController {
     @PostMapping("/menuListAjax")
     @ResponseBody
     public List<MenuVO> menuListAjax(@ModelAttribute MenuVO menuVO) throws Exception{
+        if(StringUtil.isEmpty(menuVO.getMenuSn())){
+            menuVO.setMenuSn(CommonConstants.INNO_ROOT_SN.getValue());
+        }
         return authService.selectAuthMenuListPaging(menuVO);
     }
 

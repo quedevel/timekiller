@@ -77,6 +77,7 @@ public class AuthService {
      * @throws Exception
      */
     public List<MenuVO> selectAuthMenuListPaging(MenuVO menuVO) throws Exception{
+
         return authMapper.selectAuthMenuListPaging(menuVO);
     }
 
@@ -89,13 +90,15 @@ public class AuthService {
         // state === 'Y' 권한 부여
         if(CommonConstants.DEFAULT_YES.getValue().equals(menuVO.getState())){
             // 일단 부여된 권한 모두 제거
-            authMapper.deleteAuthMenuAll(menuVO);
+            //authMapper.deleteAuthMenuAll(menuVO);
             for (String menuSn : menuVO.getMenuSnList()){
                 TcAuthMenuMppgLsBaseVO vo = new TcAuthMenuMppgLsBaseVO();
                 vo.setAuthSn(menuVO.getAuthSn());
                 vo.setMenuSn(menuSn);
                 // 권한 부여
-                tcAuthMenuMppgLsBaseMapper.insertTcAuthMenuMppgLsBase(vo);
+                if(tcAuthMenuMppgLsBaseMapper.selectTcAuthMenuMppgLsBase(vo) == null){
+                    tcAuthMenuMppgLsBaseMapper.insertTcAuthMenuMppgLsBase(vo);
+                }
             }
         } else {
             for (String menuSn : menuVO.getMenuSnList()){
