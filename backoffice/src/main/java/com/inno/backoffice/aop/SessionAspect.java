@@ -25,7 +25,7 @@ public class SessionAspect {
             + " || execution(* com.inno.common..*Mapper.insert*(..))"
             + " || execution(* com.inno.common..*Mapper.update*(..))"
             + " || execution(* com.inno.common..*Mapper.delete*(..))")
-    public void setSessionInfo(JoinPoint joinPoint) {
+    public void setVO(JoinPoint joinPoint) {
         Object[] objects = joinPoint.getArgs();
         if(SecurityContextHolder.getContext().getAuthentication()!= null) {
             InnoUser user = (InnoUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
