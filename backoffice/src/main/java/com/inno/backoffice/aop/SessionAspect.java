@@ -19,12 +19,14 @@ import java.util.Optional;
 @Component
 public class SessionAspect {
 
-    @Before( "execution(* com.inno.backoffice..*Mapper.insert*(..))"
-            + " || execution(* com.inno.backoffice..*Mapper.update*(..))"
-            + " || execution(* com.inno.backoffice..*Mapper.delete*(..))"
-            + " || execution(* com.inno.common..*Mapper.insert*(..))"
-            + " || execution(* com.inno.common..*Mapper.update*(..))"
-            + " || execution(* com.inno.common..*Mapper.delete*(..))")
+    private static final String VO_SETTING_EXPRESSION = "execution(* com.inno.backoffice..*Mapper.insert*(..))"
+                                                    + " || execution(* com.inno.backoffice..*Mapper.update*(..))"
+                                                    + " || execution(* com.inno.backoffice..*Mapper.delete*(..))"
+                                                    + " || execution(* com.inno.common..*Mapper.insert*(..))"
+                                                    + " || execution(* com.inno.common..*Mapper.update*(..))"
+                                                    + " || execution(* com.inno.common..*Mapper.delete*(..))";
+
+    @Before(VO_SETTING_EXPRESSION)
     public void setVO(JoinPoint joinPoint) {
         Object[] objects = joinPoint.getArgs();
         if(SecurityContextHolder.getContext().getAuthentication()!= null) {
@@ -63,6 +65,5 @@ public class SessionAspect {
                 }
             }
         }
-
     }
 }
