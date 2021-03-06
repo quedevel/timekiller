@@ -41,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
               .authorizeRequests()
                 .antMatchers("/login").anonymous()
                 .antMatchers("/","/index").authenticated()
+                .antMatchers("/sample/**").permitAll()  // test용 sample 페이지 전체 허용
                 .anyRequest()
 //                .permitAll()
                 .access("@authorizationChecker.check(request, authentication)")// URL 접근 처리 ( cash 처리 필요 )

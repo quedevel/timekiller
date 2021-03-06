@@ -87,4 +87,9 @@ public class SampleController {
         });
         System.out.println("-------------------------------------------------------------");
     }
+
+    @GetMapping("/transaction")
+    public void transaction() throws Exception{
+
+    }
 }
