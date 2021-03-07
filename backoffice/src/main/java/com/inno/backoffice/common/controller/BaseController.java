@@ -8,6 +8,7 @@ import javafx.application.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.method.HandlerMethod;
@@ -40,7 +41,7 @@ public class BaseController {
     }
 
     @GetMapping("/index")
-    public void index(){
+    public void index(Model model){
         RequestMappingHandlerMapping requestMappings = context.getBean(RequestMappingHandlerMapping.class);
         Map<RequestMappingInfo, HandlerMethod> map = requestMappings.getHandlerMethods();
         Set<RequestMappingInfo> set = map.keySet();
@@ -49,6 +50,8 @@ public class BaseController {
             return str;
         }).collect(Collectors.toList());
         list.forEach(System.out::println);
+        model.addAttribute("list", list);
+
     }
 
     @GetMapping("/")
