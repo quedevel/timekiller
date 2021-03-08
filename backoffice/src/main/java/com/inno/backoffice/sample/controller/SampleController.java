@@ -1,5 +1,6 @@
 package com.inno.backoffice.sample.controller;
 
+import com.inno.backoffice.sample.service.SampleService;
 import com.inno.common.constant.CommonConstants;
 import com.inno.common.gen.repository.TcIdsInBaseMapper;
 import com.inno.common.gen.vo.TcIdsInBaseVO;
@@ -18,6 +19,9 @@ public class SampleController {
 
     @Resource
     private TcIdsInBaseMapper mapper;
+
+    @Resource
+    private SampleService sampleService;
 
     @GetMapping("/sample")
     public void sample() throws Exception{
@@ -90,6 +94,6 @@ public class SampleController {
 
     @GetMapping("/transaction")
     public void transaction() throws Exception{
-
+        sampleService.insertTest();
     }
 }
