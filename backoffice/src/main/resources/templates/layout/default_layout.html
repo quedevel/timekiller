@@ -6,6 +6,14 @@
     <title>Inno Admin</title>
     <!-- config fragment 사용 -->
     <th:block th:replace="fragment/config :: configFragment" ></th:block>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-09NGW7ZKWL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-09NGW7ZKWL');
+    </script>
 </head>
 <body id="page-top">
 <!-- Page Wrapper -->
