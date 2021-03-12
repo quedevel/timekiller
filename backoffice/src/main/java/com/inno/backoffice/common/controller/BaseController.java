@@ -2,9 +2,7 @@ package com.inno.backoffice.common.controller;
 
 import com.inno.backoffice.menu.service.MenuService;
 import com.inno.backoffice.menu.vo.MenuVO;
-import com.inno.backoffice.util.CodeUtil;
 import com.inno.common.constant.CommonConstants;
-import javafx.application.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -16,7 +14,6 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;

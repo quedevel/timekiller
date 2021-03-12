@@ -1,15 +1,13 @@
 package com.inno.backoffice.code.controller;
 
-import com.inno.backoffice.code.service.CodeService;
+import com.inno.common.code.service.CodeService;
 import com.inno.backoffice.common.controller.BaseController;
 import com.inno.common.code.vo.CodeVO;
 import com.inno.common.constant.CommonConstants;
 import com.inno.common.util.JsTreeUtil;
 import com.inno.common.util.StringUtil;
-import com.sun.corba.se.impl.orbutil.ObjectUtility;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -21,7 +19,7 @@ import java.util.Map;
 @Controller
 public class CodeController extends BaseController {
 
-    @Resource
+    @Resource(name = "codeService")
     private CodeService codeService;
 
     /**

@@ -1,17 +1,14 @@
-package com.inno.backoffice.code.service;
+package com.inno.common.code.service;
 
-import com.inno.backoffice.menu.vo.MenuVO;
 import com.inno.common.code.repository.CodeMapper;
 import com.inno.common.code.vo.CodeVO;
-import com.inno.common.constant.CommonConstants;
-import com.inno.common.util.SerialGenerator;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Service("codeService")
 public class CodeService {
 
     @Resource

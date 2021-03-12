@@ -50,7 +50,7 @@ subprojects {
         compile('org.springframework.boot:spring-boot-starter-cache')
         // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-aop
         implementation group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: '2.4.3'
-
+        implementation 'org.springframework.boot:spring-boot-starter-web'
     }
 }
 
@@ -64,10 +64,8 @@ project(':backoffice') {
     // backoffice 모듈에만 필요한 라이브러리가 발생하면 이곳에 추가한다.
     dependencies {
         compile project(':common')
-        implementation 'org.springframework.boot:spring-boot-starter-web'
         // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
         implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.4.3'
-
     }
 }
 
@@ -75,6 +73,5 @@ project(':frontoffice') {
     // frontoffice 모듈에만 필요한 라이브러리가 발생하면 이곳에 추가한다.
     dependencies {
         compile project(':common')
-        implementation 'org.springframework.boot:spring-boot-starter-web'
     }
 }
