@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-@ComponentScan(basePackages = {"com.inno.common.util"})
+@ComponentScan(basePackages = {"com.inno.common.util","com.inno.common.**.repository","com.inno.common.**.service"})
 @SpringBootApplication
 public class CommonApplication {
 

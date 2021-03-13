@@ -13,13 +13,17 @@ public final class CodeUtil {
      * @param supiCdId
      * @return
      */
-    private static List<CodeVO> getCodeChildren(String supiCdId){
+    public static List<CodeVO> getCodeChildren(String supiCdId) throws Exception {
         List<CodeVO> result = new ArrayList<>();
-        CodeService codeService = (CodeService) ContextUtil.getBean("codeService");
+        CodeService codeService = (CodeService) ApplicationContextProvider.getContext().getBean("codeService");
+        result = codeService.getCodeChildren(supiCdId);
         try {
             return result;
         } catch (Exception e){
             return result;
        }
     }
+
+
+
 }

@@ -3,6 +3,7 @@ package com.inno.backoffice.common.controller;
 import com.inno.backoffice.menu.service.MenuService;
 import com.inno.backoffice.menu.vo.MenuVO;
 import com.inno.common.constant.CommonConstants;
+import com.inno.common.util.CodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -38,7 +39,7 @@ public class BaseController {
     }
 
     @GetMapping("/index")
-    public void index(Model model){
+    public void index(Model model) throws Exception {
         RequestMappingHandlerMapping requestMappings = context.getBean(RequestMappingHandlerMapping.class);
         Map<RequestMappingInfo, HandlerMethod> map = requestMappings.getHandlerMethods();
         Set<RequestMappingInfo> set = map.keySet();
@@ -46,9 +47,10 @@ public class BaseController {
             String str = rm.toString().replace("{GET [","").replace("]}","");
             return str;
         }).collect(Collectors.toList());
-        list.forEach(System.out::println);
-        model.addAttribute("list", list);
 
+        CodeUtil.getCodeChildren("code.common.useYN").stream().map(codeVO -> {return codeVO.getCdId();}).forEach(System.out::println);
+
+        model.addAttribute("list", list);
     }
 
     @GetMapping("/")
