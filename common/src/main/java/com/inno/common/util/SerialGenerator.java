@@ -7,16 +7,6 @@ import javax.annotation.Resource;
 
 public class SerialGenerator {
 
-    private static SerialGenerator generator;
-
-    // 싱글톤
-    public static synchronized SerialGenerator getInstance(String tblNm, String prefix, TcIdsInBaseMapper tcIdsInBaseMapper){
-        if(generator == null){
-            generator = new SerialGenerator(tblNm,prefix,tcIdsInBaseMapper);
-        }
-        return  generator;
-    }
-
     private String tblNm;
 
     private int nextId;
@@ -28,12 +18,6 @@ public class SerialGenerator {
     private char filChar = '0';
 
     private TcIdsInBaseMapper tcIdsInBaseMapper;
-
-    public SerialGenerator(String tblNm, String prefix, TcIdsInBaseMapper tcIdsInBaseMapper) {
-        this.tblNm = tblNm;
-        this.prefix = prefix;
-        this.tcIdsInBaseMapper = tcIdsInBaseMapper;
-    }
 
     public void setTblNm(String tblNm) {
         this.tblNm = tblNm;

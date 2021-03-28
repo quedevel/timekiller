@@ -2,10 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/default_layout">
 <div layout:fragment="content">
     <h1>Index...</h1>
-
     <ul>
         <li th:each="s : ${list}"><a th:href="${s}" th:text="${s}" target="_blank"></a></li>
     </ul>
 </div>
-
 </html>
