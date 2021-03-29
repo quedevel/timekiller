@@ -43,8 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/","/index").authenticated()
                 .antMatchers("/sample/**").permitAll()  // test용 sample 페이지 전체 허용
                 .anyRequest()
-//                .permitAll()
-                .access("@authorizationChecker.check(request, authentication)")// URL 접근 처리 ( cash 처리 필요 )
+                .permitAll()
+//                .access("@authorizationChecker.check(request, authentication)")// URL 접근 처리 ( cash 처리 필요 )
 //            .and()
 //                .exceptionHandling()
 //                .accessDeniedPage("/login")    // 권한 없는 유저 페이지

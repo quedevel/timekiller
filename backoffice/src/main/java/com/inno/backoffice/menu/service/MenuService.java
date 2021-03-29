@@ -18,8 +18,8 @@ public class MenuService {
     @Resource
     private MenuMapper menuMapper;
 
-    @Resource
-    private TcIdsInBaseMapper tcIdsInBaseMapper;
+    @Resource(name = "menuSnIdService")
+    private SerialGenerator menuSnIdService;
 
     /**
      * 메뉴 등록
@@ -27,9 +27,7 @@ public class MenuService {
      * @throws Exception
      */
     public void insertMenu(MenuVO menuVO) throws Exception{
-        menuVO.setMenuSn(SerialGenerator
-                .getInstance(CommonConstants.TC_ADMIN_MENU_LS.name(),CommonConstants.TC_ADMIN_MENU_LS.getValue(), tcIdsInBaseMapper)
-                .getNextStringId());
+        menuVO.setMenuSn(menuSnIdService.getNextStringId());
         int dept = 1;
         if(CommonConstants.INNO_ROOT_SN.getValue().equals(menuVO.getSupiMenuSn())){
             menuVO.setDept(dept);

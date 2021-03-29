@@ -20,8 +20,8 @@ public class AuthService {
     @Resource
     private AuthMapper authMapper;
 
-    @Resource
-    private TcIdsInBaseMapper tcIdsInBaseMapper;
+    @Resource(name = "authSnIdService")
+    private SerialGenerator authSnIdService;
 
     @Resource
     private TcAuthMsBaseMapper tcAuthMsBaseMapper;
@@ -35,9 +35,7 @@ public class AuthService {
      * @throws Exception
      */
     public void insertAuth(AuthVO authVO) throws Exception{
-        authVO.setAuthSn(SerialGenerator
-                .getInstance(CommonConstants.TC_AUTH_MS.name(),CommonConstants.TC_AUTH_MS.getValue(), tcIdsInBaseMapper)
-                .getNextStringId());
+        authVO.setAuthSn(authSnIdService.getNextStringId());
         tcAuthMsBaseMapper.insertTcAuthMsBase(authVO);
     }
 

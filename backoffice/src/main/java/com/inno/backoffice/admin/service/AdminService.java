@@ -4,8 +4,6 @@ import com.inno.backoffice.admin.repository.AdminMapper;
 import com.inno.backoffice.admin.vo.AdminVO;
 import com.inno.common.constant.CommonConstants;
 import com.inno.common.gen.repository.TcAdminMsBaseMapper;
-import com.inno.common.gen.repository.TcIdsInBaseMapper;
-import com.inno.common.gen.vo.TcAdminMsBaseVO;
 import com.inno.common.util.SerialGenerator;
 import org.springframework.stereotype.Service;
 
@@ -19,10 +17,10 @@ public class AdminService {
     private AdminMapper adminMapper;
 
     @Resource
-    private TcIdsInBaseMapper tcIdsInBaseMapper;
-
-    @Resource
     private TcAdminMsBaseMapper tcAdminMsBaseMapper;
+
+    @Resource(name = "adminSnIdService")
+    private SerialGenerator adminSnIdService;
 
     /**
      * 중복 검사
@@ -40,9 +38,7 @@ public class AdminService {
      * @throws Exception
      */
     public void insertAdmin(AdminVO adminVO) throws Exception{
-        adminVO.setAdminSn(SerialGenerator
-                            .getInstance(CommonConstants.TC_ADMIN_MS.name(),CommonConstants.TC_ADMIN_MS.getValue(), tcIdsInBaseMapper)
-                            .getNextStringId());
+        adminVO.setAdminSn(adminSnIdService.getNextStringId());
         tcAdminMsBaseMapper.insertTcAdminMsBase(adminVO);
     }
 
