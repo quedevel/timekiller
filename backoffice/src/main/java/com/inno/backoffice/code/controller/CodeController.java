@@ -36,7 +36,7 @@ public class CodeController extends BaseController {
     @GetMapping("/codeListAjax")
     @ResponseBody
     public List<Map<String,String>> codeListAjax() throws Exception {
-        return codeService.selectCodeAllList();
+        return JsTreeUtil.makeJsTree(codeService.selectCodeAllList());
     }
 
     /**

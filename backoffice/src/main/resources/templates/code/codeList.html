@@ -7,14 +7,13 @@
                 <h6 class="m-0 font-weight-bold text-primary">코드 관리</h6>
             </div>
             <div class="card-body">
-                <!--<button class="btn btn-success btn-icon-splitb mb-2 b-reg">
+                <button class="btn btn-success btn-icon-splitb mb-2 b-reg">
                     <span class="icon text-white-50">
                         <i class="fas fa-check"></i>
                     </span>
                     <span class="text">등록</span>
                 </button>
-                <div id="tree"></div>-->
-                <div id="tree" class="tui-tree-wrap"></div>
+                <div id="tree"></div>
             </div>
             <input id="supi" type="hidden" value="0000000000">
         </div>
@@ -32,48 +31,6 @@
         </div>
     </div><!--//float_wrap-->
     <script th:inline="javascript">
-        var data = [
-            {text: 'rootA', children: [
-                    {text: 'sub-A1', value: 'AAAA'},
-                    {text: 'sub-A2'},
-                    {text: 'sub-A3'},
-                    {text: 'sub-A4'},
-                    {text: 'sub-A5', state: 'closed', children: [
-                            {text:'sub-A5A', children:[
-                                    {text:'sub-A5A1'}
-                                ]},
-                            {text:'sub_A5B'}
-                        ]},
-                    {text: 'sub-A6'},
-                    {text: 'sub-A7'},
-                    {text: 'sub-A8'},
-                    {text: 'sub-A9', state: 'closed', children: [
-                            {text:'sub-A9A'},
-                            {text:'sub-A9B'}
-                        ]},
-                    {text: 'sub-A10'},
-                    {text: 'sub-A11'},
-                    {text: 'sub-A12'}
-                ]},
-            {text: 'rootB', state:'closed', children: [
-                    {text:'sub-B1'},
-                    {text:'sub-B2'},
-                    {text:'sub-B3'}
-                ]}
-        ];
-
-        var tree = new tui.Tree('#tree', {
-            data: data,
-            nodeDefaultState: 'closed'
-        }).enableFeature('Selectable', {
-            selectedClassName: 'tui-tree-selected',
-        });
-
-        tree.on('select', function(eventData) {
-            var nodeData = tree.getNodeData(eventData.nodeId);
-            console.log(nodeData.value);
-        });
-
         var msg = [[${msg}]];
         $(document).ready(function(){
             // 등록&수정 메세지
@@ -84,16 +41,15 @@
                 });
             }
 
-
             // JsTree.js
-            // $('#tree').jstree({
-            //     'core' : {
-            //         'data': getJsTreeData()
-            //     }
-            // }).on('changed.jstree', function (e, data) {
-            //     getCodeForm(data.node.parent, data.node.id)
-            //     $("#supi").val(data.node.id);
-            // });
+            $('#tree').jstree({
+                'core' : {
+                    'data': getJsTreeData()
+                }
+            }).on('changed.jstree', function (e, data) {
+                getCodeForm(data.node.parent, data.node.id)
+                $("#supi").val(data.node.id);
+            });
 
             // submit
             $(document).on("click",".b-save",function(){
@@ -142,6 +98,7 @@
                 type:'get',
                 async:false,
                 success : function(result){
+                    console.log(result)
                     data = result;
                 }
             })
