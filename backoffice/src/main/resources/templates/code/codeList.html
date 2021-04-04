@@ -13,7 +13,7 @@
                     </span>
                     <span class="text">등록</span>
                 </button>
-                <div id="tree"></div>
+                <div id="tree" class="tui-tree-wrap"></div>
             </div>
             <input id="supi" type="hidden" value="0000000000">
         </div>
@@ -31,25 +31,57 @@
         </div>
     </div><!--//float_wrap-->
     <script th:inline="javascript">
-        var msg = [[${msg}]];
         $(document).ready(function(){
             // 등록&수정 메세지
-            if(msg){
+            if([[${msg}]]){
                 Swal.fire({
                     icon: 'success',
-                    text: msg,
+                    text: [[${msg}]],
                 });
             }
 
+            var data = [
+                {text: 'rootA', children: [
+                        {text: 'sub-A1'},
+                        {text: 'sub-A2'},
+                        {text: 'sub-A3'},
+                        {text: 'sub-A4'},
+                        {text: 'sub-A5', state: 'closed', children: [
+                                {text:'sub-A5A', children:[
+                                        {text:'sub-A5A1'}
+                                    ]},
+                                {text:'sub_A5B'}
+                            ]},
+                        {text: 'sub-A6'},
+                        {text: 'sub-A7'},
+                        {text: 'sub-A8'},
+                        {text: 'sub-A9', state: 'closed', children: [
+                                {text:'sub-A9A'},
+                                {text:'sub-A9B'}
+                            ]},
+                        {text: 'sub-A10'},
+                        {text: 'sub-A11'},
+                        {text: 'sub-A12'}
+                    ]},
+                {text: 'rootB', state:'closed', children: [
+                        {text:'sub-B1'},
+                        {text:'sub-B2'},
+                        {text:'sub-B3'}
+                    ]}
+            ];
+
+            var $tree = $.tuiTreeUtil.init('#tree', 'opened', null, data, 'text');
+
+
             // JsTree.js
-            $('#tree').jstree({
-                'core' : {
-                    'data': getJsTreeData()
-                }
-            }).on('changed.jstree', function (e, data) {
-                getCodeForm(data.node.parent, data.node.id)
-                $("#supi").val(data.node.id);
-            });
+            //$('#tree').jstree({
+            //    'core' : {
+            //        'data': getJsTreeData()
+            //    }
+            //}).on('changed.jstree', function (e, data) {
+            //    getCodeForm(data.node.parent, data.node.id)
+            //    $("#supi").val(data.node.id);
+            //});
 
             // submit
             $(document).on("click",".b-save",function(){
