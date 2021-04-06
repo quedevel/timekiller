@@ -9,7 +9,7 @@
              * @param isCheckbox : true or false
              *********************************************/
 
-            // 하위 노드 오픈 여부
+                // 하위 노드 오픈 여부
             var state = 'closed';
             if(nodeDefaultState){
                 state = nodeDefaultState;
@@ -21,59 +21,11 @@
             }
 
             // 기본 템플릿
-            var template = {
-                internalNode:
-                    '<div class="tui-tree-content-wrapper">' +
-                        '<button type="button" class="tui-tree-toggle-btn tui-js-tree-toggle-btn">' +
-                            '<span class="tui-ico-tree"></span>' +
-                            '{{stateLabel}}' +
-                        '</button>' +
-                        '<span class="tui-tree-text tui-js-tree-text">' +
-                            '<span class="tui-tree-ico tui-ico-folder"></span>' +
-                            '{{'+text+'}}' +
-                        '</span>' +
-                    '</div>' +
-                    '<ul class="tui-tree-subtree tui-js-tree-subtree">' +
-                        '{{children}}' +
-                    '</ul>',
-                leafNode:
-                    '<div class="tui-tree-content-wrapper">' +
-                        '<span class="tui-tree-text tui-js-tree-text">' +
-                            '<span class="tui-tree-ico tui-ico-file"></span>' +
-                            '{{'+text+'}}' +
-                        '</span>' +
-                    '</div>'
-            }
+            var template = this.tree.defaultTemplate(text);
 
             // checkbox 템플릿
-            if(isCheckbox){
-                template = {
-                    internalNode:
-                        '<div class="tui-tree-content-wrapper" style="padding-left: {{indent}}px">' +
-                            '<button type="button" class="tui-tree-toggle-btn tui-js-tree-toggle-btn">' +
-                                '<span class="tui-ico-tree"></span>' +
-                                '{{stateLabel}}' +
-                            '</button>' +
-                            '<span class="tui-tree-text tui-js-tree-text">' +
-                                '<label class="tui-checkbox">' +
-                                    '<span class="tui-ico-check"><input type="checkbox" class="tui-tree-checkbox"></span>' +
-                                '</label>' +
-                                '<span class="tui-tree-ico tui-ico-folder"></span>' +
-                                '{{'+text+'}}' +
-                            '</span>' +
-                        '</div>' +
-                        '<ul class="tui-tree-subtree tui-js-tree-subtree">{{children}}</ul>',
-                    leafNode:
-                        '<div class="tui-tree-content-wrapper" style="padding-left: {{indent}}px">' +
-                            '<span class="tui-tree-text tui-js-tree-text">' +
-                                '<label class="tui-checkbox">' +
-                                    '<span class="tui-ico-check"><input type="checkbox" class="tui-tree-checkbox"></span>' +
-                                '</label>' +
-                                '<span class="tui-tree-ico tui-ico-file"></span>' +
-                                '{{'+text+'}}' +
-                            '</span>' +
-                        '</div>'
-                }
+            if(typeof isCheckbox === 'boolean' && isCheckbox){
+                template = this.tree.checkboxTemplate(text);
             }
 
             // 트리 생성
@@ -93,22 +45,92 @@
             }
 
             // 첫번째 depth open
-            this.tree.target.open('tui-tree-node-1');
+            // this.tree.target.open('tui-tree-node-1');
 
             return $.extend(true,{},this.tree);
         },
         tree : {
             target : null,
+            // 기본 템플릿
+            defaultTemplate : function(text){
+                return {
+                    internalNode:
+                        '<div class="tui-tree-content-wrapper">' +
+                        '<button type="button" class="tui-tree-toggle-btn tui-js-tree-toggle-btn">' +
+                        '<span class="tui-ico-tree"></span>' +
+                        '{{stateLabel}}' +
+                        '</button>' +
+                        '<span class="tui-tree-text tui-js-tree-text">' +
+                        '<span class="tui-tree-ico tui-ico-folder"></span>' +
+                        '{{'+text+'}}' +
+                        '</span>' +
+                        '</div>' +
+                        '<ul class="tui-tree-subtree tui-js-tree-subtree">' +
+                        '{{children}}' +
+                        '</ul>',
+                    leafNode:
+                        '<div class="tui-tree-content-wrapper">' +
+                        '<span class="tui-tree-text tui-js-tree-text">' +
+                        '<span class="tui-tree-ico tui-ico-file"></span>' +
+                        '{{'+text+'}}' +
+                        '</span>' +
+                        '</div>'
+                }
+            },
+            // 체크박스 템플릿
+            checkboxTemplate : function(text){
+                return {
+                    internalNode:
+                        '<div class="tui-tree-content-wrapper" style="padding-left: {{indent}}px">' +
+                        '<button type="button" class="tui-tree-toggle-btn tui-js-tree-toggle-btn">' +
+                        '<span class="tui-ico-tree"></span>' +
+                        '{{stateLabel}}' +
+                        '</button>' +
+                        '<span class="tui-tree-text tui-js-tree-text">' +
+                        '<label class="tui-checkbox">' +
+                        '<span class="tui-ico-check"><input type="checkbox" class="tui-tree-checkbox"></span>' +
+                        '</label>' +
+                        '<span class="tui-tree-ico tui-ico-folder"></span>' +
+                        '{{'+text+'}}' +
+                        '</span>' +
+                        '</div>' +
+                        '<ul class="tui-tree-subtree tui-js-tree-subtree">{{children}}</ul>',
+                    leafNode:
+                        '<div class="tui-tree-content-wrapper" style="padding-left: {{indent}}px">' +
+                        '<span class="tui-tree-text tui-js-tree-text">' +
+                        '<label class="tui-checkbox">' +
+                        '<span class="tui-ico-check"><input type="checkbox" class="tui-tree-checkbox"></span>' +
+                        '</label>' +
+                        '<span class="tui-tree-ico tui-ico-file"></span>' +
+                        '{{'+text+'}}' +
+                        '</span>' +
+                        '</div>'
+                }
+            },
             // 체크된 모든 노드 리스트 추출
-            getCheckedNodeList:function(){
+            getCheckedNodeList : function(){
                 var _this = this.target;
                 var result = [];
                 _this.getCheckedList().forEach(function(item){
                     result.push(_this.getNodeData(item));
                 });
                 return result;
+            },
+            onSelect : function(f){
+                this.target.on('select', f);
+                return this;
+            },
+            select : function(nodeId){
+                this.target.select(nodeId);
+                return this;
+            },
+            open : function(nodeId, recursive){
+                this.target.open(nodeId, recursive);
+                return this;
+            },
+            getNodeData:function(nodeId){
+                return this.target.getNodeData(nodeId);
             }
-            // todo tree function 커스터마이징 예정
         }
     }
 })(jQuery);
