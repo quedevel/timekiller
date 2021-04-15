@@ -1,11 +1,12 @@
 (function($){
     $.tuiTreeUtil = {
-        init:function(target, nodeDefaultState, title, treeData, isCheckbox){
+        init:function(target, nodeDefaultState, title, root_node, tree_node, isCheckbox){
             /*********************************************
              * @param target : 트리 생성 타켓 div id
              * @param nodeDefaultState : 하위 노드 오픈 여부
              * @param title : 노드 이름으로 사용할 컬럼
-             * @param treeData : 트리 데이터
+             * @param root_node : 트리 root 데이터
+             * @param tree_node : 트리 데이터
              * @param isCheckbox : true or false
              *********************************************/
 
@@ -26,6 +27,15 @@
             // checkbox 템플릿
             if(typeof isCheckbox === 'boolean' && isCheckbox){
                 template = this.tree.checkboxTemplate(text);
+            }
+
+            var treeData = null;
+            // root_node
+            if(root_node){
+                treeData = root_node; // root setting
+                treeData[0].children = tree_node;
+            } else {
+                treeData = tree_node;
             }
 
             // 트리 생성

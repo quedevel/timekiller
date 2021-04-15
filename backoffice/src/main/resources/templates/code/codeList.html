@@ -40,7 +40,7 @@
                 });
             }
 
-            var data = [
+            var tree = [
                 {text: 'rootA', children: [
                         {text: 'sub-A1'},
                         {text: 'sub-A2'},
@@ -70,7 +70,8 @@
                     ]}
             ];
 
-            var $tree = $.tuiTreeUtil.init('#tree', 'opened', null, data, 'text');
+            var $tree = $.tuiTreeUtil.init('#tree', 'opened', 'text', [{text: 'root', state:'closed', children: []}], tree, true);
+
 
 
             // JsTree.js
