@@ -20,7 +20,6 @@ public class CodeService {
      * @throws Exception
      */
     public List<Map<String,String>> selectCodeAllList() throws Exception{
-        System.out.println("   ------------------------   "+codeMapper+"  ------------------------   ");
         return codeMapper.selectCodeAllList();
     }
 
